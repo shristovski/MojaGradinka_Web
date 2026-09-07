@@ -239,13 +239,15 @@ html.lenis, html.lenis body { height: auto; }
 .mg-hero__fade { position: absolute; top: 0; bottom: 0; width: 18%; pointer-events: none; }
 .mg-hero__fade--left  { left: 0;  background: linear-gradient(to right, var(--cream) 0%, rgba(248,246,241,0) 100%); }
 .mg-hero__fade--right { right: 0; background: linear-gradient(to left,  var(--cream) 0%, rgba(248,246,241,0) 100%); }
+.mg-hero__fade--top    { bottom: auto; left: 0; right: 0; width: auto; height: 120px; background: linear-gradient(to bottom, var(--cream) 0%, rgba(248,246,241,0) 100%); }
+.mg-hero__fade--bottom { top: auto; left: 0; right: 0; width: auto; height: 140px; background: linear-gradient(to top, var(--cream) 0%, rgba(248,246,241,0) 100%); }
 
 .mg-hero__badge {
   position: relative;
   width: 720px;
   max-width: 96%;
   aspect-ratio: 1 / 1;
-  background-image: url('assets/badge-floral-cream.svg');
+  background-image: url('assets/center-circle.svg');
   background-repeat: no-repeat;
   background-position: bottom center;
   background-size: contain;
@@ -258,10 +260,15 @@ html.lenis, html.lenis body { height: auto; }
 }
 .mg-hero__title { font-family: var(--font-script); font-size: var(--fs-hero-title); font-weight: 700; color: var(--forest); line-height: 1.05; }
 .mg-hero__sub { margin-top: 8px; font-family: var(--font-serif); font-style: italic; font-size: var(--fs-hero-sub); font-weight: 500; color: var(--forest); }
-.mg-hero__mece { position: relative; margin-top: 34px; width: 185px; }
+/* top/left are free fine-tune handles for the mece only — negative top = up,
+   positive top = down; negative left = left, positive left = right.
+   left: -4px corrects the fact that the bear+board artwork inside
+   mece-skirol.png isn't centered in its own canvas (it sits ~2.3% right
+   of center), so this re-centers the character on the CTA button below it */
+.mg-hero__mece { position: relative; top: -17px; left: -6px; margin-top: 34px; width: 185px; }
 .mg-hero__mece img { display: block; width: 100%; height: auto; margin: 0 auto; }
 /* CTA lifted above everything so it can never tuck under the next section */
-.mg-hero__cta { position: relative; z-index: 20; margin-top: 26px; font-size: 18px; padding: 13px 34px; }
+.mg-hero__cta { position: relative; top: -38px; z-index: 20; margin-top: 38px; font-size: 14px; padding: 13px 34px; }
 
 /* ---------- Intro (Ние) ---------- */
 .mg-display { font-family: var(--font-script); font-weight: 700; color: var(--forest); }
@@ -440,7 +447,7 @@ html.lenis, html.lenis body { height: auto; }
   /* Hero */
   .mg-hero { height: 440px; }
   .mg-hero__badge { padding: 16px 24px 0; }
-  .mg-hero__mece { width: 128px; margin-top: 18px; }
+  .mg-hero__mece { width: 128px; margin-top: 18px; left: -3px; }
   .mg-hero__cta { margin-top: 20px; font-size: 16px; padding: 12px 28px; }
 
   /* Feature + info to single column */
