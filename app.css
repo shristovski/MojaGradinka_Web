@@ -83,6 +83,21 @@ img { max-width: 100%; }
 a { color: var(--forest); text-decoration: none; }
 a:hover { color: var(--amber); }
 
+/* Keyboard-focus visibility — mouse/touch users never see this (no
+   :focus-visible match on click), keyboard users always get a clear ring.
+   Forest passes contrast (~8.5:1) against the page's cream/white
+   backgrounds, which is where almost every focusable element lives; the
+   footer is the one dark-background exception, so it gets its own
+   gold ring below (gold reads ~7:1 on the footer's forest-deep, but
+   under 2:1 on cream/white — the wrong colour for everywhere else). */
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--forest);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.mg-footer :focus-visible { outline-color: var(--gold); }
+
 /* shared max-width section wrapper */
 .mg-section {
   max-width: var(--wrap);
@@ -189,7 +204,6 @@ html.lenis, html.lenis body { height: auto; }
 
 /* links */
 .nav-link { position: relative; font-size: 14.5px; font-weight: 700; color: var(--forest); transition: color .2s ease; }
-.mg-nav__phone { color: var(--muted); font-weight: 600; }
 .nav-link::after {
   content: ""; position: absolute; left: 0; bottom: -4px; height: 2px; width: 0;
   background: currentColor; transition: width .25s var(--ease-soft);
@@ -263,8 +277,15 @@ html.lenis, html.lenis body { height: auto; }
   text-align: center;
   padding: 20px 60px 0;
 }
-.mg-hero__title { font-family: var(--font-script); font-size: var(--fs-hero-title); font-weight: 700; color: var(--forest); line-height: 1.05; }
-.mg-hero__sub { margin-top: 8px; font-family: var(--font-serif); font-style: italic; font-size: var(--fs-hero-sub); font-weight: 500; color: var(--forest); }
+/* now the page's H1 — reset the browser's default h1 margin so the
+   visual layout stays identical to when this was a plain div */
+.mg-hero__title { margin: 0; font-family: var(--font-script); font-size: var(--fs-hero-title); font-weight: 700; color: var(--forest); line-height: 1.05; }
+/* now a <span> nested inside the H1 (was a sibling div) — display:block
+   keeps the exact same "own line, 8px below" look */
+.mg-hero__sub { display: block; margin-top: 8px; font-family: var(--font-serif); font-style: italic; font-size: var(--fs-hero-sub); font-weight: 500; color: var(--forest); }
+.mg-hero__intro { margin: 28px auto 0; max-width: 44ch; text-align: center; position: relative; z-index: 3; }
+.mg-hero__lead { font-size: 16px; line-height: 1.6; color: var(--muted); }
+.mg-hero__intro-cta { margin-top: 16px; font-size: 15px; padding: 12px 28px; }
 /* top/left are free fine-tune handles for the mece only — negative top = up,
    positive top = down; negative left = left, positive left = right.
    left: -4px corrects the fact that the bear+board artwork inside
@@ -306,6 +327,10 @@ html.lenis, html.lenis body { height: auto; }
 
 .mg-grid { display: grid; gap: 18px; }
 .mg-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.mg-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* ---------- Зошто mojaGradinka? / Безбедност (reuse .mg-feature-card look) ---------- */
+.mg-why .mg-features__head { margin-bottom: 0; }
 
 /* icon-only feature cards (no photo) — used by both the Понуди-adjacent
    "Сè" tabs and reuse .mg-live__promo-icon for the badge itself */
@@ -431,8 +456,17 @@ html.lenis, html.lenis body { height: auto; }
 .mg-input:focus { outline: none; border-color: var(--forest); box-shadow: 0 0 0 3px rgba(31,81,55,0.12); }
 .mg-select { background: #fff; }
 .mg-form__row { display: flex; gap: 14px; }
+/* honeypot — off-screen, not display:none, so simple bots that only check
+   visibility:hidden/display:none still fall for it */
+.mg-field--hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.mg-form__privacy { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.mg-form__privacy a { color: var(--forest); font-weight: 600; }
 .mg-form__submit { margin-top: 6px; font-size: 16px; padding: 15px 24px; }
-.mg-form__note { font-size: 12px; color: var(--muted); text-align: center; }
+.mg-form__submit[disabled] { opacity: 0.6; cursor: not-allowed; transform: none; }
+.mg-form__status { font-size: 13.5px; font-weight: 600; text-align: center; padding: 10px 14px; border-radius: 12px; }
+.mg-form__status[hidden] { display: none; }
+.mg-form__status--ok { background: rgba(31,81,55,0.1); color: var(--forest); }
+.mg-form__status--error { background: rgba(200,60,40,0.1); color: #A6321D; }
 
 /* ---------- Footer ---------- */
 .mg-footer { background: var(--forest-deep); }
@@ -501,7 +535,7 @@ html.lenis, html.lenis body { height: auto; }
   /* no GSAP pin below 961px — scenes just stack and scroll normally */
   .mg-scenes__frame { height: auto; }
   .mg-scenes__frame > .mg-section { position: relative; inset: auto; overflow-y: visible; }
-  .mg-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mg-grid--3, .mg-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
   .mg-hero { height: 520px; }
 
@@ -516,7 +550,6 @@ html.lenis, html.lenis body { height: auto; }
   /* Nav wraps; phone number drops to cut clutter */
   .mg-nav { flex-wrap: wrap; gap: 14px; padding: 16px 18px; }
   .mg-nav__links { gap: 16px; flex-wrap: wrap; justify-content: center; width: 100%; }
-  .mg-nav__phone { display: none; }
 
   /* Hero */
   .mg-hero { height: 440px; }
@@ -525,7 +558,7 @@ html.lenis, html.lenis body { height: auto; }
   .mg-hero__cta { margin-top: 20px; font-size: 16px; padding: 12px 28px; }
 
   /* Feature + info to single column */
-  .mg-grid--3 { grid-template-columns: 1fr; }
+  .mg-grid--3, .mg-grid--4 { grid-template-columns: 1fr; }
   .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
@@ -570,4 +603,13 @@ html.lenis, html.lenis body { height: auto; }
   .dc-dot-el, .dc-pulse { animation: none !important; }
   [data-anim] { opacity: 1 !important; }
   * { scroll-behavior: auto !important; }
+
+  /* js/app.js skips the GSAP pin+slide entirely under reduced motion, so
+     the three scroll-scenes need the same non-pinned, stacked fallback
+     layout the sub-961px responsive view uses below — otherwise, with no
+     JS setting their x-offsets, the panels would just sit on top of each
+     other (all position:absolute; inset:0) and Дојди/Веб апликација would
+     be permanently hidden behind Мобилна апликација. */
+  .mg-scenes__frame { height: auto; }
+  .mg-scenes__frame > .mg-section { position: relative; inset: auto; overflow-y: visible; }
 }
