@@ -63,16 +63,21 @@
 
 /* ---------- 2. Base ---------- */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--cream); }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { margin: 0; background: var(--cream); overflow-x: hidden; }
 img { max-width: 100%; }
 
+/* overflow-x:hidden lives on html/body (the real scrolling element), NOT
+   here — putting it on .mg-page (a non-scrolling ancestor deep in the
+   tree) silently breaks position:sticky for every descendant, including
+   the pin+slide section below (a well-known CSS pitfall: overflow-x on a
+   non-scroller ancestor forces overflow-y:auto too, which changes what
+   sticky elements stick relative to). */
 .mg-page {
   font-family: var(--font-body);
   color: var(--ink);
   background: var(--cream);
   position: relative;
-  overflow-x: hidden;
 }
 
 a { color: var(--forest); text-decoration: none; }
@@ -282,87 +287,123 @@ html.lenis, html.lenis body { height: auto; }
 .mg-intro__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 56ch; }
 
 /* ---------- Features (Сè) ---------- */
+.mg-features { margin-top: -3px; }
 .mg-features__head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .mg-features__tag { font-size: var(--fs-tag); font-weight: 700; color: var(--muted); }
 
+/* Корисници / Родители tab switch */
+.mg-features__tabs { margin-left: auto; display: flex; gap: 8px; align-self: center; }
+.mg-features__tab {
+  border: none; background: var(--mist); color: var(--muted);
+  font-family: inherit; font-weight: 700; font-size: 14px;
+  padding: 10px 22px; border-radius: 999px; cursor: pointer;
+  transition: background-color .2s ease, color .2s ease;
+}
+.mg-features__tab:hover { color: var(--forest); }
+.mg-features__tab.is-active { background: var(--forest); color: #fff; }
+.mg-features__panel { margin-top: 40px; }
+.mg-features__panel[hidden] { display: none; }
+
 .mg-grid { display: grid; gap: 18px; }
-.mg-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 36px; }
 .mg-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-.mg-card {
-  border-radius: 26px;
-  padding: 0 0 22px;
-  overflow: visible;
+/* icon-only feature cards (no photo) — used by both the Понуди-adjacent
+   "Сè" tabs and reuse .mg-live__promo-icon for the badge itself */
+.mg-feature-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 28px;
   transition: transform .3s var(--ease-soft), box-shadow .3s var(--ease-soft);
 }
-.mg-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(31,81,55,0.14); }
-.mg-card--green { background: var(--mist); }
-.mg-card--sand { background: var(--sand); }
-.mg-card__media { position: relative; border-radius: 26px 26px 0 0; overflow: hidden; }
-.mg-card__media img { display: block; width: 100%; height: 140px; object-fit: cover; }
-.mg-card__icon {
-  position: relative;
-  margin: -20px 16px 0;
-  width: 44px; height: 44px;
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-}
-.mg-card__icon--green { background: var(--forest); box-shadow: 0 8px 18px rgba(31,81,55,0.3); }
-.mg-card__icon--amber { background: var(--amber); box-shadow: 0 8px 18px rgba(166,106,10,0.3); }
-.mg-card__body { padding: 12px 18px 0; }
-.mg-card__title { font-size: var(--fs-card-title); font-weight: 700; color: var(--forest); }
-.mg-card__text { margin-top: 6px; font-size: var(--fs-card-text); line-height: 1.55; color: var(--muted); }
+.mg-feature-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(31,81,55,0.12); }
+.mg-feature-card .mg-live__promo-icon { margin-bottom: 18px; }
+.mg-feature-card__title { font-size: 17px; font-weight: 700; color: var(--forest); }
+.mg-feature-card__text { margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.mg-feature-card__list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 7px; }
+.mg-feature-card__list li { position: relative; padding-left: 16px; font-size: 13px; color: var(--muted); }
+.mg-feature-card__list li::before { content: "•"; position: absolute; left: 0; color: var(--amber); font-weight: 700; }
 
 /* ---------- Live (Во живо) ---------- */
-.mg-live__card { position: relative; background: var(--mist); border-radius: 40px; padding: 56px 40px; overflow: hidden; }
-.mg-live__bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.5; pointer-events: none; }
-.mg-live__head { position: relative; text-align: center; margin-bottom: 40px; }
+/* no card look here anymore — it sits directly on .mg-scenes__frame's own
+   mist background now, so all three scroll-scenes read as one flat colour */
+/* no top padding — keeps the heading flush with the top, level with the
+   other two scroll-scenes' headings */
+.mg-live__card { position: relative; padding: 0 40px 56px; overflow: hidden; }
+/* no margin-bottom here — .mg-live__promo-text's own 18px margin-top
+   provides the gap, matching the ~16px gap the other two scenes use */
 .mg-live__title { margin: 0; font-size: var(--fs-h2); font-weight: 700; color: var(--forest); }
-.mg-live__row { position: relative; display: flex; align-items: flex-end; justify-content: center; flex-wrap: wrap; }
-.mg-live__web {
-  background: #fff; border-radius: 28px 28px 0 0; padding: 14px 14px 0;
-  box-shadow: 0 24px 60px rgba(31,81,55,0.18);
-  flex: 1; min-width: 460px; max-width: 820px;
+/* mirrors .mg-cta__row / .mg-cta__col exactly, so "Мобилна апликација"
+   and "Дојди" read as the same layout — same gap, same column sizing,
+   heading inside the text column instead of centered above the row */
+.mg-live__row { position: relative; display: flex; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
+.mg-live__promo { flex: 1; min-width: 300px; }
+.mg-live__promo-text { margin: 18px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 46ch; }
+.mg-live__promo-features { margin-top: 28px; display: flex; flex-direction: column; gap: 18px; }
+.mg-live__promo-feature { display: flex; align-items: flex-start; gap: 14px; }
+.mg-live__promo-icon { flex: none; width: 42px; height: 42px; border-radius: 13px; display: flex; align-items: center; justify-content: center; }
+.mg-live__promo-icon--green { background: var(--forest); box-shadow: 0 8px 18px rgba(31,81,55,0.28); }
+.mg-live__promo-icon--amber { background: var(--amber); box-shadow: 0 8px 18px rgba(166,106,10,0.28); }
+.mg-live__promo-icon--sand { background: var(--sand); }
+.mg-live__promo-feature-title { font-size: 15.5px; font-weight: 700; color: var(--forest); }
+.mg-live__promo-feature-text { margin-top: 2px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+.mg-live__promo-badges { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+.mg-live__promo-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: #fff; font-size: 13.5px; font-weight: 700;
+  padding: 10px 18px; border-radius: 999px;
 }
-.mg-live__phone {
-  background: #fff; border: 1px solid var(--line); border-radius: 36px 36px 0 0; padding: 10px 10px 0;
-  box-shadow: 0 20px 50px rgba(31,81,55,0.2);
-  width: 210px; margin-left: -32px;
-  position: relative; z-index: 2;
-}
-.mg-live__screen { position: relative; overflow: hidden; }
-.mg-live__screen img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.mg-live__screen--web { height: 380px; border-radius: 18px 18px 0 0; }
-.mg-live__screen--phone { height: 430px; border-radius: 26px 26px 0 0; }
+/* real iPhone mockup PNGs (assets/phone-mockup-*.png) — fixed height so
+   both scenes' phones line up at exactly the same size/position */
+.mg-scene-phone { display: block; height: 560px; width: auto; max-width: 100%; }
 
-/* ---------- Info cards ---------- */
-.mg-info { padding-top: 64px; }
-.mg-info-card {
-  background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 26px;
-  display: flex; flex-direction: column; gap: 10px;
+/* ---------- Pricing (Понуди) ---------- */
+.mg-pricing__grid { margin-top: 35px; align-items: stretch; }
+.mg-pricing-plan {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
   transition: transform .3s var(--ease-soft), box-shadow .3s var(--ease-soft);
 }
-.mg-info-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(31,81,55,0.12); }
-.mg-info-card__icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-.mg-info-card__icon--green { background: var(--mist); }
-.mg-info-card__icon--sand { background: var(--sand); }
-.mg-info-card__title { font-size: 16px; font-weight: 700; color: var(--forest); }
+.mg-pricing-plan:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(31,81,55,0.12); }
+/* same light background as "Закажи демо" (var(--mist)) instead of a solid
+   dark fill — text stays the normal dark colors (no more white-on-dark
+   overrides needed), border keeps it visually marked as the featured plan */
+.mg-pricing-plan--featured { background: var(--mist); border-color: var(--forest); transform: scale(1.03); }
+.mg-pricing-plan--featured:hover { transform: scale(1.03) translateY(-6px); box-shadow: 0 22px 46px rgba(31,81,55,0.14); }
+.mg-pricing-plan__badge {
+  position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: var(--ink);
+  font-size: 13px; font-weight: 700; padding: 7px 18px; border-radius: 999px;
+  white-space: nowrap;
+}
+.mg-pricing-plan__name { text-align: center; font-size: 28px; font-weight: 800; color: var(--forest); }
+.mg-pricing-plan__desc { margin-top: 6px; text-align: center; font-size: 15px; color: var(--muted); }
+.mg-pricing-plan__features { list-style: none; margin: 30px 0 0; padding: 0; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.mg-pricing-plan__features li { position: relative; padding-left: 26px; font-size: 14px; color: var(--ink); }
+.mg-pricing-plan__features li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--forest); font-weight: 700; }
+.mg-pricing-plan__cta { margin-top: 28px; width: 100%; text-align: center; }
+.mg-pricing__footnote { margin-top: 32px; text-align: center; font-size: 14px; color: var(--muted); }
 
 /* ---------- CTA (Дојди) ---------- */
-.mg-cta__row { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+/* flex-start (not center) so the heading starts flush at the top,
+   level with the other two scroll-scenes' headings */
+.mg-cta__row { display: flex; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
 .mg-cta__col { flex: 1; min-width: 300px; }
-.mg-cta__lead { margin-top: 6px; font-size: var(--fs-tag); font-weight: 700; color: var(--forest); }
+.mg-cta__title { margin: 0; font-size: var(--fs-h2); font-weight: 700; color: var(--forest); }
 .mg-cta__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 48ch; }
-.mg-cta__doodle { display: block; width: 260px; max-width: 70%; height: auto; margin: 18px 0 6px; }
-.mg-cta__actions { margin-top: 18px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.mg-cta__contact { margin-top: 26px; display: flex; gap: 24px; flex-wrap: wrap; font-size: 14px; color: var(--muted); }
+.mg-cta__features { margin-top: 26px; }
 .mg-cta__media { flex: 1; min-width: 340px; display: flex; align-items: center; justify-content: center; }
-.mg-cta__media-img { display: block; width: 100%; max-width: 520px; height: auto; margin: 0 auto; border-radius: 24px; }
 
 /* ---------- Slants ---------- */
 .mg-slant { position: relative; }
 .mg-slant svg { display: block; width: 100%; height: 40px; }
 .mg-slant--to-form { margin: 88px 0 0; }
+/* pre-fills the seam with the footer's own colour so a sub-pixel rounding
+   gap in the SVG (visible as a hairline in some browsers) never shows the
+   lighter mist background peeking through underneath it */
+.mg-slant--to-footer { background: var(--forest-deep); }
 
 /* ---------- Form ---------- */
 .mg-form-section { background: var(--mist); }
@@ -410,13 +451,46 @@ html.lenis, html.lenis body { height: auto; }
 /* ---------- 6. Decorations ---------- */
 .mg-leaf { position: absolute; height: auto; pointer-events: none; }
 .mg-leaf--nie   { left: -20px; top: 24px;  width: 75px;  opacity: 0.7; }
-.mg-leaf--live  { left: 300px; top: 25px;  width: 70px;  opacity: 0.8; }
-.mg-leaf--dojdi { left: 300px; top: 100px; width: 100px; opacity: 0.85; }
 .mg-leaf--form  { right: 280px; top: 30px; width: 65px;  opacity: 0.8; }
 
 .mg-footer-deco { position: absolute; height: auto; z-index: 2; }
 .mg-footer-deco--tree  { left: 20%; bottom: 10px; margin-left: -220px; width: 200px; }
 .mg-footer-deco--bears { left: 25%; bottom: 21px; margin-left: -10px;  width: 75px; border-radius: 14px; }
+
+/* ---------- Scroll scenes: Мобилна апликација → Дојди → Веб апликација ----------
+   .mg-scenes__frame is pinned by GSAP itself (position:fixed under the
+   hood, with an auto-inserted spacer for scroll room — see the script at
+   the bottom of the page) while each scene (.mg-section inside it) slides
+   in X. Same background as the page itself. Below 961px, ScrollTrigger's
+   matchMedia() never creates the pin — the tablet/mobile override further
+   down makes the scenes stack and scroll normally, one after another. */
+/* mist — the same tone the "Мобилна апликација" card already uses —
+   full-bleed across the whole frame so all three scenes share one
+   consistent backdrop, edge to edge */
+.mg-scenes__frame { position: relative; height: 100vh; width: 100%; overflow: hidden; background: var(--mist); }
+.mg-scenes__frame > .mg-section { position: absolute; inset: 0; width: 100%; height: 100%; overflow-y: auto; }
+/* lives on the frame itself (not inside any sliding scene), so it never
+   moves — same spot throughout the whole scroll sequence */
+.mg-scenes__watermark {
+  position: absolute; left: 64px; bottom: 64px; width: 220px; height: auto;
+  opacity: 0.12; pointer-events: none; z-index: 0;
+}
+
+/* ---------- Laptop mockup (Веб апликација) ---------- */
+/* mirrors .mg-cta__title / .mg-cta__text — left-aligned, inside
+   .mg-cta__col, same as "Мобилна апликација" and "Дојди" */
+.mg-webapp__title { margin: 0; font-size: var(--fs-h2); font-weight: 700; color: var(--forest); }
+.mg-webapp__text { margin: 16px 0 0; max-width: 48ch; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); }
+/* left edge lines up with the heading/text above it (no auto-centering) */
+.mg-laptop { max-width: 780px; margin: 40px 0 0; }
+.mg-laptop__bar {
+  height: 28px; background: #2b2f33; border-radius: 12px 12px 0 0;
+  display: flex; align-items: center; gap: 6px; padding: 0 14px;
+}
+.mg-laptop__bar span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+.mg-laptop__screen { position: relative; background: #000; overflow: hidden; aspect-ratio: 3004 / 1434; }
+.mg-laptop__screen img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.mg-laptop__base { height: 14px; background: linear-gradient(#3a3f45, #24272b); border-radius: 0 0 8px 8px; margin: 0 -16px; box-shadow: 0 6px 14px rgba(0,0,0,0.2); }
 
 /* ============================================================
    7. Responsive
@@ -424,14 +498,14 @@ html.lenis, html.lenis body { height: auto; }
 
 /* Tablet */
 @media (max-width: 960px) {
-  .mg-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* no GSAP pin below 961px — scenes just stack and scroll normally */
+  .mg-scenes__frame { height: auto; }
+  .mg-scenes__frame > .mg-section { position: relative; inset: auto; overflow-y: visible; }
   .mg-grid--3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
   .mg-hero { height: 520px; }
 
   /* pull mid-canvas leaves back toward the edges so they stop colliding with text */
-  .mg-leaf--live  { left: auto; right: 24px; }
-  .mg-leaf--dojdi { left: auto; right: 24px; top: 20px; }
   .mg-leaf--form  { right: 24px; }
 }
 
@@ -451,19 +525,20 @@ html.lenis, html.lenis body { height: auto; }
   .mg-hero__cta { margin-top: 20px; font-size: 16px; padding: 12px 28px; }
 
   /* Feature + info to single column */
-  .mg-grid--4, .mg-grid--3 { grid-template-columns: 1fr; }
+  .mg-grid--3 { grid-template-columns: 1fr; }
+  .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  /* Live: stack, phone first (mobile users relate to the phone) */
-  .mg-live__card { padding: 44px 20px; border-radius: 28px; }
+  /* Live: stack, same order/behaviour as Дојди — text first, phone below */
+  .mg-live__card { padding: 44px 20px; }
   .mg-live__row { flex-direction: column; align-items: center; }
-  .mg-live__web { order: 2; min-width: 0; width: 100%; max-width: 100%; }
-  .mg-live__phone { order: 1; margin-left: 0; margin-bottom: -4px; }
+  .mg-live__promo { min-width: 0; width: 100%; max-width: 100%; text-align: center; }
+  .mg-live__promo-feature { justify-content: center; }
+  .mg-live__promo-badges { justify-content: center; }
+  .mg-scene-phone { height: 400px; margin: 0 auto; }
 
-  /* CTA: illustration centered beneath the copy */
-  .mg-cta__media { min-width: 0; width: 100%; }
-  .mg-cta__media-img { position: static; width: 70%; margin: 12px auto 0; }
-  .mg-cta__doodle { max-width: 60%; }
+  /* CTA + Live: phone mockup centered beneath the copy */
+  .mg-cta__media { min-width: 0; width: 100%; margin-top: 12px; }
 
   /* Form row stacks */
   .mg-form__row { flex-direction: column; }
@@ -471,8 +546,6 @@ html.lenis, html.lenis body { height: auto; }
   /* Decorative leaves → small, tucked into safe corners, never over text */
   .mg-leaf { opacity: 0.5 !important; }
   .mg-leaf--nie   { left: auto; right: 6px;  top: 6px;  width: 42px; }
-  .mg-leaf--live  { right: 12px; top: 12px;  width: 40px; }
-  .mg-leaf--dojdi { right: 8px;  top: 46px;  width: 52px; }
   .mg-leaf--form  { right: 10px; top: 10px;  width: 40px; }
 
   /* Big dots off on small screens to calm the field */
