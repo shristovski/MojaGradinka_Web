@@ -151,16 +151,27 @@
       <h2 class="mg-display mg-display--xl" data-anim="zoom-in">Сè</h2>
       <div class="mg-features__tag" data-anim="fade-up" data-anim-delay="150">на едно место, за секого.</div>
       <div class="mg-features__tabs" role="tablist" aria-label="Прикажи функционалности за">
-        <button type="button" id="tab-gradinki" class="mg-features__tab is-active" data-tab="gradinki" role="tab" aria-selected="true" aria-controls="panel-gradinki" tabindex="0">Градинки</button>
-        <button type="button" id="tab-roditeli" class="mg-features__tab" data-tab="roditeli" role="tab" aria-selected="false" aria-controls="panel-roditeli" tabindex="-1">Родители</button>
+        <button type="button" id="tab-gradinki" class="mg-features__tab is-active" data-tab="gradinki" role="tab" aria-selected="true" aria-controls="panel-gradinki" tabindex="0">
+          <svg class="mg-features__tab-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 21v-7h6v7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          Градинки
+        </button>
+        <button type="button" id="tab-roditeli" class="mg-features__tab" data-tab="roditeli" role="tab" aria-selected="false" aria-controls="panel-roditeli" tabindex="-1">
+          <svg class="mg-features__tab-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 19c.5-3 3-5.2 5.5-5.2s5 2.2 5.5 5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="9" r="2.3" stroke="currentColor" stroke-width="1.8"/><path d="M15 19c.3-2 1.6-3.6 3.3-4.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Родители
+        </button>
       </div>
     </div>
 
     <div class="mg-grid mg-grid--3 mg-features__panel" id="panel-gradinki" data-panel="gradinki" role="tabpanel" aria-labelledby="tab-gradinki" tabindex="0">
 
       <div class="mg-feature-card" data-anim="fade-up">
-        <div class="mg-live__promo-icon mg-live__promo-icon--green">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3" stroke="#ffffff" stroke-width="1.8"/><circle cx="17" cy="10.5" r="2.3" stroke="#ffffff" stroke-width="1.8"/><path d="M3.5 19c.5-3 3-5.2 5.5-5.2s5 2.2 5.5 5.2M15 19c.3-2 1.6-3.6 3.3-4.1" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--green">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3" stroke="#ffffff" stroke-width="1.8"/><circle cx="17" cy="10.5" r="2.3" stroke="#ffffff" stroke-width="1.8"/><path d="M3.5 19c.5-3 3-5.2 5.5-5.2s5 2.2 5.5 5.2M15 19c.3-2 1.6-3.6 3.3-4.1" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Евиденција на деца</h3>
         <p class="mg-feature-card__text">Дигитална база на податоци за сите деца со целосни информации, групи, здравствени белешки и следење на развојот.</p>
@@ -172,8 +183,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="100">
-        <div class="mg-live__promo-icon mg-live__promo-icon--amber">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#ffffff" stroke-width="1.8"/><path d="M12 3v3M12 18v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M3 12h3M18 12h3M4.9 19.1 7 17M17 7l2.1-2.1" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#ffffff" stroke-width="1.8"/><path d="M12 3v3M12 18v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M3 12h3M18 12h3M4.9 19.1 7 17M17 7l2.1-2.1" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Управување со тим</h3>
         <p class="mg-feature-card__text">Централизирано управување на вработените, нивните улоги, работни термини и интерна комуникација.</p>
@@ -185,8 +201,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="200">
-        <div class="mg-live__promo-icon mg-live__promo-icon--sand">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M8 7.6c0-1.6 1.5-2.6 4-2.6s4 1.2 4 2.8c0 2.9-8 2-8 5.3 0 1.6 1.8 2.8 4 2.8s4-1 4-2.7" stroke="#1F5137" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M8 7.6c0-1.6 1.5-2.6 4-2.6s4 1.2 4 2.8c0 2.9-8 2-8 5.3 0 1.6 1.8 2.8 4 2.8s4-1 4-2.7" stroke="#1F5137" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Паметни финансии</h3>
         <p class="mg-feature-card__text">Целосно автоматизирано финансиско управување со предефинирани пакети, автоматско фактурирање и детални извештаи.</p>
@@ -198,8 +219,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up">
-        <div class="mg-live__promo-icon mg-live__promo-icon--green">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#ffffff" stroke-width="1.8"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="#ffffff" stroke-width="1.8"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--green">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#ffffff" stroke-width="1.8"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="#ffffff" stroke-width="1.8"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Безбедност и заштита</h3>
         <p class="mg-feature-card__text">Висок степен на енкрипција на сите податоци, со усогласеност со важечките прописи за заштита на лични податоци.</p>
@@ -211,8 +237,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="100">
-        <div class="mg-live__promo-icon mg-live__promo-icon--amber">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2.5" stroke="#ffffff" stroke-width="1.8"/><path d="M8 3v4M16 3v4M4 10h16" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2.5" stroke="#ffffff" stroke-width="1.8"/><path d="M8 3v4M16 3v4M4 10h16" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Активности и настани</h3>
         <p class="mg-feature-card__text">Организација и управување со сите активности, настани и специјални програми со автоматско известување.</p>
@@ -224,8 +255,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="200">
-        <div class="mg-live__promo-icon mg-live__promo-icon--sand">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 6h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke="#1F5137" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 6h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke="#1F5137" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Комуникациски центар</h3>
         <p class="mg-feature-card__text">Централизирана комуникација со родителите преку директни пораки, групни известувања и итни контакти.</p>
@@ -241,8 +277,13 @@
     <div class="mg-grid mg-grid--3 mg-features__panel" id="panel-roditeli" data-panel="roditeli" role="tabpanel" aria-labelledby="tab-roditeli" tabindex="0" hidden>
 
       <div class="mg-feature-card" data-anim="fade-up">
-        <div class="mg-live__promo-icon mg-live__promo-icon--green">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12S5.5 5 12 5s10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#ffffff" stroke-width="1.8"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--green">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12S5.5 5 12 5s10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#ffffff" stroke-width="1.8"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Увид во живо</h3>
         <p class="mg-feature-card__text">Следете ги активностите на вашето дете во реално време — кога јаде, спие, си игра и каква е моменталната активност.</p>
@@ -254,8 +295,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="100">
-        <div class="mg-live__promo-icon mg-live__promo-icon--amber">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 3 5 14h6l-1 7 8-11h-6l1-7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 3 5 14h6l-1 7 8-11h-6l1-7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Инстант разговор</h3>
         <p class="mg-feature-card__text">Директна комуникација со воспитувачите и администрацијата преку сигурна chat-платформа со инстант известувања.</p>
@@ -267,8 +313,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="200">
-        <div class="mg-live__promo-icon mg-live__promo-icon--sand">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2.5" stroke="#1F5137" stroke-width="1.8"/><path d="M8 3v4M16 3v4M4 10h16" stroke="#1F5137" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2.5" stroke="#1F5137" stroke-width="1.8"/><path d="M8 3v4M16 3v4M4 10h16" stroke="#1F5137" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Паметен календар</h3>
         <p class="mg-feature-card__text">Интелигентен календар со автоматски потсетници за сите важни настани, активности и датуми во градинката.</p>
@@ -280,8 +331,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up">
-        <div class="mg-live__promo-icon mg-live__promo-icon--green">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 5.5 6v6c0 4.6 3 7.6 6.5 8.5 3.5-.9 6.5-3.9 6.5-8.5V6L12 3.5Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 15.3c-2.2-1.5-3.5-2.8-3.5-4.4 0-1 .9-1.8 1.8-1.8.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.8.8 1.8 1.8 0 1.6-1.3 2.9-3.5 4.4Z" fill="#ffffff"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--green">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 5.5 6v6c0 4.6 3 7.6 6.5 8.5 3.5-.9 6.5-3.9 6.5-8.5V6L12 3.5Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 15.3c-2.2-1.5-3.5-2.8-3.5-4.4 0-1 .9-1.8 1.8-1.8.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.8.8 1.8 1.8 0 1.6-1.3 2.9-3.5 4.4Z" fill="#ffffff"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Здравје и безбедност</h3>
         <p class="mg-feature-card__text">Преглед на важни здравствени информации за вашето дете — алергии, ограничувања и итни контакти, достапни на воспитувачите кога им се потребни.</p>
@@ -293,8 +349,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="100">
-        <div class="mg-live__promo-icon mg-live__promo-icon--amber">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v4h4" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 12.5h5M9.5 15.5h5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v4h4" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 12.5h5M9.5 15.5h5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Дигитални документи</h3>
         <p class="mg-feature-card__text">Безбедно чување на сите важни документи, сертификати, извештаи за напредок и портфолио на активности на вашето дете.</p>
@@ -306,8 +367,13 @@
       </div>
 
       <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="200">
-        <div class="mg-live__promo-icon mg-live__promo-icon--sand">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6" width="17" height="12" rx="2.5" stroke="#1F5137" stroke-width="1.8"/><path d="M3.5 10h17" stroke="#1F5137" stroke-width="1.8"/><circle cx="7" cy="14" r="1.1" fill="#1F5137"/></svg>
+        <div class="mg-feature-card__top">
+          <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6" width="17" height="12" rx="2.5" stroke="#1F5137" stroke-width="1.8"/><path d="M3.5 10h17" stroke="#1F5137" stroke-width="1.8"/><circle cx="7" cy="14" r="1.1" fill="#1F5137"/></svg>
+          </div>
+          <span class="mg-feature-card__arrow" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
         </div>
         <h3 class="mg-feature-card__title">Лесно плаќање</h3>
         <p class="mg-feature-card__text">Сигурно онлајн плаќање преку банкарска картичка, со целосна историја на трансакции и автоматско фактурирање.</p>
