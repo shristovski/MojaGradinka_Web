@@ -308,12 +308,32 @@ html.lenis, html.lenis body { height: auto; }
 .mg-intro__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 56ch; }
 
 /* ---------- Features (Сè) ---------- */
-.mg-features { margin-top: -3px; }
+.mg-features { margin-top: -3px; padding-bottom: 100px; overflow: hidden; }
 .mg-features__head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
 .mg-features__tag { font-size: var(--fs-tag); font-weight: 700; color: var(--muted); }
 
+/* two-column head used only by the "Сè" section itself — "Зошто
+   mojaGradinka?" / "Безбедност" reuse the plain .mg-features__head above */
+.mg-features__head--se { justify-content: space-between; align-items: flex-start; gap: 32px; }
+.mg-features__intro { max-width: 600px; }
+.mg-features__eyebrow { font-size: 12.5px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest); margin-bottom: 10px; }
+.mg-features__heading { margin: 0; line-height: 1.15; }
+.mg-features__heading-script {
+  font-family: var(--font-script); font-weight: 700; font-size: clamp(30px, 5vw, 42px); color: var(--forest);
+  text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 5px; text-underline-offset: 8px;
+}
+.mg-features__heading-sub { display: block; margin-top: 6px; font-family: var(--font-round); font-weight: 700; font-size: clamp(20px, 3.6vw, 27px); color: var(--ink); }
+.mg-features__lead { margin: 16px 0 0; max-width: 52ch; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
+.mg-features__lead strong { color: var(--ink); font-weight: 700; }
+
+.mg-features__switch { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.mg-features__hint {
+  font-family: var(--font-script); font-style: italic; font-size: 15px; color: var(--muted);
+  text-align: right; line-height: 1.35; max-width: 190px;
+}
+
 /* Градинки / Родители tab switch */
-.mg-features__tabs { margin-left: auto; display: flex; gap: 8px; align-self: center; }
+.mg-features__tabs { display: flex; gap: 8px; }
 .mg-features__tab {
   display: inline-flex; align-items: center; gap: 8px;
   border: none; background: var(--mist); color: var(--muted);
@@ -326,6 +346,17 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__tab.is-active { background: var(--forest); color: #fff; box-shadow: 0 8px 18px rgba(31,81,55,0.28); }
 .mg-features__panel { margin-top: 40px; }
 .mg-features__panel[hidden] { display: none; }
+
+/* bottom decorative row — small leaf tucked bottom-left, mascot bottom-right,
+   handwritten-style closing line centered between them */
+.mg-features__note {
+  margin: 44px 0 0; text-align: center;
+  font-family: var(--font-script); font-style: italic; font-size: 19px; line-height: 1.4;
+  color: var(--muted);
+}
+.mg-features__note span { color: var(--amber); }
+.mg-features__leaf { position: absolute; left: -10px; bottom: -6px; width: 84px; height: auto; opacity: 0.9; pointer-events: none; }
+.mg-features__mascot { position: absolute; right: 10px; bottom: -10px; width: 128px; height: auto; pointer-events: none; }
 
 .mg-grid { display: grid; gap: 18px; }
 .mg-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -575,6 +606,13 @@ html.lenis, html.lenis body { height: auto; }
 
   /* Feature + info to single column */
   .mg-grid--3, .mg-grid--4 { grid-template-columns: 1fr; }
+
+  /* Сè: switch block re-centers under the intro text, hint line dropped
+     to cut clutter (it's a decorative flourish, not information) */
+  .mg-features__intro { max-width: 100%; }
+  .mg-features__switch { align-items: center; width: 100%; margin-top: 8px; }
+  .mg-features__hint { display: none; }
+  .mg-features__leaf, .mg-features__mascot { display: none; }
   .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
