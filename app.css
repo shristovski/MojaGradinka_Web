@@ -546,7 +546,7 @@ html.lenis, html.lenis body { height: auto; }
 .mg-field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .mg-field__label { font-size: 13px; font-weight: 700; color: var(--forest); }
 .mg-input {
-  font-family: inherit; font-size: 15px; padding: 12px 14px;
+  height: 46px; font-family: inherit; font-size: 15px; padding: 0 14px;
   border-radius: 12px; border: 1px solid var(--line); color: var(--ink);
   transition: border-color .2s ease, box-shadow .2s ease;
 }
