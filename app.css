@@ -331,7 +331,7 @@ html.lenis, html.lenis body { height: auto; }
 
 .mg-features__switch { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
 .mg-features__hint {
-  font-family: var(--font-script); font-style: italic; font-size: 15px; color: var(--amber);
+  font-family: var(--font-script); font-style: italic; font-size: 17px; color: var(--amber);
   text-align: right; line-height: 1.35; max-width: 190px;
 }
 
