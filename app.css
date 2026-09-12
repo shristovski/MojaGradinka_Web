@@ -358,7 +358,7 @@ html.lenis, html.lenis body { height: auto; }
   color: var(--muted);
 }
 .mg-features__note span { color: var(--amber); }
-.mg-features__leaf { position: absolute; left: 380px; top: 80px; width: 60px; height: auto; opacity: 0.85; pointer-events: none; transform: rotate(12deg); }
+.mg-features__leaf { position: absolute; left: 130px; top: 62px; width: 60px; height: auto; opacity: 0.85; pointer-events: none; transform: rotate(12deg); }
 
 .mg-grid { display: grid; gap: 18px; }
 .mg-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -384,7 +384,7 @@ html.lenis, html.lenis body { height: auto; }
   background: var(--mist); color: var(--muted);
 }
 .mg-feature-card__title { margin: 0; font-size: 17px; font-weight: 700; color: var(--forest); }
-.mg-feature-card__text { margin-top: 10px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.mg-feature-card__text { margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--muted); }
 .mg-feature-card__list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .mg-feature-card__list li { position: relative; padding-left: 24px; font-size: 13px; color: var(--muted); }
 .mg-feature-card__list li::before {
