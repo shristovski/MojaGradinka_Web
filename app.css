@@ -543,7 +543,12 @@ html.lenis, html.lenis body { height: auto; }
   background: #fff; border: 1px solid var(--line); border-radius: 28px; padding: 32px;
   display: flex; flex-direction: column; gap: 14px; text-align: left;
 }
-.mg-field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+/* min-width:0 overrides the flex default of min-width:auto, which was
+   letting the <input>'s own browser-default intrinsic width act as a
+   floor — inside .mg-form__row that floor was wider than an even 50/50
+   split minus the 14px gap, so "Број на деца" was overflowing past the
+   form's right edge instead of shrinking to fit beside "Телефон" */
+.mg-field { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0; }
 .mg-field__label { font-size: 13px; font-weight: 700; color: var(--forest); }
 .mg-input {
   height: 46px; font-family: inherit; font-size: 15px; padding: 0 14px;
