@@ -283,9 +283,6 @@ html.lenis, html.lenis body { height: auto; }
 /* now a <span> nested inside the H1 (was a sibling div) — display:block
    keeps the exact same "own line, 8px below" look */
 .mg-hero__sub { display: block; margin-top: 8px; font-family: var(--font-serif); font-style: italic; font-size: var(--fs-hero-sub); font-weight: 500; color: var(--forest); }
-.mg-hero__intro { margin: 28px auto 0; max-width: 44ch; text-align: center; position: relative; z-index: 3; }
-.mg-hero__lead { font-size: 16px; line-height: 1.6; color: var(--muted); }
-.mg-hero__intro-cta { margin-top: 16px; font-size: 15px; padding: 12px 28px; }
 /* top/left are free fine-tune handles for the mece only — negative top = up,
    positive top = down; negative left = left, positive left = right.
    left: -4px corrects the fact that the bear+board artwork inside
