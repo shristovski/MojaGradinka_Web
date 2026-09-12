@@ -365,12 +365,10 @@ html.lenis, html.lenis body { height: auto; }
 .mg-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .mg-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
-/* ---------- Зошто mojaGradinka? / Безбедност (reuse .mg-feature-card look) ---------- */
-.mg-why .mg-features__head { margin-bottom: 0; }
-
 /* icon-only feature cards (no photo) — used by the "Сè" tabs and the
-   "Безбедност" trust section; icons are the 3D illustrated PNG set in
-   assets/icons/, sized by height so each icon's own aspect ratio holds */
+   trust-badge row inside "Ние"; icons are the 3D illustrated PNG set
+   in assets/icons/, sized by height so each icon's own aspect ratio holds */
+.mg-intro__trust { margin-top: 48px; }
 .mg-feature-card {
   background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 28px;
   transition: transform .3s var(--ease-soft), box-shadow .3s var(--ease-soft);
@@ -403,7 +401,7 @@ html.lenis, html.lenis body { height: auto; }
    matter how long the text is. The inner wrapper's own opacity/translate
    fades the text in slightly after the row starts growing, so it doesn't
    just pop in the instant there's room. */
-.mg-features .mg-feature-card { cursor: default; }
+.mg-feature-card { cursor: default; }
 .mg-feature-card__body {
   display: grid;
   grid-template-rows: 0fr;

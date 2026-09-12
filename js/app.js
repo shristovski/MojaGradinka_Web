@@ -133,7 +133,7 @@
 })();
 
 // ------------------------------------------------------------
-// 3. Feature-card tap-to-expand (Сè section)
+// 3. Feature-card tap-to-expand (Сè + Ние trust cards)
 // On mouse/trackpad, app.css handles the expand entirely via :hover/
 // :focus-within (gated to `(hover: hover) and (pointer: fine)`, so it
 // never fires from a "sticky hover" tap on touch). Devices that report
@@ -143,7 +143,7 @@
   var noHover = window.matchMedia && window.matchMedia('(hover: none)').matches;
   if (!noHover) return;
 
-  var cards = document.querySelectorAll('.mg-features .mg-feature-card');
+  var cards = document.querySelectorAll('.mg-feature-card');
   cards.forEach(function (card) {
     card.addEventListener('click', function () {
       card.classList.toggle('is-expanded');
