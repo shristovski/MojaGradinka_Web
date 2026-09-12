@@ -675,9 +675,21 @@ html.lenis, html.lenis body { height: auto; }
   .mg-live__card { padding: 44px 20px; }
   .mg-live__row { flex-direction: column; align-items: center; }
   .mg-live__promo { min-width: 0; width: 100%; max-width: 100%; text-align: center; }
-  .mg-live__promo-feature { justify-content: center; }
+  /* icon above title+text, both centered as a column — scoped to this
+     section only: Дојди's feature rows (same .mg-live__promo-feature
+     class) stay left-aligned icon+text the way they already were,
+     since only Мобилна апликација's rows looked mismatched (icon stuck
+     off to one side while the centered text floated independently) */
+  #vo-zivo .mg-live__promo-feature { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
   .mg-live__promo-badges { justify-content: center; }
   .mg-scene-phone { height: 400px; margin: 0 auto; }
+
+  /* Дојди: row stacks (text, then phone below) instead of both trying
+     to fit side by side — with flex-basis:0% from the shared flex:1
+     rule, the row was shrinking .mg-cta__media down to a sliver and
+     stretching/distorting the phone image instead of ever wrapping */
+  .mg-cta__row { flex-direction: column; }
+  .mg-cta__col { width: 100%; min-width: 0; }
 
   /* CTA + Live: phone mockup centered beneath the copy */
   .mg-cta__media { min-width: 0; width: 100%; margin-top: 12px; }
