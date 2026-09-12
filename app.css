@@ -350,16 +350,15 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__panel { margin-top: 40px; }
 .mg-features__panel[hidden] { display: none; }
 
-/* bottom decorative row — small leaf tucked bottom-left, mascot bottom-right,
-   handwritten-style closing line centered between them */
+/* bottom decorative row — small leaf tucked bottom-left, handwritten-style
+   closing line centered next to it */
 .mg-features__note {
   margin: 44px 0 0; text-align: center;
-  font-family: var(--font-script); font-style: italic; font-size: 19px; line-height: 1.4;
+  font-family: var(--font-script); font-style: italic; font-size: 21px; line-height: 1.4;
   color: var(--muted);
 }
 .mg-features__note span { color: var(--amber); }
 .mg-features__leaf { position: absolute; left: -10px; bottom: -6px; width: 84px; height: auto; opacity: 0.9; pointer-events: none; }
-.mg-features__mascot { position: absolute; right: 10px; bottom: -10px; width: 128px; height: auto; pointer-events: none; }
 
 .mg-grid { display: grid; gap: 18px; }
 .mg-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -663,7 +662,7 @@ html.lenis, html.lenis body { height: auto; }
   .mg-features__intro { max-width: 100%; }
   .mg-features__switch { align-items: center; width: 100%; margin-top: 8px; }
   .mg-features__hint { display: none; }
-  .mg-features__leaf, .mg-features__mascot { display: none; }
+  .mg-features__leaf { display: none; }
   .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
