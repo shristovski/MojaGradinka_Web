@@ -294,7 +294,13 @@ html.lenis, html.lenis body { height: auto; }
 .mg-hero__cta { position: relative; top: -38px; z-index: 20; margin-top: 38px; font-size: 14px; padding: 13px 34px; }
 
 /* ---------- Intro (Ние) ---------- */
-.mg-display { font-family: var(--font-script); font-weight: 700; color: var(--forest); }
+/* margin:0 matters here: this class was originally only ever put on
+   <div>s, but "Ние" and "Безбедност на податоците" are now <h2>s for
+   heading hierarchy — a bare <h2> carries a browser default margin
+   sized off ITS OWN font-size, which at this class's ~72-118px display
+   sizes is a huge, layout-breaking gap. Reset it so a heading here
+   looks exactly like the plain div it used to be. */
+.mg-display { margin: 0; font-family: var(--font-script); font-weight: 700; color: var(--forest); }
 .mg-display--xl { font-size: var(--fs-display-xl); line-height: 0.9; }
 .mg-display--lg { font-size: var(--fs-display-lg); line-height: 0.9; }
 .mg-display--md { font-size: var(--fs-display-md); line-height: 1; }
