@@ -415,6 +415,10 @@ html.lenis, html.lenis body { height: auto; }
 .mg-live__promo-icon--green { background: var(--forest); box-shadow: 0 8px 18px rgba(31,81,55,0.28); }
 .mg-live__promo-icon--amber { background: var(--amber); box-shadow: 0 8px 18px rgba(242,119,64,0.28); }
 .mg-live__promo-icon--sand { background: var(--sand); }
+/* 3D icon PNGs (Мобилна апликација / Дојди rows) — same icon set as the
+   feature cards; no colored background square needed, the art carries
+   its own colour, so just fit it inside the existing 42px slot */
+.mg-live__promo-icon--img { background: none; box-shadow: none; object-fit: contain; }
 .mg-live__promo-feature-title { font-size: 15.5px; font-weight: 700; color: var(--forest); }
 .mg-live__promo-feature-text { margin-top: 2px; font-size: 13.5px; line-height: 1.5; color: var(--muted); }
 .mg-live__promo-badges { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
