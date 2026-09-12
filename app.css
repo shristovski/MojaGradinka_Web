@@ -383,7 +383,7 @@ html.lenis, html.lenis body { height: auto; }
   width: 26px; height: 26px; border-radius: 50%;
   background: var(--mist); color: var(--muted);
 }
-.mg-feature-card__title { font-size: 17px; font-weight: 700; color: var(--forest); }
+.mg-feature-card__title { margin: 0; font-size: 17px; font-weight: 700; color: var(--forest); }
 .mg-feature-card__text { margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--muted); }
 .mg-feature-card__list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .mg-feature-card__list li { position: relative; padding-left: 24px; font-size: 13px; color: var(--muted); }
@@ -393,6 +393,51 @@ html.lenis, html.lenis body { height: auto; }
   background: var(--forest); color: #fff;
   font-size: 10px; font-weight: 700; line-height: 16px; text-align: center;
 }
+
+/* Expand-on-hover (Сè section only): collapsed state shows icon + title,
+   the description/list live in a CSS-grid row animated 0fr -> 1fr, which
+   (unlike max-height) animates smoothly to the content's real height no
+   matter how long the text is. The inner wrapper's own opacity/translate
+   fades the text in slightly after the row starts growing, so it doesn't
+   just pop in the instant there's room. */
+.mg-features .mg-feature-card { cursor: default; }
+.mg-feature-card__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows .4s var(--ease-soft);
+}
+.mg-feature-card__body-inner {
+  overflow: hidden;
+  min-height: 0; /* grid items default to min-height:auto, which would stop the 0fr row above from ever reaching 0 */
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .25s ease, transform .3s var(--ease-soft);
+}
+.mg-feature-card__body-inner > .mg-feature-card__text:first-child { margin-top: 14px; }
+.mg-feature-card__arrow svg { transition: transform .3s var(--ease-soft); }
+
+/* Mouse/trackpad: hover or keyboard focus opens it. Gated to real hover
+   devices so this rule never fires from a "sticky hover" tap on touch. */
+@media (hover: hover) and (pointer: fine) {
+  .mg-feature-card:hover .mg-feature-card__body,
+  .mg-feature-card:focus-within .mg-feature-card__body {
+    grid-template-rows: 1fr;
+  }
+  .mg-feature-card:hover .mg-feature-card__body-inner,
+  .mg-feature-card:focus-within .mg-feature-card__body-inner {
+    opacity: 1;
+    transform: none;
+  }
+  .mg-feature-card:hover .mg-feature-card__arrow svg,
+  .mg-feature-card:focus-within .mg-feature-card__arrow svg {
+    transform: rotate(90deg);
+  }
+}
+
+/* Touch/coarse pointer: js/app.js toggles this class on tap instead */
+.mg-feature-card.is-expanded .mg-feature-card__body { grid-template-rows: 1fr; }
+.mg-feature-card.is-expanded .mg-feature-card__body-inner { opacity: 1; transform: none; }
+.mg-feature-card.is-expanded .mg-feature-card__arrow svg { transform: rotate(90deg); }
 
 /* ---------- Live (Во живо) ---------- */
 /* no card look here anymore — it sits directly on .mg-scenes__frame's own

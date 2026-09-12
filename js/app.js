@@ -7,9 +7,10 @@
    Contents:
      1. Demo-form submission (Formspree/Web3Forms-style POST)
      2. Градинки / Родители tab switch (click + keyboard)
-     3. Entrance reveals (IntersectionObserver)
-     4. Unified Lenis + rAF scroll-motion engine
-     5. GSAP ScrollTrigger scene pin (Мобилна → Дојди → Веб апликација)
+     3. Feature-card tap-to-expand (touch/no-hover devices only)
+     4. Entrance reveals (IntersectionObserver)
+     5. Unified Lenis + rAF scroll-motion engine
+     6. GSAP ScrollTrigger scene pin (Мобилна → Дојди → Веб апликација)
    ============================================================ */
 
 // ------------------------------------------------------------
@@ -132,7 +133,26 @@
 })();
 
 // ------------------------------------------------------------
-// 3. Entrance reveals
+// 3. Feature-card tap-to-expand (Сè section)
+// On mouse/trackpad, app.css handles the expand entirely via :hover/
+// :focus-within (gated to `(hover: hover) and (pointer: fine)`, so it
+// never fires from a "sticky hover" tap on touch). Devices that report
+// no real hover get this tap-to-toggle instead.
+// ------------------------------------------------------------
+(function () {
+  var noHover = window.matchMedia && window.matchMedia('(hover: none)').matches;
+  if (!noHover) return;
+
+  var cards = document.querySelectorAll('.mg-features .mg-feature-card');
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      card.classList.toggle('is-expanded');
+    });
+  });
+})();
+
+// ------------------------------------------------------------
+// 4. Entrance reveals
 // ------------------------------------------------------------
 (function () {
   var els = document.querySelectorAll('[data-anim], [data-ride]');
@@ -161,7 +181,7 @@
 })();
 
 // ------------------------------------------------------------
-// 4. Unified, eased scroll-motion engine (Lenis + one rAF loop).
+// 5. Unified, eased scroll-motion engine (Lenis + one rAF loop).
 // A single lerped "scroll" value drives every effect, so dots,
 // mece and parallax glide instead of snapping frame-to-frame.
 // ------------------------------------------------------------
@@ -263,7 +283,7 @@
 })();
 
 // ------------------------------------------------------------
-// 5. GSAP + ScrollTrigger power the .mg-scenes horizontal scene
+// 6. GSAP + ScrollTrigger power the .mg-scenes horizontal scene
 // sequence (Мобилна апликација → Дојди → Веб апликација), desktop
 // only. Skipped entirely under prefers-reduced-motion: the three
 // scenes just stay in normal document flow and stack/scroll like any
