@@ -133,8 +133,8 @@
 })();
 
 // ------------------------------------------------------------
-// 3. Feature-card tap-to-expand (Сè + Ние trust cards)
-// On mouse/trackpad, app.css handles the expand entirely via :hover/
+// 3. Feature-card tap-to-expand/flip (Сè cards expand, Ние trust cards
+// flip). On mouse/trackpad, app.css handles both entirely via :hover/
 // :focus-within (gated to `(hover: hover) and (pointer: fine)`, so it
 // never fires from a "sticky hover" tap on touch). Devices that report
 // no real hover get this tap-to-toggle instead.
@@ -145,8 +145,9 @@
 
   var cards = document.querySelectorAll('.mg-feature-card');
   cards.forEach(function (card) {
+    var toggleClass = card.classList.contains('mg-feature-card--flip') ? 'is-flipped' : 'is-expanded';
     card.addEventListener('click', function () {
-      card.classList.toggle('is-expanded');
+      card.classList.toggle(toggleClass);
     });
   });
 })();

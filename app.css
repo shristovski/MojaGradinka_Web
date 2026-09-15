@@ -439,6 +439,41 @@ html.lenis, html.lenis body { height: auto; }
 .mg-feature-card.is-expanded .mg-feature-card__body-inner { opacity: 1; transform: none; }
 .mg-feature-card.is-expanded .mg-feature-card__arrow svg { transform: rotate(90deg); }
 
+/* Flip cards (Ние trust row): front = icon+title (identical look to the
+   collapsed expand-cards above), back = just the description, centered.
+   A fixed height replaces the padding/auto-height .mg-feature-card
+   normally has, since both faces are absolutely positioned to fill it. */
+.mg-feature-card--flip {
+  background: none; border: none; padding: 0; height: 190px;
+  perspective: 1200px;
+}
+.mg-feature-card--flip:hover, .mg-feature-card--flip:focus-within {
+  transform: none; box-shadow: none; /* the flip below replaces the plain lift/shadow hover */
+}
+.mg-feature-card__flip {
+  position: relative; width: 100%; height: 100%;
+  transition: transform .6s var(--ease-soft);
+  transform-style: preserve-3d;
+}
+.mg-feature-card__front, .mg-feature-card__back {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 28px;
+}
+.mg-feature-card__back {
+  transform: rotateY(180deg);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+}
+.mg-feature-card__back .mg-feature-card__text { margin: 0; }
+
+@media (hover: hover) and (pointer: fine) {
+  .mg-feature-card--flip:hover .mg-feature-card__flip,
+  .mg-feature-card--flip:focus-within .mg-feature-card__flip {
+    transform: rotateY(180deg);
+  }
+}
+/* Touch/coarse pointer: js/app.js toggles this class on tap instead */
+.mg-feature-card--flip.is-flipped .mg-feature-card__flip { transform: rotateY(180deg); }
+
 /* ---------- Live (Во живо) ---------- */
 /* no card look here anymore — it sits directly on .mg-scenes__frame's own
    mist background now, so all three scroll-scenes read as one flat colour */
