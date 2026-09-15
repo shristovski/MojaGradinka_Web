@@ -329,26 +329,13 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__lead { margin: 16px 0 0; max-width: 52ch; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
 .mg-features__lead strong { color: var(--ink); font-weight: 700; }
 
-.mg-features__switch { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
-.mg-features__hint {
-  font-family: var(--font-script); font-style: italic; font-size: 17px; color: var(--amber);
-  text-align: right; line-height: 1.35; max-width: 190px;
+/* Градинки / Родители — two always-visible groups instead of a tab switch */
+.mg-features__group { margin-top: 44px; }
+.mg-features__group-title {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 0 20px; font-family: var(--font-round); font-weight: 700; font-size: 19px; color: var(--forest);
 }
-
-/* Градинки / Родители tab switch */
-.mg-features__tabs { display: flex; gap: 8px; }
-.mg-features__tab {
-  display: inline-flex; align-items: center; gap: 8px;
-  border: none; background: var(--mist); color: var(--muted);
-  font-family: inherit; font-weight: 700; font-size: 14px;
-  padding: 10px 22px; border-radius: 999px; cursor: pointer;
-  transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
-}
-.mg-features__tab-icon { flex: none; }
-.mg-features__tab:hover { color: var(--forest); }
-.mg-features__tab.is-active { background: var(--forest); color: #fff; box-shadow: 0 8px 18px rgba(31,81,55,0.28); }
-.mg-features__panel { margin-top: 40px; }
-.mg-features__panel[hidden] { display: none; }
+.mg-features__group-title svg { flex: none; color: var(--forest); }
 
 /* bottom decorative row — small leaf tucked bottom-left, handwritten-style
    closing line centered next to it */
@@ -394,55 +381,12 @@ html.lenis, html.lenis body { height: auto; }
   font-size: 10px; font-weight: 700; line-height: 16px; text-align: center;
 }
 
-/* Expand-on-hover (Сè section only): collapsed state shows icon + title,
-   the description/list live in a CSS-grid row animated 0fr -> 1fr, which
-   (unlike max-height) animates smoothly to the content's real height no
-   matter how long the text is. The inner wrapper's own opacity/translate
-   fades the text in slightly after the row starts growing, so it doesn't
-   just pop in the instant there's room. */
 .mg-feature-card { cursor: default; }
-.mg-feature-card__body {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows .4s var(--ease-soft);
-}
-.mg-feature-card__body-inner {
-  overflow: hidden;
-  min-height: 0; /* grid items default to min-height:auto, which would stop the 0fr row above from ever reaching 0 */
-  opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity .25s ease, transform .3s var(--ease-soft);
-}
-.mg-feature-card__body-inner > .mg-feature-card__text:first-child { margin-top: 14px; }
-.mg-feature-card__arrow svg { transition: transform .3s var(--ease-soft); }
 
-/* Mouse/trackpad: hover or keyboard focus opens it. Gated to real hover
-   devices so this rule never fires from a "sticky hover" tap on touch. */
-@media (hover: hover) and (pointer: fine) {
-  .mg-feature-card:hover .mg-feature-card__body,
-  .mg-feature-card:focus-within .mg-feature-card__body {
-    grid-template-rows: 1fr;
-  }
-  .mg-feature-card:hover .mg-feature-card__body-inner,
-  .mg-feature-card:focus-within .mg-feature-card__body-inner {
-    opacity: 1;
-    transform: none;
-  }
-  .mg-feature-card:hover .mg-feature-card__arrow svg,
-  .mg-feature-card:focus-within .mg-feature-card__arrow svg {
-    transform: rotate(90deg);
-  }
-}
-
-/* Touch/coarse pointer: js/app.js toggles this class on tap instead */
-.mg-feature-card.is-expanded .mg-feature-card__body { grid-template-rows: 1fr; }
-.mg-feature-card.is-expanded .mg-feature-card__body-inner { opacity: 1; transform: none; }
-.mg-feature-card.is-expanded .mg-feature-card__arrow svg { transform: rotate(90deg); }
-
-/* Flip cards (Ние trust row): front = icon+title (identical look to the
-   collapsed expand-cards above), back = just the description, centered.
-   A fixed height replaces the padding/auto-height .mg-feature-card
-   normally has, since both faces are absolutely positioned to fill it. */
+/* Flip cards (all "Сè" and "Ние" cards): front = icon+title, back = just
+   the description, centered. A fixed height replaces the padding/
+   auto-height .mg-feature-card normally has, since both faces are
+   absolutely positioned to fill it. */
 .mg-feature-card--flip {
   background: none; border: none; padding: 0; height: 190px;
   perspective: 1200px;
@@ -700,8 +644,6 @@ html.lenis, html.lenis body { height: auto; }
   /* Сè: switch block re-centers under the intro text, hint line dropped
      to cut clutter (it's a decorative flourish, not information) */
   .mg-features__intro { max-width: 100%; }
-  .mg-features__switch { align-items: center; width: 100%; margin-top: 8px; }
-  .mg-features__hint { display: none; }
   .mg-features__leaf { display: none; }
   .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }

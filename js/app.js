@@ -6,11 +6,10 @@
 
    Contents:
      1. Demo-form submission (Formspree/Web3Forms-style POST)
-     2. Градинки / Родители tab switch (click + keyboard)
-     3. Feature-card tap-to-expand (touch/no-hover devices only)
-     4. Entrance reveals (IntersectionObserver)
-     5. Unified Lenis + rAF scroll-motion engine
-     6. GSAP ScrollTrigger scene pin (Мобилна → Дојди → Веб апликација)
+     2. Feature-card tap-to-flip (touch/no-hover devices only)
+     3. Entrance reveals (IntersectionObserver)
+     4. Unified Lenis + rAF scroll-motion engine
+     5. GSAP ScrollTrigger scene pin (Мобилна → Дојди → Веб апликација)
    ============================================================ */
 
 // ------------------------------------------------------------
@@ -84,57 +83,8 @@
 })();
 
 // ------------------------------------------------------------
-// 2. Градинки / Родители tab switch (Сè section)
-// Click + full keyboard support (Left/Right/Home/End + roving tabindex),
-// matching the WAI-ARIA "Tabs" pattern.
-// ------------------------------------------------------------
-(function () {
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('.mg-features__tab'));
-  if (!tabs.length) return;
-
-  function activate(tab) {
-    var name = tab.getAttribute('data-tab');
-    tabs.forEach(function (t) {
-      var active = t === tab;
-      t.classList.toggle('is-active', active);
-      t.setAttribute('aria-selected', active ? 'true' : 'false');
-      t.tabIndex = active ? 0 : -1;
-    });
-    document.querySelectorAll('.mg-features__panel').forEach(function (panel) {
-      var show = panel.getAttribute('data-panel') === name;
-      panel.hidden = !show;
-      // panels start/stay hidden until switched to, so their [data-anim]
-      // cards never intersect the IntersectionObserver in the entrance-
-      // reveals script below — reveal them directly the first time this
-      // panel is shown, instead of leaving them stuck at opacity:0
-      if (show) {
-        panel.querySelectorAll('[data-anim]').forEach(function (el) {
-          el.classList.add('in-view');
-        });
-      }
-    });
-  }
-
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener('click', function () { activate(tab); });
-    tab.addEventListener('keydown', function (e) {
-      var next = null;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
-      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
-      else if (e.key === 'Home') next = tabs[0];
-      else if (e.key === 'End') next = tabs[tabs.length - 1];
-      if (next) {
-        e.preventDefault();
-        next.focus();
-        activate(next);
-      }
-    });
-  });
-})();
-
-// ------------------------------------------------------------
-// 3. Feature-card tap-to-expand/flip (Сè cards expand, Ние trust cards
-// flip). On mouse/trackpad, app.css handles both entirely via :hover/
+// 2. Feature-card tap-to-flip (Сè + Ние cards)
+// On mouse/trackpad, app.css handles the flip entirely via :hover/
 // :focus-within (gated to `(hover: hover) and (pointer: fine)`, so it
 // never fires from a "sticky hover" tap on touch). Devices that report
 // no real hover get this tap-to-toggle instead.
@@ -143,17 +93,16 @@
   var noHover = window.matchMedia && window.matchMedia('(hover: none)').matches;
   if (!noHover) return;
 
-  var cards = document.querySelectorAll('.mg-feature-card');
+  var cards = document.querySelectorAll('.mg-feature-card--flip');
   cards.forEach(function (card) {
-    var toggleClass = card.classList.contains('mg-feature-card--flip') ? 'is-flipped' : 'is-expanded';
     card.addEventListener('click', function () {
-      card.classList.toggle(toggleClass);
+      card.classList.toggle('is-flipped');
     });
   });
 })();
 
 // ------------------------------------------------------------
-// 4. Entrance reveals
+// 3. Entrance reveals
 // ------------------------------------------------------------
 (function () {
   var els = document.querySelectorAll('[data-anim], [data-ride]');
@@ -182,7 +131,7 @@
 })();
 
 // ------------------------------------------------------------
-// 5. Unified, eased scroll-motion engine (Lenis + one rAF loop).
+// 4. Unified, eased scroll-motion engine (Lenis + one rAF loop).
 // A single lerped "scroll" value drives every effect, so dots,
 // mece and parallax glide instead of snapping frame-to-frame.
 // ------------------------------------------------------------
@@ -284,7 +233,7 @@
 })();
 
 // ------------------------------------------------------------
-// 6. GSAP + ScrollTrigger power the .mg-scenes horizontal scene
+// 5. GSAP + ScrollTrigger power the .mg-scenes horizontal scene
 // sequence (Мобилна апликација → Дојди → Веб апликација), desktop
 // only. Skipped entirely under prefers-reduced-motion: the three
 // scenes just stay in normal document flow and stack/scroll like any
