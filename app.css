@@ -305,9 +305,6 @@ html.lenis, html.lenis body { height: auto; }
 .mg-display--lg { font-size: var(--fs-display-lg); line-height: 0.9; }
 .mg-display--md { font-size: var(--fs-display-md); line-height: 1; }
 
-.mg-intro__row { display: flex; align-items: flex-start; gap: 28px; flex-wrap: wrap; }
-.mg-intro__body { flex: 1; min-width: 280px; padding-top: 14px; }
-.mg-intro__lead { font-size: var(--fs-lead); font-weight: 800; letter-spacing: -0.01em; color: var(--forest); max-width: 26ch; }
 .mg-intro__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 56ch; }
 
 /* ---------- Features (Сè) ---------- */
