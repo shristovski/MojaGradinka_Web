@@ -362,7 +362,7 @@ html.lenis, html.lenis body { height: auto; }
   position: absolute; top: 50%; transform: translateY(-50%);
   padding: 16px 12px; border: none; background: none; box-shadow: none;
   display: flex; align-items: center; justify-content: center;
-  color: var(--forest); cursor: pointer; z-index: 3; opacity: 0.8;
+  color: var(--amber); cursor: pointer; z-index: 3; opacity: 0.8;
   transition: transform .2s ease, opacity .2s ease;
 }
 .mg-features__slider-nav:hover { opacity: 1; }
