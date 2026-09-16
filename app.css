@@ -426,6 +426,11 @@ html.lenis, html.lenis body { height: auto; }
    .mg-panel-col:last-child alone can't reach for a mid-grid item */
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n+1) { border-left: none; padding-left: 0; }
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n) { padding-right: 0; }
+/* the middle column keeps padding on BOTH sides (28px + 28px = 56px),
+   while the outer columns only pay it on one side (28px) — same
+   column width, but the middle one's text was visibly narrower.
+   Halving its padding evens the actual content width out. */
+.mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n+2) { padding-left: 14px; padding-right: 14px; }
 /* full content-box width (matches the column's own text/icon inset on
    both sides, rather than a shorter line floating unattached in the
    middle) */
