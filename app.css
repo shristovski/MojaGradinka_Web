@@ -429,7 +429,15 @@ html.lenis, html.lenis body { height: auto; }
 /* full content-box width (matches the column's own text/icon inset on
    both sides, rather than a shorter line floating unattached in the
    middle) */
-.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4) { border-top: 1px solid rgba(31,81,55,0.15); padding-top: 28px; }
+/* three separate short lines (one per column), each centred within its
+   own column, instead of one edge-to-edge divider — the equal column
+   widths + centering automatically keep every gap (line-to-vertical-
+   divider, line-to-outer-edge) equal and symmetrical */
+.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4) { padding-top: 28px; }
+.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4)::before {
+  content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 70%; height: 1px; background: rgba(31,81,55,0.15);
+}
 
 /* ---------- Live (Во живо) ---------- */
 /* no card look here anymore — it sits directly on .mg-scenes__frame's own
@@ -648,7 +656,11 @@ html.lenis, html.lenis body { height: auto; }
      math for 6 items */
   .mg-panel-grid--cols-3 { grid-template-columns: 1fr; row-gap: 24px; padding: 28px 24px; }
   .mg-panel-grid--cols-3 .mg-panel-col { padding: 0; border-left: none; }
-  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
+  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child) { padding-top: 24px; }
+  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child)::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 70%; height: 1px; background: rgba(31,81,55,0.15);
+  }
 }
 
 /* Mobile */
