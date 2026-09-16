@@ -361,11 +361,18 @@ html.lenis, html.lenis body { height: auto; }
   display: grid;
 }
 .mg-panel-grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
-.mg-panel-grid--cols-3 { grid-template-columns: repeat(3, 1fr); }
+/* Градинки variant: golden background instead of mist, corner
+   decoration moved to bottom-left (mirrors --cols-4's top-right one:
+   a circle centered exactly on that corner, clipped by the panel's
+   own overflow:hidden so only the inward quarter shows) */
+.mg-panel-grid--cols-3 { grid-template-columns: repeat(3, 1fr); background: #FEC21B; }
 .mg-panel-grid::after {
   content: ""; position: absolute; top: 0; right: 0; transform: translate(50%, -50%);
   width: 170px; height: 170px; border-radius: 50%;
   background: rgba(31,81,55,0.12);
+}
+.mg-panel-grid--cols-3::after {
+  top: auto; right: auto; bottom: 0; left: 0; transform: translate(-50%, 50%);
 }
 .mg-panel-col { position: relative; padding: 0 28px; border-left: 1px solid rgba(31,81,55,0.15); }
 .mg-panel-col:first-child { padding-left: 0; border-left: none; }
