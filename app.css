@@ -360,8 +360,8 @@ html.lenis, html.lenis body { height: auto; }
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .mg-features__slider-nav:hover { transform: translateY(-50%) scale(1.08); box-shadow: 0 10px 24px rgba(31,81,55,0.24); }
-.mg-features__slider-nav--prev { left: -21px; }
-.mg-features__slider-nav--next { right: -21px; }
+.mg-features__slider-nav--prev { left: 10px; }
+.mg-features__slider-nav--next { right: 10px; }
 
 /* bottom decorative row — small leaf tucked bottom-left, handwritten-style
    closing line centered next to it */
@@ -423,11 +423,10 @@ html.lenis, html.lenis body { height: auto; }
    .mg-panel-col:last-child alone can't reach for a mid-grid item */
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n+1) { border-left: none; padding-left: 0; }
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n) { padding-right: 0; }
-.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4) { padding-top: 28px; }
-.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4)::before {
-  content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 65%; height: 1px; background: rgba(31,81,55,0.15);
-}
+/* full content-box width (matches the column's own text/icon inset on
+   both sides, rather than a shorter line floating unattached in the
+   middle) */
+.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4) { border-top: 1px solid rgba(31,81,55,0.15); padding-top: 28px; }
 
 /* ---------- Live (Во живо) ---------- */
 /* no card look here anymore — it sits directly on .mg-scenes__frame's own
@@ -639,22 +638,14 @@ html.lenis, html.lenis body { height: auto; }
      otherwise inherit (it's now flush against the row's own edge) */
   .mg-panel-grid--cols-4 { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
   .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3) { border-left: none; padding-left: 0; }
-  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3), .mg-panel-grid--cols-4 .mg-panel-col:nth-child(4) { padding-top: 28px; }
-  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3)::before, .mg-panel-grid--cols-4 .mg-panel-col:nth-child(4)::before {
-    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 65%; height: 1px; background: rgba(31,81,55,0.15);
-  }
+  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3), .mg-panel-grid--cols-4 .mg-panel-col:nth-child(4) { padding-top: 28px; border-top: 1px solid rgba(31,81,55,0.15); }
 
   /* Градинки panel (3 cols x 2 rows): simpler to just collapse straight
      to a single column here than carry a 2-col tablet state's divider
      math for 6 items */
   .mg-panel-grid--cols-3 { grid-template-columns: 1fr; row-gap: 24px; padding: 28px 24px; }
   .mg-panel-grid--cols-3 .mg-panel-col { padding: 0; border-left: none; }
-  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child) { padding-top: 24px; }
-  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child)::before {
-    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 65%; height: 1px; background: rgba(31,81,55,0.15);
-  }
+  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
 }
 
 /* Mobile */
@@ -680,11 +671,7 @@ html.lenis, html.lenis body { height: auto; }
   .mg-panel-grid--cols-4 { grid-template-columns: 1fr; row-gap: 24px; padding: 28px 24px; }
   .mg-panel-grid::after { width: 100px; height: 100px; }
   .mg-panel-grid--cols-4 .mg-panel-col { padding: 0; border-left: none; }
-  .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child) { padding-top: 24px; }
-  .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child)::before {
-    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 65%; height: 1px; background: rgba(31,81,55,0.15);
-  }
+  .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
 
   /* Сè: switch block re-centers under the intro text, hint line dropped
      to cut clutter (it's a decorative flourish, not information) */
