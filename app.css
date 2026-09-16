@@ -351,17 +351,20 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__slider-track { display: flex; transition: transform .5s var(--ease-soft); }
 .mg-features__slider-track > .mg-panel-grid { flex: 0 0 100%; width: 100%; margin-top: 0; }
 
+/* Plain chevrons, no button chrome — padding gives a bigger tap target
+   than the visible icon without drawing a background/circle for it */
 .mg-features__slider-nav {
   position: absolute; top: 50%; transform: translateY(-50%);
-  width: 42px; height: 42px; border-radius: 50%; border: none;
-  background: #fff; box-shadow: 0 8px 20px rgba(31,81,55,0.18);
+  padding: 16px 12px; border: none; background: none; box-shadow: none;
   display: flex; align-items: center; justify-content: center;
-  color: var(--forest); cursor: pointer; z-index: 3;
-  transition: transform .2s ease, box-shadow .2s ease;
+  color: var(--forest); cursor: pointer; z-index: 3; opacity: 0.8;
+  transition: transform .2s ease, opacity .2s ease;
 }
-.mg-features__slider-nav:hover { transform: translateY(-50%) scale(1.08); box-shadow: 0 10px 24px rgba(31,81,55,0.24); }
-.mg-features__slider-nav--prev { left: 10px; }
-.mg-features__slider-nav--next { right: 10px; }
+.mg-features__slider-nav:hover { opacity: 1; }
+.mg-features__slider-nav--prev { left: 0; }
+.mg-features__slider-nav--prev:hover { transform: translateY(-50%) translateX(-3px); }
+.mg-features__slider-nav--next { right: 0; }
+.mg-features__slider-nav--next:hover { transform: translateY(-50%) translateX(3px); }
 
 /* bottom decorative row — small leaf tucked bottom-left, handwritten-style
    closing line centered next to it */
