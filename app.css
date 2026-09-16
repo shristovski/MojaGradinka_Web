@@ -386,6 +386,11 @@ html.lenis, html.lenis body { height: auto; }
   display: grid;
 }
 .mg-panel-grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
+/* same fix as --cols-3's middle column below: the two inner columns
+   (2 and 3) pay the 28px column padding on BOTH sides while the outer
+   ones only pay it once, so despite equal grid columns their actual
+   text width was narrower — halve it to even the content width out */
+.mg-panel-grid--cols-4 .mg-panel-col:nth-child(n+2):nth-child(-n+3) { padding-left: 14px; padding-right: 14px; }
 /* Градинки variant: pale-gold background (--sand, already the brand's
    light-cream token) instead of mist, with the corner decoration in
    the fuller gold as the accent — moved to bottom-left (mirrors
