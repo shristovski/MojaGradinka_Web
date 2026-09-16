@@ -331,6 +331,11 @@ html.lenis, html.lenis body { height: auto; }
    transition, with small round prev/next buttons overlapping the
    panel's own left/right edges. */
 .mg-features__slider { margin-top: 44px; }
+.mg-features__hint {
+  margin-bottom: 8px;
+  font-family: var(--font-script); font-style: italic; font-size: 17px; color: var(--amber);
+  text-align: right; line-height: 1.35;
+}
 .mg-features__tabs { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 20px; }
 .mg-features__tab {
   display: inline-flex; align-items: center; gap: 8px;
@@ -696,6 +701,7 @@ html.lenis, html.lenis body { height: auto; }
   /* Сè: switch block re-centers under the intro text, hint line dropped
      to cut clutter (it's a decorative flourish, not information) */
   .mg-features__intro { max-width: 100%; }
+  .mg-features__hint { display: none; }
   .mg-features__leaf { display: none; }
   .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
