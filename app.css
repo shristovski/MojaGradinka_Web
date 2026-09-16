@@ -343,7 +343,11 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__tab:hover { color: var(--forest); }
 .mg-features__tab.is-active { background: var(--forest); color: #fff; box-shadow: 0 8px 18px rgba(31,81,55,0.28); }
 
-.mg-features__slider-viewport { position: relative; overflow: hidden; border-radius: 22px; }
+/* the overflow:hidden that clips the sliding track lives on this inner
+   -clip wrapper now, not -viewport itself — -viewport needs to stay
+   unclipped so the nav buttons below can straddle its edge */
+.mg-features__slider-viewport { position: relative; }
+.mg-features__slider-clip { overflow: hidden; border-radius: 22px; }
 .mg-features__slider-track { display: flex; transition: transform .5s var(--ease-soft); }
 .mg-features__slider-track > .mg-panel-grid { flex: 0 0 100%; width: 100%; margin-top: 0; }
 
@@ -356,8 +360,8 @@ html.lenis, html.lenis body { height: auto; }
   transition: transform .2s ease, box-shadow .2s ease;
 }
 .mg-features__slider-nav:hover { transform: translateY(-50%) scale(1.08); box-shadow: 0 10px 24px rgba(31,81,55,0.24); }
-.mg-features__slider-nav--prev { left: 16px; }
-.mg-features__slider-nav--next { right: 16px; }
+.mg-features__slider-nav--prev { left: -21px; }
+.mg-features__slider-nav--next { right: -21px; }
 
 /* bottom decorative row — small leaf tucked bottom-left, handwritten-style
    closing line centered next to it */
@@ -402,7 +406,11 @@ html.lenis, html.lenis body { height: auto; }
   top: auto; right: auto; bottom: 0; left: 0; transform: translate(-50%, 50%);
   background: #FEC21B;
 }
-.mg-panel-col { position: relative; padding: 0 28px; border-left: 1px solid rgba(31,81,55,0.15); }
+/* z-index:1 keeps every column's own text above .mg-panel-grid::after —
+   without it the corner decoration (last in paint order, since
+   pseudo-elements paint after real children at the same stack level)
+   was covering the text of whichever column it overlaps */
+.mg-panel-col { position: relative; z-index: 1; padding: 0 28px; border-left: 1px solid rgba(31,81,55,0.15); }
 .mg-panel-col:first-child { padding-left: 0; border-left: none; }
 .mg-panel-col:last-child { padding-right: 0; }
 .mg-panel-col img { display: block; width: 40px; height: 40px; object-fit: contain; margin-bottom: 14px; }
@@ -415,7 +423,11 @@ html.lenis, html.lenis body { height: auto; }
    .mg-panel-col:last-child alone can't reach for a mid-grid item */
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n+1) { border-left: none; padding-left: 0; }
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n) { padding-right: 0; }
-.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4) { border-top: 1px solid rgba(31,81,55,0.15); padding-top: 28px; }
+.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4) { padding-top: 28px; }
+.mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4)::before {
+  content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 65%; height: 1px; background: rgba(31,81,55,0.15);
+}
 
 /* ---------- Live (Во живо) ---------- */
 /* no card look here anymore — it sits directly on .mg-scenes__frame's own
@@ -627,14 +639,22 @@ html.lenis, html.lenis body { height: auto; }
      otherwise inherit (it's now flush against the row's own edge) */
   .mg-panel-grid--cols-4 { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
   .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3) { border-left: none; padding-left: 0; }
-  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3), .mg-panel-grid--cols-4 .mg-panel-col:nth-child(4) { padding-top: 28px; border-top: 1px solid rgba(31,81,55,0.15); }
+  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3), .mg-panel-grid--cols-4 .mg-panel-col:nth-child(4) { padding-top: 28px; }
+  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3)::before, .mg-panel-grid--cols-4 .mg-panel-col:nth-child(4)::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 65%; height: 1px; background: rgba(31,81,55,0.15);
+  }
 
   /* Градинки panel (3 cols x 2 rows): simpler to just collapse straight
      to a single column here than carry a 2-col tablet state's divider
      math for 6 items */
   .mg-panel-grid--cols-3 { grid-template-columns: 1fr; row-gap: 24px; padding: 28px 24px; }
-  .mg-panel-grid--cols-3 .mg-panel-col { padding: 0; border-left: none; border-top: none; }
-  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
+  .mg-panel-grid--cols-3 .mg-panel-col { padding: 0; border-left: none; }
+  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child) { padding-top: 24px; }
+  .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child)::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 65%; height: 1px; background: rgba(31,81,55,0.15);
+  }
 }
 
 /* Mobile */
@@ -660,7 +680,11 @@ html.lenis, html.lenis body { height: auto; }
   .mg-panel-grid--cols-4 { grid-template-columns: 1fr; row-gap: 24px; padding: 28px 24px; }
   .mg-panel-grid::after { width: 100px; height: 100px; }
   .mg-panel-grid--cols-4 .mg-panel-col { padding: 0; border-left: none; }
-  .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
+  .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child) { padding-top: 24px; }
+  .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child)::before {
+    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 65%; height: 1px; background: rgba(31,81,55,0.15);
+  }
 
   /* Сè: switch block re-centers under the intro text, hint line dropped
      to cut clutter (it's a decorative flourish, not information) */
