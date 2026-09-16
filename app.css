@@ -326,13 +326,38 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__lead { margin: 16px 0 0; max-width: 52ch; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
 .mg-features__lead strong { color: var(--ink); font-weight: 700; }
 
-/* Градинки / Родители — two always-visible groups instead of a tab switch */
-.mg-features__group { margin-top: 44px; }
-.mg-features__group-title {
-  display: flex; align-items: center; gap: 10px;
-  margin: 0 0 20px; font-family: var(--font-round); font-weight: 700; font-size: 19px; color: var(--forest);
+/* Градинки / Родители slider — pill tabs (top-right) switch which
+   panel-grid is showing; a horizontal slide track does the actual
+   transition, with small round prev/next buttons overlapping the
+   panel's own left/right edges. */
+.mg-features__slider { margin-top: 44px; }
+.mg-features__tabs { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 20px; }
+.mg-features__tab {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: none; background: var(--mist); color: var(--muted);
+  font-family: inherit; font-weight: 700; font-size: 14px;
+  padding: 10px 22px; border-radius: 999px; cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
 }
-.mg-features__group-title svg { flex: none; color: var(--forest); }
+.mg-features__tab svg { flex: none; }
+.mg-features__tab:hover { color: var(--forest); }
+.mg-features__tab.is-active { background: var(--forest); color: #fff; box-shadow: 0 8px 18px rgba(31,81,55,0.28); }
+
+.mg-features__slider-viewport { position: relative; overflow: hidden; border-radius: 22px; }
+.mg-features__slider-track { display: flex; transition: transform .5s var(--ease-soft); }
+.mg-features__slider-track > .mg-panel-grid { flex: 0 0 100%; width: 100%; margin-top: 0; }
+
+.mg-features__slider-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 42px; height: 42px; border-radius: 50%; border: none;
+  background: #fff; box-shadow: 0 8px 20px rgba(31,81,55,0.18);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--forest); cursor: pointer; z-index: 3;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.mg-features__slider-nav:hover { transform: translateY(-50%) scale(1.08); box-shadow: 0 10px 24px rgba(31,81,55,0.24); }
+.mg-features__slider-nav--prev { left: 16px; }
+.mg-features__slider-nav--next { right: 16px; }
 
 /* bottom decorative row — small leaf tucked bottom-left, handwritten-style
    closing line centered next to it */
@@ -391,72 +416,6 @@ html.lenis, html.lenis body { height: auto; }
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n+1) { border-left: none; padding-left: 0; }
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n) { padding-right: 0; }
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4) { border-top: 1px solid rgba(31,81,55,0.15); padding-top: 28px; }
-
-/* icon-only feature cards (no photo) — used by the "Сè" tabs; icons
-   are the 3D illustrated PNG set in assets/icons/, sized by height so
-   each icon's own aspect ratio holds */
-.mg-feature-card {
-  background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 28px;
-  transition: transform .3s var(--ease-soft), box-shadow .3s var(--ease-soft);
-}
-.mg-feature-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(31,81,55,0.12); }
-.mg-feature-card__icon { display: block; height: 52px; width: auto; margin-bottom: 18px; }
-/* icon + decorative corner arrow row (Сè section cards only — cards that
-   don't opt into this wrapper keep the plain icon-then-title layout above) */
-.mg-feature-card__top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; }
-.mg-feature-card__top .mg-feature-card__icon { margin-bottom: 0; }
-.mg-feature-card__arrow {
-  flex: none; display: flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px; border-radius: 50%;
-  background: var(--mist); color: var(--muted);
-}
-.mg-feature-card__title { margin: 0; font-size: 17px; font-weight: 700; color: var(--forest); }
-.mg-feature-card__text { margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--muted); }
-.mg-feature-card__list { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
-.mg-feature-card__list li { position: relative; padding-left: 24px; font-size: 13px; color: var(--muted); }
-.mg-feature-card__list li::before {
-  content: "✓"; position: absolute; left: 0; top: 0;
-  width: 16px; height: 16px; border-radius: 50%;
-  background: var(--forest); color: #fff;
-  font-size: 10px; font-weight: 700; line-height: 16px; text-align: center;
-}
-
-.mg-feature-card { cursor: default; }
-
-/* Flip cards (all "Сè" and "Ние" cards): front = icon+title, back = just
-   the description, centered. A fixed height replaces the padding/
-   auto-height .mg-feature-card normally has, since both faces are
-   absolutely positioned to fill it. */
-.mg-feature-card--flip {
-  background: none; border: none; padding: 0; height: 190px;
-  perspective: 1200px;
-}
-.mg-feature-card--flip:hover, .mg-feature-card--flip:focus-within {
-  transform: none; box-shadow: none; /* the flip below replaces the plain lift/shadow hover */
-}
-.mg-feature-card__flip {
-  position: relative; width: 100%; height: 100%;
-  transition: transform .6s var(--ease-soft);
-  transform-style: preserve-3d;
-}
-.mg-feature-card__front, .mg-feature-card__back {
-  position: absolute; inset: 0; backface-visibility: hidden;
-  background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 28px;
-}
-.mg-feature-card__back {
-  transform: rotateY(180deg);
-  display: flex; align-items: center; justify-content: center; text-align: center;
-}
-.mg-feature-card__back .mg-feature-card__text { margin: 0; }
-
-@media (hover: hover) and (pointer: fine) {
-  .mg-feature-card--flip:hover .mg-feature-card__flip,
-  .mg-feature-card--flip:focus-within .mg-feature-card__flip {
-    transform: rotateY(180deg);
-  }
-}
-/* Touch/coarse pointer: js/app.js toggles this class on tap instead */
-.mg-feature-card--flip.is-flipped .mg-feature-card__flip { transform: rotateY(180deg); }
 
 /* ---------- Live (Во живо) ---------- */
 /* no card look here anymore — it sits directly on .mg-scenes__frame's own

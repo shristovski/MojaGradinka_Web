@@ -143,150 +143,91 @@
       </div>
     </div>
 
-    <div class="mg-features__group" data-anim="fade-up">
-      <h3 class="mg-features__group-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 21v-7h6v7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Градинки</h3>
-      <div class="mg-panel-grid mg-panel-grid--cols-3">
-        <div class="mg-panel-col">
-          <img src="assets/icons/child-face.png" alt="" aria-hidden="true" width="154" height="160" loading="lazy" />
-          <h3>Евиденција на деца</h3>
-          <p>Дигитална база на податоци за сите деца со целосни информации, групи, здравствени белешки и следење на развојот.</p>
-        </div>
-        <div class="mg-panel-col">
-          <img src="assets/icons/people-group.png" alt="" aria-hidden="true" width="160" height="140" loading="lazy" />
-          <h3>Управување со тим</h3>
-          <p>Централизирано управување на вработените, нивните улоги, работни термини и интерна комуникација.</p>
-        </div>
-        <div class="mg-panel-col">
-          <img src="assets/icons/wallet-coin.png" alt="" aria-hidden="true" width="160" height="153" loading="lazy" />
-          <h3>Паметни финансии</h3>
-          <p>Целосно автоматизирано финансиско управување со предефинирани пакети, автоматско фактурирање и детални извештаи.</p>
-        </div>
-        <div class="mg-panel-col">
-          <img src="assets/icons/padlock.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
-          <h3>Безбедност и заштита</h3>
-          <p>Висок степен на енкрипција на сите податоци, со усогласеност со важечките прописи за заштита на лични податоци.</p>
-        </div>
-        <div class="mg-panel-col">
-          <img src="assets/icons/calendar-star.png" alt="" aria-hidden="true" width="160" height="155" loading="lazy" />
-          <h3>Активности и настани</h3>
-          <p>Организација и управување со сите активности, настани и специјални програми со автоматско известување.</p>
-        </div>
-        <div class="mg-panel-col">
-          <img src="assets/icons/chat-bubbles.png" alt="" aria-hidden="true" width="159" height="160" loading="lazy" />
-          <h3>Комуникациски центар</h3>
-          <p>Централизирана комуникација со родителите преку директни пораки, групни известувања и итни контакти.</p>
-        </div>
+    <div class="mg-features__slider">
+      <div class="mg-features__tabs" role="tablist" aria-label="Прикажи функционалности за">
+        <button type="button" id="tab-gradinki" class="mg-features__tab is-active" data-tab="gradinki" role="tab" aria-selected="true" aria-controls="panel-gradinki" tabindex="0">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 21v-7h6v7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          Градинки
+        </button>
+        <button type="button" id="tab-roditeli" class="mg-features__tab" data-tab="roditeli" role="tab" aria-selected="false" aria-controls="panel-roditeli" tabindex="-1">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 19c.5-3 3-5.2 5.5-5.2s5 2.2 5.5 5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="9" r="2.3" stroke="currentColor" stroke-width="1.8"/><path d="M15 19c.3-2 1.6-3.6 3.3-4.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          Родители
+        </button>
       </div>
-    </div>
 
-    <div class="mg-features__group" data-anim="fade-up">
-      <h3 class="mg-features__group-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 19c.5-3 3-5.2 5.5-5.2s5 2.2 5.5 5.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="9" r="2.3" stroke="currentColor" stroke-width="1.8"/><path d="M15 19c.3-2 1.6-3.6 3.3-4.1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Родители</h3>
-      <div class="mg-grid mg-grid--3">
-
-
-      <div class="mg-feature-card mg-feature-card--flip" tabindex="0" data-anim="fade-up">
-        <div class="mg-feature-card__flip">
-          <div class="mg-feature-card__front">
-            <div class="mg-feature-card__top">
-              <img class="mg-feature-card__icon" src="assets/icons/eye.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
-              <span class="mg-feature-card__arrow" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
+      <div class="mg-features__slider-viewport">
+        <button type="button" class="mg-features__slider-nav mg-features__slider-nav--prev" aria-label="Претходна група">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 5 8 12l7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="mg-features__slider-track">
+          <div class="mg-panel-grid mg-panel-grid--cols-3" id="panel-gradinki" data-panel="gradinki" role="tabpanel" aria-labelledby="tab-gradinki">
+            <div class="mg-panel-col">
+              <img src="assets/icons/child-face.png" alt="" aria-hidden="true" width="154" height="160" loading="lazy" />
+              <h3>Евиденција на деца</h3>
+              <p>Дигитална база на податоци за сите деца со целосни информации, групи, здравствени белешки и следење на развојот.</p>
             </div>
-            <h3 class="mg-feature-card__title">Увид во живо</h3>
-          </div>
-          <div class="mg-feature-card__back">
-            <p class="mg-feature-card__text">Следете ги активностите на вашето дете во реално време — кога јаде, спие, си игра и каква е моменталната активност.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mg-feature-card mg-feature-card--flip" tabindex="0" data-anim="fade-up" data-anim-delay="100">
-        <div class="mg-feature-card__flip">
-          <div class="mg-feature-card__front">
-            <div class="mg-feature-card__top">
-              <img class="mg-feature-card__icon" src="assets/icons/chat-bubble.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
-              <span class="mg-feature-card__arrow" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
+            <div class="mg-panel-col">
+              <img src="assets/icons/people-group.png" alt="" aria-hidden="true" width="160" height="140" loading="lazy" />
+              <h3>Управување со тим</h3>
+              <p>Централизирано управување на вработените, нивните улоги, работни термини и интерна комуникација.</p>
             </div>
-            <h3 class="mg-feature-card__title">Инстант разговор</h3>
-          </div>
-          <div class="mg-feature-card__back">
-            <p class="mg-feature-card__text">Директна комуникација со воспитувачите и администрацијата преку сигурна chat-платформа со инстант известувања.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mg-feature-card mg-feature-card--flip" tabindex="0" data-anim="fade-up" data-anim-delay="200">
-        <div class="mg-feature-card__flip">
-          <div class="mg-feature-card__front">
-            <div class="mg-feature-card__top">
-              <img class="mg-feature-card__icon" src="assets/icons/calendar-check.png" alt="" aria-hidden="true" width="160" height="153" loading="lazy" />
-              <span class="mg-feature-card__arrow" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
+            <div class="mg-panel-col">
+              <img src="assets/icons/wallet-coin.png" alt="" aria-hidden="true" width="160" height="153" loading="lazy" />
+              <h3>Паметни финансии</h3>
+              <p>Целосно автоматизирано финансиско управување со предефинирани пакети, автоматско фактурирање и детални извештаи.</p>
             </div>
-            <h3 class="mg-feature-card__title">Паметен календар</h3>
-          </div>
-          <div class="mg-feature-card__back">
-            <p class="mg-feature-card__text">Интелигентен календар со автоматски потсетници за сите важни настани, активности и датуми во градинката.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mg-feature-card mg-feature-card--flip" tabindex="0" data-anim="fade-up">
-        <div class="mg-feature-card__flip">
-          <div class="mg-feature-card__front">
-            <div class="mg-feature-card__top">
-              <img class="mg-feature-card__icon" src="assets/icons/heart-cross.png" alt="" aria-hidden="true" width="160" height="154" loading="lazy" />
-              <span class="mg-feature-card__arrow" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
+            <div class="mg-panel-col">
+              <img src="assets/icons/padlock.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <h3>Безбедност и заштита</h3>
+              <p>Висок степен на енкрипција на сите податоци, со усогласеност со важечките прописи за заштита на лични податоци.</p>
             </div>
-            <h3 class="mg-feature-card__title">Здравје и безбедност</h3>
-          </div>
-          <div class="mg-feature-card__back">
-            <p class="mg-feature-card__text">Преглед на важни здравствени информации за вашето дете — алергии, ограничувања и итни контакти, достапни на воспитувачите кога им се потребни.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mg-feature-card mg-feature-card--flip" tabindex="0" data-anim="fade-up" data-anim-delay="100">
-        <div class="mg-feature-card__flip">
-          <div class="mg-feature-card__front">
-            <div class="mg-feature-card__top">
-              <img class="mg-feature-card__icon" src="assets/icons/folder-document.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
-              <span class="mg-feature-card__arrow" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
+            <div class="mg-panel-col">
+              <img src="assets/icons/calendar-star.png" alt="" aria-hidden="true" width="160" height="155" loading="lazy" />
+              <h3>Активности и настани</h3>
+              <p>Организација и управување со сите активности, настани и специјални програми со автоматско известување.</p>
             </div>
-            <h3 class="mg-feature-card__title">Дигитални документи</h3>
-          </div>
-          <div class="mg-feature-card__back">
-            <p class="mg-feature-card__text">Безбедно чување на сите важни документи, сертификати, извештаи за напредок и портфолио на активности на вашето дете.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mg-feature-card mg-feature-card--flip" tabindex="0" data-anim="fade-up" data-anim-delay="200">
-        <div class="mg-feature-card__flip">
-          <div class="mg-feature-card__front">
-            <div class="mg-feature-card__top">
-              <img class="mg-feature-card__icon" src="assets/icons/credit-card.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
-              <span class="mg-feature-card__arrow" aria-hidden="true">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
+            <div class="mg-panel-col">
+              <img src="assets/icons/chat-bubbles.png" alt="" aria-hidden="true" width="159" height="160" loading="lazy" />
+              <h3>Комуникациски центар</h3>
+              <p>Централизирана комуникација со родителите преку директни пораки, групни известувања и итни контакти.</p>
             </div>
-            <h3 class="mg-feature-card__title">Лесно плаќање</h3>
           </div>
-          <div class="mg-feature-card__back">
-            <p class="mg-feature-card__text">Сигурно онлајн плаќање преку банкарска картичка, со целосна историја на трансакции и автоматско фактурирање.</p>
+          <div class="mg-panel-grid mg-panel-grid--cols-3" id="panel-roditeli" data-panel="roditeli" role="tabpanel" aria-labelledby="tab-roditeli">
+            <div class="mg-panel-col">
+              <img src="assets/icons/eye.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <h3>Увид во живо</h3>
+              <p>Следете ги активностите на вашето дете во реално време — кога јаде, спие, си игра и каква е моменталната активност.</p>
+            </div>
+            <div class="mg-panel-col">
+              <img src="assets/icons/chat-bubble.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <h3>Инстант разговор</h3>
+              <p>Директна комуникација со воспитувачите и администрацијата преку сигурна chat-платформа со инстант известувања.</p>
+            </div>
+            <div class="mg-panel-col">
+              <img src="assets/icons/calendar-check.png" alt="" aria-hidden="true" width="160" height="153" loading="lazy" />
+              <h3>Паметен календар</h3>
+              <p>Интелигентен календар со автоматски потсетници за сите важни настани, активности и датуми во градинката.</p>
+            </div>
+            <div class="mg-panel-col">
+              <img src="assets/icons/heart-cross.png" alt="" aria-hidden="true" width="160" height="154" loading="lazy" />
+              <h3>Здравје и безбедност</h3>
+              <p>Преглед на важни здравствени информации за вашето дете — алергии, ограничувања и итни контакти, достапни на воспитувачите кога им се потребни.</p>
+            </div>
+            <div class="mg-panel-col">
+              <img src="assets/icons/folder-document.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <h3>Дигитални документи</h3>
+              <p>Безбедно чување на сите важни документи, сертификати, извештаи за напредок и портфолио на активности на вашето дете.</p>
+            </div>
+            <div class="mg-panel-col">
+              <img src="assets/icons/credit-card.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <h3>Лесно плаќање</h3>
+              <p>Сигурно онлајн плаќање преку банкарска картичка, со целосна историја на трансакции и автоматско фактурирање.</p>
+            </div>
           </div>
         </div>
-      </div>
-
-    
+        <button type="button" class="mg-features__slider-nav mg-features__slider-nav--next" aria-label="Следна група">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </div>
     <img class="mg-features__leaf" src="assets/leaf_03_blue_teardrop.svg" alt="" aria-hidden="true" width="2167" height="3167" loading="lazy" />

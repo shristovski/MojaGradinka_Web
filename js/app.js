@@ -83,22 +83,53 @@
 })();
 
 // ------------------------------------------------------------
-// 2. Feature-card tap-to-flip (Сè + Ние cards)
-// On mouse/trackpad, app.css handles the flip entirely via :hover/
-// :focus-within (gated to `(hover: hover) and (pointer: fine)`, so it
-// never fires from a "sticky hover" tap on touch). Devices that report
-// no real hover get this tap-to-toggle instead.
+// 2. Градинки / Родители slider (Сè section)
+// Pill tabs + round prev/next buttons all drive one horizontal slide
+// track. Left/Right arrow keys on a focused tab also step through it,
+// matching the WAI-ARIA "Tabs" pattern the old click-only tabs used.
 // ------------------------------------------------------------
 (function () {
-  var noHover = window.matchMedia && window.matchMedia('(hover: none)').matches;
-  if (!noHover) return;
+  var slider = document.querySelector('.mg-features__slider');
+  if (!slider) return;
 
-  var cards = document.querySelectorAll('.mg-feature-card--flip');
-  cards.forEach(function (card) {
-    card.addEventListener('click', function () {
-      card.classList.toggle('is-flipped');
+  var tabs = Array.prototype.slice.call(slider.querySelectorAll('.mg-features__tab'));
+  var track = slider.querySelector('.mg-features__slider-track');
+  var panels = track ? Array.prototype.slice.call(track.children) : [];
+  var prevBtn = slider.querySelector('.mg-features__slider-nav--prev');
+  var nextBtn = slider.querySelector('.mg-features__slider-nav--next');
+  if (!track || !panels.length) return;
+
+  var index = 0;
+
+  function goTo(i, focusTab) {
+    index = (i + panels.length) % panels.length;
+    track.style.transform = 'translateX(-' + (index * 100) + '%)';
+    tabs.forEach(function (tab, ti) {
+      var active = ti === index;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', active ? 'true' : 'false');
+      tab.tabIndex = active ? 0 : -1;
+      if (active && focusTab) tab.focus();
+    });
+    // the panel that was off-screen never intersected the entrance-
+    // reveal IntersectionObserver below — reveal its [data-anim] cards
+    // directly the first time it slides into view
+    panels[index].querySelectorAll('[data-anim]').forEach(function (el) {
+      el.classList.add('in-view');
+    });
+  }
+
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { goTo(i); });
+    tab.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goTo(i + 1, true); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(i - 1, true); }
     });
   });
+  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
+
+  goTo(0);
 })();
 
 // ------------------------------------------------------------
