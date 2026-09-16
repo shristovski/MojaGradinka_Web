@@ -435,8 +435,8 @@ html.lenis, html.lenis body { height: auto; }
    divider, line-to-outer-edge) equal and symmetrical */
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4) { padding-top: 28px; }
 .mg-panel-grid--cols-3 .mg-panel-col:nth-child(n+4)::before {
-  content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 70%; height: 1px; background: rgba(31,81,55,0.15);
+  content: ""; position: absolute; top: 0; left: 9px; right: 9px;
+  height: 1px; background: rgba(31,81,55,0.15);
 }
 
 /* ---------- Live (Во живо) ---------- */
@@ -658,8 +658,8 @@ html.lenis, html.lenis body { height: auto; }
   .mg-panel-grid--cols-3 .mg-panel-col { padding: 0; border-left: none; }
   .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child) { padding-top: 24px; }
   .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child)::before {
-    content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-    width: 70%; height: 1px; background: rgba(31,81,55,0.15);
+    content: ""; position: absolute; top: 0; left: 9px; right: 9px;
+    height: 1px; background: rgba(31,81,55,0.15);
   }
 }
 
