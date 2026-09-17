@@ -319,10 +319,14 @@ html.lenis, html.lenis body { height: auto; }
    transition, with small round prev/next buttons overlapping the
    panel's own left/right edges. */
 .mg-features__slider { margin-top: 44px; }
+/* sits in the head row next to the intro block, filling the row's
+   remaining space and centering itself (both the text and its own
+   vertical position) within that space */
 .mg-features__hint {
-  margin: 0 0 12px auto; max-width: 220px;
+  flex: 1; align-self: center;
+  margin: 0 auto; max-width: 220px;
   font-family: var(--font-script); font-style: italic; font-size: 21px; color: var(--amber);
-  text-align: right; line-height: 1.3;
+  text-align: center; line-height: 1.3;
 }
 .mg-features__tabs { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 20px; }
 .mg-features__tab {
