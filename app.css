@@ -324,7 +324,7 @@ html.lenis, html.lenis body { height: auto; }
    vertical position) within that space */
 .mg-features__hint {
   flex: 1; align-self: center;
-  margin: 0 auto; max-width: 220px;
+  margin: 10px auto 0; max-width: 220px;
   font-family: var(--font-script); font-style: italic; font-size: 21px; color: var(--amber);
   text-align: center; line-height: 1.3;
 }
