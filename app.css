@@ -319,8 +319,9 @@ html.lenis, html.lenis body { height: auto; }
    transition, with small round prev/next buttons overlapping the
    panel's own left/right edges. */
 .mg-features__slider { margin-top: 44px; }
-/* right-hand column of the head row: the pill tabs sit at the top
-   (level with the heading), the hint text/arrow just below them */
+/* right-hand column of the head row: the hint text/arrow sits at the
+   top (level with the heading), the pill tabs just below — right
+   where the arrow points, and small enough not to dominate the row */
 .mg-features__head-side { flex: 1; display: flex; flex-direction: column; }
 .mg-features__hint {
   margin: 35px auto 0; max-width: 220px;
@@ -328,12 +329,12 @@ html.lenis, html.lenis body { height: auto; }
   text-align: center; line-height: 1.3;
 }
 .mg-features__hint-arrow { display: block; margin: 4px auto 0; color: var(--amber); }
-.mg-features__tabs { display: flex; gap: 8px; justify-content: flex-end; }
+.mg-features__tabs { display: flex; gap: 6px; justify-content: center; margin-top: 10px; }
 .mg-features__tab {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 6px;
   border: none; background: var(--mist); color: var(--muted);
-  font-family: inherit; font-weight: 700; font-size: 14px;
-  padding: 10px 22px; border-radius: 999px; cursor: pointer;
+  font-family: inherit; font-weight: 700; font-size: 12.5px;
+  padding: 7px 16px; border-radius: 999px; cursor: pointer;
   transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
 }
 .mg-features__tab svg { flex: none; }
