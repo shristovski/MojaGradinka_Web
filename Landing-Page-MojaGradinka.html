@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>mojaGradinka — Апликација за градинки и родители</title>
+<meta name="description" content="mojaGradinka им носи радост на децата, а на градинките и родителите — организација и мир. Апликација за градинки и родители." />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Literata:ital,wght@1,400;1,500&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.css" />
+<link rel="stylesheet" href="app.css" />
+</helmet>
+
+<div class="mg-page">
+
+  <!-- FLOATING DOTS — live above the flow so they can drift from the hero down into "Ние" on scroll -->
+  <div class="mg-dots" aria-hidden="true">
+    <div class="mg-dot mg-dot--1" data-scrolldrop="610"><span class="dc-dot-el"></span></div>
+    <div class="mg-dot mg-dot--2" data-scrolldrop="480"><span class="dc-dot-el"></span></div>
+    <div class="mg-dot mg-dot--3" data-scrolldrop="400"><span class="dc-dot-el"></span></div>
+    <div class="mg-dot mg-dot--4" data-scrolldrop="520"><span class="dc-dot-el"></span></div>
+    <div class="mg-dot mg-dot--5 mg-dot--lg" data-scrolldrop="660"><span class="dc-dot-el"></span></div>
+    <div class="mg-dot mg-dot--6 mg-dot--lg" data-scrolldrop="470"><span class="dc-dot-el"></span></div>
+    <div class="mg-dot mg-dot--7 mg-dot--lg" data-scrolldrop="680"><span class="dc-dot-el"></span></div>
+  </div>
+
+  <!-- NAV -->
+  <div class="mg-nav" id="top">
+    <img class="mg-nav__logo" src="assets/lockup-forest.svg" alt="mojaGradinka" />
+    <div class="mg-nav__links">
+      <a href="#se" class="nav-link">Функционалности</a>
+      <a href="#dojdi" class="nav-link">За кого е</a>
+      <a href="tel:+38970000000" class="nav-link mg-nav__phone">+389 70 000 000</a>
+      <a href="#demo-forma" class="btn btn--primary btn--sm">Закажи демо</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="mg-hero-section" id="hero">
+    <div class="mg-hero" data-anim="zoom-in">
+      <img class="mg-hero__photo" src="assets/hero-photo.png" alt="Детска соба во градинка" />
+      <div class="mg-hero__fade mg-hero__fade--top" aria-hidden="true"></div>
+      <div class="mg-hero__fade mg-hero__fade--left" aria-hidden="true"></div>
+      <div class="mg-hero__fade mg-hero__fade--right" aria-hidden="true"></div>
+      <div class="mg-hero__fade mg-hero__fade--bottom" aria-hidden="true"></div>
+
+      <div class="mg-hero__badge" data-anim="fade-up" data-anim-delay="200">
+        <div class="mg-hero__title">Спокојно детство</div>
+        <div class="mg-hero__sub">секој ден, без грижи</div>
+        <div class="mg-hero__mece" data-scrollslide="260">
+          <img src="assets/mece-skirol.png" alt="" aria-hidden="true" />
+        </div>
+        <a href="#nie" class="btn btn--primary mg-hero__cta dc-pulse">Дознај зошто →</a>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- НИЕ -->
+  <div class="mg-section mg-intro" id="nie">
+    <img class="mg-leaf mg-leaf--nie" src="assets/leaf_02_red_pointed.svg" alt="" aria-hidden="true" />
+    <div class="mg-intro__row">
+      <div class="mg-display mg-display--xl" data-anim="zoom-in">Ние</div>
+      <div class="mg-intro__body">
+        <div class="mg-intro__lead" data-anim="fade-up">сме местото каде градинките и родителите се среќаваат.</div>
+        <p class="mg-intro__text" data-anim="fade-up" data-anim-delay="150">mojaGradinka им носи радост на децата, а на градинките и родителите — организација и мир. Администрација, комуникација и секојдневни информации за детето, сè на едно безбедно место.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- СЀ НА ЕДНО МЕСТО -->
+  <div class="mg-section mg-features" id="se">
+    <div class="mg-features__head">
+      <div class="mg-display mg-display--xl" data-anim="zoom-in">Сè</div>
+      <div class="mg-features__tag" data-anim="fade-up" data-anim-delay="150">на едно место, за секого.</div>
+      <div class="mg-features__tabs" role="tablist">
+        <button type="button" class="mg-features__tab is-active" data-tab="korisnici" role="tab" aria-selected="true">Корисници</button>
+        <button type="button" class="mg-features__tab" data-tab="roditeli" role="tab" aria-selected="false">Родители</button>
+      </div>
+    </div>
+
+    <div class="mg-grid mg-grid--3 mg-features__panel" data-panel="korisnici">
+
+      <div class="mg-feature-card" data-anim="fade-up">
+        <div class="mg-live__promo-icon mg-live__promo-icon--green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3" stroke="#ffffff" stroke-width="1.8"/><circle cx="17" cy="10.5" r="2.3" stroke="#ffffff" stroke-width="1.8"/><path d="M3.5 19c.5-3 3-5.2 5.5-5.2s5 2.2 5.5 5.2M15 19c.3-2 1.6-3.6 3.3-4.1" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Евиденција на деца</div>
+        <p class="mg-feature-card__text">Дигитална база на податоци за сите деца со целосни информации, групи, здравствени картони и следење на развојот.</p>
+        <ul class="mg-feature-card__list">
+          <li>Лични податоци и документи</li>
+          <li>Медицински информации и алергии</li>
+          <li>Следење на напредок и развој</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="100">
+        <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#ffffff" stroke-width="1.8"/><path d="M12 3v3M12 18v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M3 12h3M18 12h3M4.9 19.1 7 17M17 7l2.1-2.1" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Управување со тим</div>
+        <p class="mg-feature-card__text">Централизирано управување на вработените, нивните улоги, работни термини и интерна комуникација.</p>
+        <ul class="mg-feature-card__list">
+          <li>Распоред на смени и задолженија</li>
+          <li>Улоги и дозволи за пристап</li>
+          <li>Интерна комуникација и задачи</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="200">
+        <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18M8 7.6c0-1.6 1.5-2.6 4-2.6s4 1.2 4 2.8c0 2.9-8 2-8 5.3 0 1.6 1.8 2.8 4 2.8s4-1 4-2.7" stroke="#1F5137" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Паметни финансии</div>
+        <p class="mg-feature-card__text">Целосно автоматизирано финансиско управување со предефинирани пакети, автоматско фактурирање и детални извештаи.</p>
+        <ul class="mg-feature-card__list">
+          <li>Автоматски фактури и плаќања</li>
+          <li>Пакети услуги и ценовник</li>
+          <li>Финансиски извештаи и аналитика</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up">
+        <div class="mg-live__promo-icon mg-live__promo-icon--green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="5" y="10" width="14" height="10" rx="2" stroke="#ffffff" stroke-width="1.8"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="#ffffff" stroke-width="1.8"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Безбедност и заштита</div>
+        <p class="mg-feature-card__text">Висок степен на енкрипција на сите податоци, со усогласеност со важечките прописи за заштита на лични податоци.</p>
+        <ul class="mg-feature-card__list">
+          <li>Енкрипција на податоците</li>
+          <li>Усогласеност со прописи за приватност</li>
+          <li>Двофакторска автентикација (2FA)</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="100">
+        <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2.5" stroke="#ffffff" stroke-width="1.8"/><path d="M8 3v4M16 3v4M4 10h16" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Активности и настани</div>
+        <p class="mg-feature-card__text">Организација и управување со сите активности, настани и специјални програми со автоматско известување.</p>
+        <ul class="mg-feature-card__list">
+          <li>Календар на активности и настани</li>
+          <li>Автоматски известувања до родители</li>
+          <li>Следење на учество и резултати</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="200">
+        <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 6h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke="#1F5137" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Комуникациски центар</div>
+        <p class="mg-feature-card__text">Централизирана комуникација со родителите преку директни пораки, групни известувања и итни контакти.</p>
+        <ul class="mg-feature-card__list">
+          <li>Директен разговор со родителите</li>
+          <li>Групни известувања и потсетници</li>
+          <li>Итни контакти и аларми</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="mg-grid mg-grid--3 mg-features__panel" data-panel="roditeli" hidden>
+
+      <div class="mg-feature-card" data-anim="fade-up">
+        <div class="mg-live__promo-icon mg-live__promo-icon--green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 12S5.5 5 12 5s10 7 10 7-3.5 7-10 7-10-7-10-7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="#ffffff" stroke-width="1.8"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Увид во живо</div>
+        <p class="mg-feature-card__text">Следете ги активностите на вашето дете во реално време — кога јаде, спие, си игра и каква е моменталната активност.</p>
+        <ul class="mg-feature-card__list">
+          <li>Статус на активности во реално време</li>
+          <li>Евиденција на оброци и спиење</li>
+          <li>Моментално расположение и учество</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="100">
+        <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M13 3 5 14h6l-1 7 8-11h-6l1-7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Инстант разговор</div>
+        <p class="mg-feature-card__text">Директна комуникација со воспитувачите и администрацијата преку сигурна chat-платформа со инстант известувања.</p>
+        <ul class="mg-feature-card__list">
+          <li>Разговор со воспитувачите во реално време</li>
+          <li>Известувања за важни пораки</li>
+          <li>Споделување слики и документи</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="200">
+        <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2.5" stroke="#1F5137" stroke-width="1.8"/><path d="M8 3v4M16 3v4M4 10h16" stroke="#1F5137" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Паметен календар</div>
+        <p class="mg-feature-card__text">Интелигентен календар со автоматски потсетници за сите важни настани, активности и датуми во градинката.</p>
+        <ul class="mg-feature-card__list">
+          <li>Автоматски потсетници за настани</li>
+          <li>Календар на активности и екскурзии</li>
+          <li>Родендени и посебни датуми</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up">
+        <div class="mg-live__promo-icon mg-live__promo-icon--green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 5.5 6v6c0 4.6 3 7.6 6.5 8.5 3.5-.9 6.5-3.9 6.5-8.5V6L12 3.5Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 15.3c-2.2-1.5-3.5-2.8-3.5-4.4 0-1 .9-1.8 1.8-1.8.7 0 1.3.4 1.7 1 .4-.6 1-1 1.7-1 .9 0 1.8.8 1.8 1.8 0 1.6-1.3 2.9-3.5 4.4Z" fill="#ffffff"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Здравје и безбедност</div>
+        <p class="mg-feature-card__text">Целосен медицински картон на вашето дете со информации за алергии, итни контакти и здравствени напомени.</p>
+        <ul class="mg-feature-card__list">
+          <li>Дигитален медицински картон</li>
+          <li>Алергии и медицински ограничувања</li>
+          <li>Итни контакти и процедури</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="100">
+        <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M14 3v4h4" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.5 12.5h5M9.5 15.5h5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Дигитални документи</div>
+        <p class="mg-feature-card__text">Безбедно чување на сите важни документи, сертификати, извештаи за напредок и портфолио на активности на вашето дете.</p>
+        <ul class="mg-feature-card__list">
+          <li>Сертификати и признанија</li>
+          <li>Месечни извештаи за напредок</li>
+          <li>Портфолио на креативни работи</li>
+        </ul>
+      </div>
+
+      <div class="mg-feature-card" data-anim="fade-up" data-anim-delay="200">
+        <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3.5" y="6" width="17" height="12" rx="2.5" stroke="#1F5137" stroke-width="1.8"/><path d="M3.5 10h17" stroke="#1F5137" stroke-width="1.8"/><circle cx="7" cy="14" r="1.1" fill="#1F5137"/></svg>
+        </div>
+        <div class="mg-feature-card__title">Лесно плаќање</div>
+        <p class="mg-feature-card__text">Сигурно онлајн плаќање преку банкарска картичка, со целосна историја на трансакции и автоматско фактурирање.</p>
+        <ul class="mg-feature-card__list">
+          <li>Сигурни онлајн плаќања</li>
+          <li>Целосна историја на трансакции</li>
+          <li>Автоматско фактурирање</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCROLL SCENES: Мобилна апликација → Дојди → Веб апликација, pinned
+       and slid horizontally via GSAP ScrollTrigger (desktop only — see
+       script at bottom of page). Below 961px they just stack normally. -->
+  <div class="mg-scenes">
+    <div class="mg-scenes__frame">
+      <img class="mg-scenes__watermark" src="assets/icon-colour-watermark.svg" alt="" aria-hidden="true" />
+
+  <!-- МОБИЛНА АПЛИКАЦИЈА -->
+  <div class="mg-section mg-live" id="vo-zivo">
+    <div class="mg-live__card">
+      <div class="mg-live__row">
+        <div class="mg-live__promo" data-anim="fade-up">
+          <h2 class="mg-live__title" data-anim="fade-down">Мобилна <span class="mg-accent">апликација</span></h2>
+          <p class="mg-live__promo-text">Преземете ја нашата мобилна апликација и имајте пристап до сите функционалности секогаш при рака. Следете ги активностите на детето, комуницирајте со воспитувачите и управувајте со градинката од секаде.</p>
+
+          <div class="mg-live__promo-features">
+            <div class="mg-live__promo-feature">
+              <div class="mg-live__promo-icon mg-live__promo-icon--green">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4a5 5 0 0 0-5 5v3.5c0 .7-.3 1.4-.8 1.9L5 15.8c-.6.6-.2 1.7.7 1.7h12.6c.9 0 1.3-1.1.7-1.7l-1.2-1.4a2.6 2.6 0 0 1-.8-1.9V9a5 5 0 0 0-5-5Z" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 19a2 2 0 0 0 4 0" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div class="mg-live__promo-feature-title">Инстант известувања</div>
+                <div class="mg-live__promo-feature-text">Бидете веднаш известени за сите важни случувања</div>
+              </div>
+            </div>
+            <div class="mg-live__promo-feature">
+              <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M5 6h11a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H9l-4 3v-3H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/></svg>
+              </div>
+              <div>
+                <div class="mg-live__promo-feature-title">Директна комуникација</div>
+                <div class="mg-live__promo-feature-text">Разговор со воспитувачите и родителите во реално време</div>
+              </div>
+            </div>
+            <div class="mg-live__promo-feature">
+              <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V11M12 20V4M20 20v-7" stroke="#1F5137" stroke-width="2.2" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div class="mg-live__promo-feature-title">Детални извештаи</div>
+                <div class="mg-live__promo-feature-text">Следете го напредокот на детето и финансиските податоци</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mg-live__promo-badges">
+            <span class="mg-live__promo-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              App Store
+            </span>
+            <span class="mg-live__promo-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Google Play
+            </span>
+          </div>
+        </div>
+        <div class="mg-cta__media" data-anim="fade-up" data-anim-delay="200">
+          <img class="mg-scene-phone" src="assets/phone-mockup-live.png" alt="Родителска апликација" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ДОЈДИ -->
+  <div class="mg-section mg-cta" id="dojdi">
+    <div class="mg-cta__row">
+      <div class="mg-cta__col">
+        <h2 class="mg-cta__title" data-anim="fade-down">Дојди <span class="mg-accent">и погледни одблиску</span></h2>
+
+        <p class="mg-cta__text" data-anim="fade-up" data-anim-delay="150">Главната страница на апликацијата ви овозможува пристап до сите клучни функционалности. Следете ги дневните активности, комуницирајте со тимот и управувајте со градинката ефикасно.</p>
+
+        <div class="mg-live__promo-features mg-cta__features">
+          <div class="mg-live__promo-feature">
+            <div class="mg-live__promo-icon mg-live__promo-icon--green">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20V11M12 20V4M20 20v-7" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="mg-live__promo-feature-title">Преглед на контролна табла</div>
+              <div class="mg-live__promo-feature-text">Сите важни информации на едно место — присуство, активности, известувања</div>
+            </div>
+          </div>
+          <div class="mg-live__promo-feature">
+            <div class="mg-live__promo-icon mg-live__promo-icon--amber">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="9" r="3" stroke="#ffffff" stroke-width="1.8"/><circle cx="17" cy="10.5" r="2.3" stroke="#ffffff" stroke-width="1.8"/><path d="M3.5 19c.5-3 3-5.2 5.5-5.2s5 2.2 5.5 5.2M15 19c.3-2 1.6-3.6 3.3-4.1" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="mg-live__promo-feature-title">Управување со групи</div>
+              <div class="mg-live__promo-feature-text">Организирајте ги децата по групи, следете активности и напредок на секое дете</div>
+            </div>
+          </div>
+          <div class="mg-live__promo-feature">
+            <div class="mg-live__promo-icon mg-live__promo-icon--sand">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="15" rx="2.5" stroke="#1F5137" stroke-width="1.8"/><path d="M8 3v4M16 3v4M4 10h16" stroke="#1F5137" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="mg-live__promo-feature-title">Планирање активности</div>
+              <div class="mg-live__promo-feature-text">Креирајте распоред на активности, доделувајте задачи и следете извршување</div>
+            </div>
+          </div>
+          <div class="mg-live__promo-feature">
+            <div class="mg-live__promo-icon mg-live__promo-icon--green">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4v11m0 0 4-4m-4 4-4-4M5 19h14" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="mg-live__promo-feature-title">Брза комуникација</div>
+              <div class="mg-live__promo-feature-text">Директен пристап до чат системот и известувањата за родители</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mg-cta__media" data-anim="fade-up" data-anim-delay="200">
+        <img class="mg-scene-phone" src="assets/phone-mockup-cta.png" alt="Функционалностите на апликацијата" />
+      </div>
+    </div>
+    </div>
+
+  <!-- ВЕБ АПЛИКАЦИЈА -->
+  <div class="mg-section mg-webapp" id="veb-aplikacija">
+    <h2 class="mg-webapp__title" data-anim="fade-down">Веб <span class="mg-accent">апликација</span></h2>
+    <p class="mg-webapp__text" data-anim="fade-up" data-anim-delay="150">Целосна контролна табла за градинката — присуство, финансии, групи и известувања, сè на едно место.</p>
+    <div class="mg-laptop" data-anim="fade-up" data-anim-delay="250">
+      <div class="mg-laptop__bar"><span></span><span></span><span></span></div>
+      <div class="mg-laptop__screen">
+        <img src="assets/web_app.jpg" alt="Веб апликација — контролна табла" />
+      </div>
+      <div class="mg-laptop__base"></div>
+    </div>
+  </div>
+
+    </div>
+  </div>
+
+  <!-- ПОНУДИ -->
+  <div class="mg-section mg-pricing" id="ponudi">
+    <div class="mg-features__head">
+      <div class="mg-display mg-display--xl" data-anim="zoom-in">Понуди</div>
+      <div class="mg-features__tag" data-anim="fade-up" data-anim-delay="150">планови прилагодени на секоја градинка.</div>
+    </div>
+
+    <div class="mg-grid mg-grid--3 mg-pricing__grid">
+      <div class="mg-pricing-plan" data-anim="fade-up">
+        <div class="mg-pricing-plan__name">Основен</div>
+        <div class="mg-pricing-plan__desc">За мали градинки</div>
+        <ul class="mg-pricing-plan__features">
+          <li>1 градинка</li>
+          <li>Основна комуникација</li>
+          <li>Основна администрација</li>
+          <li>5GB простор за документи</li>
+          <li>Е-пошта поддршка</li>
+        </ul>
+        <a href="#demo-forma" class="btn btn--secondary mg-pricing-plan__cta">Контактирај нè</a>
+      </div>
+
+      <div class="mg-pricing-plan mg-pricing-plan--featured" data-anim="fade-up" data-anim-delay="150">
+        <div class="mg-pricing-plan__name">Професионален</div>
+        <div class="mg-pricing-plan__desc">За повеќето градинки</div>
+        <ul class="mg-pricing-plan__features">
+          <li>До 3 градинки</li>
+          <li>Напредна комуникација + групи</li>
+          <li>Целосна администрација и присуство</li>
+          <li>Автоматска наплата</li>
+          <li>25GB простор</li>
+          <li>Приоритетна поддршка</li>
+        </ul>
+        <a href="#demo-forma" class="btn btn--primary mg-pricing-plan__cta">Контактирај нè</a>
+      </div>
+
+      <div class="mg-pricing-plan" data-anim="fade-up" data-anim-delay="300">
+        <div class="mg-pricing-plan__name">Премиум</div>
+        <div class="mg-pricing-plan__desc">За големи организации</div>
+        <ul class="mg-pricing-plan__features">
+          <li>Неограничен број градинки</li>
+          <li>Целосен сет на функции</li>
+          <li>Напредни финансиски извештаи</li>
+          <li>100GB+ простор</li>
+          <li>Посветен менаџер за поддршка</li>
+        </ul>
+        <a href="#demo-forma" class="btn btn--secondary mg-pricing-plan__cta">Контактирај нè</a>
+      </div>
+    </div>
+
+    <div class="mg-pricing__footnote" data-anim="fade-up" data-anim-delay="450">Сите планови вклучуваат 30-дневен бесплатен пробен период.</div>
+  </div>
+
+  <!-- SLANT INTO DEMO FORM -->
+  <div class="mg-slant mg-slant--to-form">
+    <svg viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,27 L1200,9 L1200,40 L0,40 Z" fill="#EEF3EF"/>
+    </svg>
+  </div>
+
+  <!-- DEMO FORM -->
+  <div class="mg-form-section" id="demo-forma">
+    <div class="mg-form-section__inner">
+      <img class="mg-leaf mg-leaf--form" src="assets/leaf_04_coral_oak.svg" alt="" aria-hidden="true" />
+      <h2 class="mg-form__title">Закажи демо за твojaтa градинка</h2>
+      <p class="mg-form__sub">Пополнете и ќе ве контактираме.</p>
+
+      <form id="demo-form" class="mg-form">
+        <div class="mg-field">
+          <label for="df-name" class="mg-field__label">Име и презиме *</label>
+          <input id="df-name" name="name" type="text" required class="mg-input" />
+        </div>
+        <div class="mg-field">
+          <label for="df-kg" class="mg-field__label">Име на градинка *</label>
+          <input id="df-kg" name="kindergarten" type="text" required class="mg-input" />
+        </div>
+        <div class="mg-field">
+          <label for="df-role" class="mg-field__label">Улога *</label>
+          <select id="df-role" name="role" required class="mg-input mg-select">
+            <option value="">Изберете...</option>
+            <option value="Директор/ка">Директор/ка</option>
+            <option value="Управител/ка">Управител/ка</option>
+            <option value="Воспитувач/ка">Воспитувач/ка</option>
+            <option value="Администрација">Администрација</option>
+          </select>
+        </div>
+        <div class="mg-field">
+          <label for="df-email" class="mg-field__label">Е-пошта *</label>
+          <input id="df-email" name="email" type="email" required class="mg-input" />
+        </div>
+        <div class="mg-form__row">
+          <div class="mg-field">
+            <label for="df-phone" class="mg-field__label">Телефон</label>
+            <input id="df-phone" name="phone" type="tel" class="mg-input" />
+          </div>
+          <div class="mg-field">
+            <label for="df-kids" class="mg-field__label">Број на деца</label>
+            <input id="df-kids" name="kids" type="text" class="mg-input" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary mg-form__submit">Прати барање</button>
+        <div class="mg-form__note">Отвора e-пошта со пополнетите податоци до kontakt@mojagradinka.mk</div>
+      </form>
+    </div>
+
+    <!-- SLANT INTO FOOTER -->
+    <div class="mg-slant mg-slant--to-footer">
+      <img class="mg-footer-deco mg-footer-deco--tree" src="assets/tree.png" alt="" aria-hidden="true" />
+      <img class="mg-footer-deco mg-footer-deco--bears" src="assets/bears_walking.png" alt="" aria-hidden="true" />
+      <svg viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,9 L1200,27 L1200,40 L0,40 Z" fill="#153B29"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="mg-footer" id="footer">
+    <div class="mg-footer__inner">
+      <div class="mg-footer__cols">
+        <div class="mg-footer__col">
+          <div class="mg-footer__heading">Производ</div>
+          <a href="#se" class="footer-link">Функционалности</a>
+          <a href="#vo-zivo" class="footer-link">Мобилна апликација</a>
+          <a href="#dojdi" class="footer-link">За кого е</a>
+        </div>
+        <div class="mg-footer__col">
+          <div class="mg-footer__heading">Компанија</div>
+          <a href="#nie" class="footer-link">За нас</a>
+          <a href="#demo-forma" class="footer-link">Контакт</a>
+        </div>
+        <div class="mg-footer__col">
+          <div class="mg-footer__heading">Правно</div>
+          <a href="#demo-forma" class="footer-link">Политика на приватност</a>
+          <a href="#demo-forma" class="footer-link">Услови на користење</a>
+        </div>
+        <div class="mg-footer__col">
+          <div class="mg-footer__heading">Контакт</div>
+          <a href="mailto:kontakt@mojagradinka.mk" class="footer-link">kontakt@mojagradinka.mk</a>
+          <a href="tel:+38970000000" class="footer-link">+389 70 000 000</a>
+        </div>
+      </div>
+      <div class="mg-footer__bottom">
+        <img class="mg-footer__logo" src="assets/lockup-white.svg" alt="mojaGradinka" />
+        <div class="mg-footer__copy">© 2026 mojaGradinka. Сите права задржани.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+<script>
+document.addEventListener('submit', function (e) {
+  var form = e.target;
+  if (!form || form.id !== 'demo-form') return;
+  e.preventDefault();
+  var get = function (id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  };
+  var name = get('df-name');
+  var kg = get('df-kg');
+  var role = get('df-role');
+  var email = get('df-email');
+  var phone = get('df-phone');
+  var kids = get('df-kids');
+  var subject = 'Барање за демо' + (kg ? ' — ' + kg : '');
+  var lines = [
+    'Име и презиме: ' + name,
+    'Градинка: ' + kg,
+    'Улога: ' + role,
+    'Е-пошта: ' + email
+  ];
+  if (phone) lines.push('Телефон: ' + phone);
+  if (kids) lines.push('Број на деца: ' + kids);
+  var mailto = 'mailto:kontakt@mojagradinka.mk?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+  window.location.href = mailto;
+});
+</script>
+<script>
+// Корисници / Родители tab switch (Сè section)
+(function () {
+  var tabs = document.querySelectorAll('.mg-features__tab');
+  if (!tabs.length) return;
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var name = tab.getAttribute('data-tab');
+      tabs.forEach(function (t) {
+        var active = t === tab;
+        t.classList.toggle('is-active', active);
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      document.querySelectorAll('.mg-features__panel').forEach(function (panel) {
+        var show = panel.getAttribute('data-panel') === name;
+        panel.hidden = !show;
+        // panels start/stay hidden until switched to, so their [data-anim]
+        // cards never intersect the IntersectionObserver in the entrance-
+        // reveals script below — reveal them directly the first time this
+        // panel is shown, instead of leaving them stuck at opacity:0
+        if (show) {
+          panel.querySelectorAll('[data-anim]').forEach(function (el) {
+            el.classList.add('in-view');
+          });
+        }
+      });
+    });
+  });
+})();
+</script>
+<script>
+// entrance reveals
+(function () {
+  var els = document.querySelectorAll('[data-anim], [data-ride]');
+  if (!els.length) return;
+
+  function reveal(el) {
+    var delay = parseInt(el.getAttribute('data-anim-delay') || '0', 10);
+    setTimeout(function () { el.classList.add('in-view'); }, delay);
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(reveal);
+    return;
+  }
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        reveal(entry.target);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+// ============================================================
+// Unified, eased scroll-motion engine (Lenis + one rAF loop).
+// A single lerped "scroll" value drives every effect, so dots,
+// mece and parallax glide instead of snapping frame-to-frame.
+// ============================================================
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var parallax = [];
+  document.querySelectorAll('[data-parallax]').forEach(function (el) {
+    var spec = {};
+    el.getAttribute('data-parallax').split(',').forEach(function (pair) {
+      var kv = pair.split(':');
+      spec[kv[0].trim()] = parseFloat(kv[1]);
+    });
+    parallax.push({ el: el, ty: spec.ty || 0, tx: spec.tx || 0, scaleAmt: spec.scale || 0 });
+  });
+
+  var drops = [];
+  document.querySelectorAll('[data-scrolldrop]').forEach(function (el) {
+    drops.push({ el: el, max: parseFloat(el.getAttribute('data-scrolldrop')) });
+  });
+
+  var slides = [];
+  document.querySelectorAll('[data-scrollslide]').forEach(function (el) {
+    slides.push({ el: el, max: parseFloat(el.getAttribute('data-scrollslide')) });
+  });
+
+  var DROP_RANGE = 650;
+  var SLIDE_RANGE = 650;
+
+  function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+  function render(scroll) {
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+
+    var td = Math.max(0, Math.min(1, scroll / DROP_RANGE));
+    var tde = easeInOut(td);
+    drops.forEach(function (d) {
+      d.el.style.transform = 'translate3d(0,' + (tde * d.max) + 'px,0)';
+    });
+
+    var ts = Math.max(0, Math.min(1, scroll / SLIDE_RANGE));
+    slides.forEach(function (d) {
+      d.el.style.transform = 'translate3d(' + (easeInOut(ts) * d.max) + 'px,0,0)';
+    });
+
+    parallax.forEach(function (item) {
+      var rect = item.el.getBoundingClientRect();
+      var center = rect.top + rect.height / 2;
+      var progress = (vh / 2 - center) / (vh / 2);
+      var parts = [];
+      if (item.ty) parts.push('translateY(' + (progress * item.ty) + 'px)');
+      if (item.tx) parts.push('translateX(' + (progress * item.tx * 6) + 'px)');
+      if (item.scaleAmt) parts.push('scale(' + (1 + Math.sin((progress + 1) * Math.PI / 2) * item.scaleAmt) + ')');
+      item.el.style.transform = parts.join(' ');
+    });
+  }
+
+  if (reduce) {
+    render(window.scrollY || document.documentElement.scrollTop);
+    window.addEventListener('resize', function () {
+      render(window.scrollY || document.documentElement.scrollTop);
+    });
+    return;
+  }
+
+  var lenis = null;
+  if (window.Lenis) {
+    lenis = new Lenis({
+      duration: 1.15,
+      easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+      smoothWheel: true,
+      touchMultiplier: 1.4
+    });
+    window.__mgLenis = lenis; // exposed so the GSAP ScrollTrigger test-pin script (below) can sync with it
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      a.addEventListener('click', function (e) {
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -20, duration: 1.4 });
+      });
+    });
+  }
+
+  var smooth = window.scrollY || 0;
+  function frame(time) {
+    if (lenis) lenis.raf(time);
+    var target = lenis ? lenis.scroll : (window.scrollY || document.documentElement.scrollTop);
+    smooth += (target - smooth) * 0.12;
+    if (Math.abs(target - smooth) < 0.05) smooth = target;
+    render(smooth);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  window.addEventListener('resize', function () { render(smooth); });
+})();
+</script>
+
+<!-- GSAP + ScrollTrigger power the .mg-scenes horizontal scene sequence
+     (Мобилна апликација → Дојди → Веб апликација). -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  if (!window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  // keep ScrollTrigger perfectly in sync with the page's Lenis instance
+  if (window.__mgLenis) {
+    window.__mgLenis.on('scroll', ScrollTrigger.update);
+  }
+
+  var wrap = document.querySelector('.mg-scenes');
+  var frame = wrap && wrap.querySelector('.mg-scenes__frame');
+  // only the scene sections slide — the watermark stays put, so it's
+  // deliberately excluded here
+  var panels = frame ? Array.prototype.slice.call(frame.querySelectorAll(':scope > .mg-section')) : [];
+  if (panels.length < 2) return;
+
+  ScrollTrigger.matchMedia({
+    '(min-width: 961px)': function () {
+      // "x" in vw (not xPercent, which is relative to each panel's OWN
+      // width — these scene sections are capped at max-width:1240px and
+      // centered, so xPercent:100 only moved them by 1240px, not by the
+      // full viewport width, leaving a sliver visible on wider screens)
+      gsap.set(panels[0], { x: 0 });
+      gsap.set(panels.slice(1), { x: '100vw' });
+
+      var tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrap,
+          pin: frame,
+          start: 'top top',
+          end: '+=' + (panels.length - 1) * 90 + '%',
+          scrub: 1
+          // no anticipatePin: with Lenis smoothing the scroll, its early-
+          // catch heuristic misfires and the pin grabs way too soon —
+          // felt like a "magnet" pulling you in before you'd even
+          // scrolled past the hero
+        }
+      });
+
+      // cumulative (not reused-per-loop) positions — each transition starts
+      // exactly where the previous one's hold ended, so the timeline is one
+      // clean sequence with no overlap. The last panel (Веб апликација)
+      // only ever gets an "enter" tween, never an "exit" one, and the
+      // trailing hold keeps it parked dead center until the pin releases.
+      var SLIDE = 1, HOLD = 0.4, SEG = SLIDE + HOLD;
+      for (var i = 0; i < panels.length - 1; i++) {
+        var t = i * SEG;
+        tl.to(panels[i],     { x: '-100vw', ease: 'power1.inOut', duration: SLIDE }, t)
+          .to(panels[i + 1], { x: 0,        ease: 'power1.inOut', duration: SLIDE }, t);
+      }
+      tl.to({}, { duration: HOLD }); // final hold on the last (resting) scene
+
+      // cleanup when leaving this breakpoint (matchMedia handles this automatically,
+      // but reset inline transforms so mobile/tablet layout isn't left mid-animation)
+      return function () {
+        gsap.set(panels, { clearProps: 'transform' });
+      };
+    }
+  });
+
+  // fonts/images can still be settling in when this runs, which shifts
+  // where the trigger actually starts on the page — recheck once
+  // everything (incl. the Google Fonts + hero photo) has truly loaded
+  window.addEventListener('load', function () {
+    setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+</script>
+</body>
+</html>
