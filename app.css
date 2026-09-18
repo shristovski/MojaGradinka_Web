@@ -118,11 +118,14 @@ select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
   scroll-margin-top: 24px;
 }
 
-/* Lenis */
+/* Lenis — vendored here instead of loading the separate lenis.css
+   stylesheet from the CDN (it was only these 4 rules, saving a
+   render-blocking request) */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
 
 /* ---------- 3. Motion ---------- */
 [data-anim] { opacity: 0; }
@@ -200,8 +203,11 @@ html.lenis, html.lenis body { height: auto; }
   text-align: center;
   transition: transform .28s var(--ease-soft), box-shadow .28s var(--ease-soft),
               background-color .25s ease, color .25s ease, border-color .25s ease;
-  will-change: transform;
 }
+/* will-change only while a transform is actually about to run — every
+   .btn on the page (nav CTA, form submit, pricing cards, ...) doesn't
+   need its own persistent compositor layer just sitting idle */
+.btn:hover, .btn:focus-visible { will-change: transform; }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
 

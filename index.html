@@ -18,17 +18,30 @@
 <meta property="og:title" content="mojaGradinka — Апликација за градинки и родители" />
 <meta property="og:description" content="Сè што им е потребно на градинките и родителите, на едно безбедно место." />
 <meta property="og:image" content="https://mojagradinka.mk/assets/social-preview.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="mojaGradinka — Апликација за градинки и родители" />
 <meta property="og:url" content="https://mojagradinka.mk/" />
 <meta property="og:locale" content="mk_MK" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="mojaGradinka — Апликација за градинки и родители" />
+<meta name="twitter:description" content="Сè што им е потребно на градинките и родителите, на едно безбедно место." />
+<meta name="twitter:image" content="https://mojagradinka.mk/assets/social-preview.jpg" />
+
+<meta name="theme-color" content="#1F5137" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
 
 <!-- Favicon (mojaGradinka icon mark) -->
 <link rel="icon" href="assets/favicon.png" type="image/png" />
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
+<link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Literata:ital,wght@1,400;1,500&family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.css" />
+<!-- Literata ital 400 and Fredoka 500 were requested but never used
+     anywhere in app.css (only Literata ital 500 and Fredoka 600/700
+     actually render) — trimmed to the weights/styles that are
+     genuinely used, same visible typography either way. -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Literata:ital,wght@1,500&family=Fredoka:wght@600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="app.css" />
 
 <script type="application/ld+json">
@@ -101,7 +114,7 @@
 
   <!-- НИЕ -->
   <section class="mg-section mg-intro" id="nie">
-    <img class="mg-leaf mg-leaf--nie" src="assets/leaf_02_red_pointed.svg" alt="" aria-hidden="true" width="2084" height="3000" loading="lazy" />
+    <img class="mg-leaf mg-leaf--nie" src="assets/leaf_02_red_pointed.svg" alt="" aria-hidden="true" width="2084" height="3000" loading="lazy" decoding="async" />
     <h2 class="mg-features__heading" data-anim="zoom-in">
       <span class="mg-features__heading-script">Ние сме место, каде што</span>
       <span class="mg-features__heading-sub">градинките и родителите</span>
@@ -111,22 +124,22 @@
 
     <div class="mg-panel-grid mg-panel-grid--cols-4" data-anim="fade-up">
       <div class="mg-panel-col">
-        <img src="assets/icons/shield-heart.png" alt="" aria-hidden="true" width="160" height="113" loading="lazy" />
+        <img src="assets/icons/shield-heart.png" alt="" aria-hidden="true" width="160" height="113" loading="lazy" decoding="async" />
         <h3>Безбеден пристап</h3>
         <p>Најава со лична сметка за секој корисник — никој не гледа повеќе од она што му е потребно за неговата улога.</p>
       </div>
       <div class="mg-panel-col">
-        <img src="assets/icons/document-shield.png" alt="" aria-hidden="true" width="160" height="141" loading="lazy" />
+        <img src="assets/icons/document-shield.png" alt="" aria-hidden="true" width="160" height="141" loading="lazy" decoding="async" />
         <h3>Заштита на лични податоци</h3>
         <p>Податоците за децата и родителите се чуваат безбедно и не се споделуваат со трети страни.</p>
       </div>
       <div class="mg-panel-col">
-        <img src="assets/icons/chat-lock.png" alt="" aria-hidden="true" width="160" height="151" loading="lazy" />
+        <img src="assets/icons/chat-lock.png" alt="" aria-hidden="true" width="160" height="151" loading="lazy" decoding="async" />
         <h3>Контролирана комуникација</h3>
         <p>Разговорите остануваат во апликацијата, помеѓу родителите и градинката — без случајно споделување надвор.</p>
       </div>
       <div class="mg-panel-col">
-        <img src="assets/icons/clock-person.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+        <img src="assets/icons/clock-person.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" decoding="async" />
         <h3>Контрола на пристап</h3>
         <p>Директорот одредува кој што гледа — по улога, по група или по дете, во секој момент.</p>
       </div>
@@ -174,64 +187,64 @@
         <div class="mg-features__slider-track">
           <div class="mg-panel-grid mg-panel-grid--cols-3" id="panel-gradinki" data-panel="gradinki" role="tabpanel" aria-labelledby="tab-gradinki">
             <div class="mg-panel-col">
-              <img src="assets/icons/child-face.png" alt="" aria-hidden="true" width="154" height="160" loading="lazy" />
+              <img src="assets/icons/child-face.png" alt="" aria-hidden="true" width="154" height="160" loading="lazy" decoding="async" />
               <h3>Евиденција на деца</h3>
               <p>Дигитална база на податоци за сите деца со целосни информации, групи, здравствени белешки и следење на развојот.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/people-group.png" alt="" aria-hidden="true" width="160" height="140" loading="lazy" />
+              <img src="assets/icons/people-group.png" alt="" aria-hidden="true" width="160" height="140" loading="lazy" decoding="async" />
               <h3>Управување со тим</h3>
               <p>Централизирано управување на вработените, нивните улоги, работни термини и интерна комуникација.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/wallet-coin.png" alt="" aria-hidden="true" width="160" height="153" loading="lazy" />
+              <img src="assets/icons/wallet-coin.png" alt="" aria-hidden="true" width="160" height="153" loading="lazy" decoding="async" />
               <h3>Паметни финансии</h3>
               <p>Целосно автоматизирано финансиско управување со предефинирани пакети, автоматско фактурирање и детални извештаи.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/padlock.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <img src="assets/icons/padlock.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" decoding="async" />
               <h3>Безбедност и заштита</h3>
               <p>Висок степен на енкрипција на сите податоци, со усогласеност со важечките прописи за заштита на лични податоци.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/calendar-star.png" alt="" aria-hidden="true" width="160" height="155" loading="lazy" />
+              <img src="assets/icons/calendar-star.png" alt="" aria-hidden="true" width="160" height="155" loading="lazy" decoding="async" />
               <h3>Активности и настани</h3>
               <p>Организација и управување со сите активности, настани и специјални програми со автоматско известување.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/chat-bubbles.png" alt="" aria-hidden="true" width="159" height="160" loading="lazy" />
+              <img src="assets/icons/chat-bubbles.png" alt="" aria-hidden="true" width="159" height="160" loading="lazy" decoding="async" />
               <h3>Комуникациски центар</h3>
               <p>Централизирана комуникација со родителите преку директни пораки, групни известувања и итни контакти.</p>
             </div>
           </div>
           <div class="mg-panel-grid mg-panel-grid--cols-3" id="panel-roditeli" data-panel="roditeli" role="tabpanel" aria-labelledby="tab-roditeli">
             <div class="mg-panel-col">
-              <img src="assets/icons/eye.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <img src="assets/icons/eye.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" decoding="async" />
               <h3>Увид во живо</h3>
               <p>Следете ги активностите на вашето дете во реално време — кога јаде, спие, си игра и каква е моменталната активност.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/chat-bubble.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <img src="assets/icons/chat-bubble.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" decoding="async" />
               <h3>Инстант разговор</h3>
               <p>Директна комуникација со воспитувачите и администрацијата преку сигурна chat-платформа со инстант известувања.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/calendar-check.png" alt="" aria-hidden="true" width="160" height="153" loading="lazy" />
+              <img src="assets/icons/calendar-check.png" alt="" aria-hidden="true" width="160" height="153" loading="lazy" decoding="async" />
               <h3>Паметен календар</h3>
               <p>Интелигентен календар со автоматски потсетници за сите важни настани, активности и датуми во градинката.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/heart-cross.png" alt="" aria-hidden="true" width="160" height="154" loading="lazy" />
+              <img src="assets/icons/heart-cross.png" alt="" aria-hidden="true" width="160" height="154" loading="lazy" decoding="async" />
               <h3>Здравје и безбедност</h3>
               <p>Преглед на важни здравствени информации за вашето дете — алергии, ограничувања и итни контакти, достапни на воспитувачите кога им се потребни.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/folder-document.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <img src="assets/icons/folder-document.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" decoding="async" />
               <h3>Дигитални документи</h3>
               <p>Безбедно чување на сите важни документи, сертификати, извештаи за напредок и портфолио на активности на вашето дете.</p>
             </div>
             <div class="mg-panel-col">
-              <img src="assets/icons/credit-card.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <img src="assets/icons/credit-card.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" decoding="async" />
               <h3>Лесно плаќање</h3>
               <p>Сигурно онлајн плаќање преку банкарска картичка, со целосна историја на трансакции и автоматско фактурирање.</p>
             </div>
@@ -243,7 +256,7 @@
         </button>
       </div>
     </div>
-    <img class="mg-features__leaf" src="assets/leaf_03_blue_teardrop.svg" alt="" aria-hidden="true" width="2167" height="3167" loading="lazy" />
+    <img class="mg-features__leaf" src="assets/leaf_03_blue_teardrop.svg" alt="" aria-hidden="true" width="2167" height="3167" loading="lazy" decoding="async" />
     <p class="mg-features__note" data-anim="fade-up">Помалку администрација.<br>Повеќе време за она што е важно. <span aria-hidden="true">♥</span></p>
   </section>
 
@@ -252,7 +265,7 @@
        script at bottom of page). Below 961px they just stack normally. -->
   <div class="mg-scenes">
     <div class="mg-scenes__frame">
-      <img class="mg-scenes__watermark" src="assets/icon-colour-watermark.svg" alt="" aria-hidden="true" width="1042" height="996" loading="lazy" />
+      <img class="mg-scenes__watermark" src="assets/icon-colour-watermark.svg" alt="" aria-hidden="true" width="1042" height="996" loading="lazy" decoding="async" />
 
   <!-- МОБИЛНА АПЛИКАЦИЈА -->
   <div class="mg-section mg-live" id="vo-zivo">
@@ -264,21 +277,21 @@
 
           <div class="mg-live__promo-features">
             <div class="mg-live__promo-feature">
-              <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/bell.png" alt="" aria-hidden="true" width="160" height="156" loading="lazy" />
+              <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/bell.png" alt="" aria-hidden="true" width="160" height="156" loading="lazy" decoding="async" />
               <div>
                 <div class="mg-live__promo-feature-title">Инстант известувања</div>
                 <div class="mg-live__promo-feature-text">Бидете веднаш известени за сите важни случувања</div>
               </div>
             </div>
             <div class="mg-live__promo-feature">
-              <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/chat-bubble.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" />
+              <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/chat-bubble.png" alt="" aria-hidden="true" width="160" height="150" loading="lazy" decoding="async" />
               <div>
                 <div class="mg-live__promo-feature-title">Директна комуникација</div>
                 <div class="mg-live__promo-feature-text">Разговор со воспитувачите и родителите во реално време</div>
               </div>
             </div>
             <div class="mg-live__promo-feature">
-              <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/bar-chart-small.png" alt="" aria-hidden="true" width="160" height="151" loading="lazy" />
+              <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/bar-chart-small.png" alt="" aria-hidden="true" width="160" height="151" loading="lazy" decoding="async" />
               <div>
                 <div class="mg-live__promo-feature-title">Детални извештаи</div>
                 <div class="mg-live__promo-feature-text">Следете го напредокот на детето и финансиските податоци</div>
@@ -299,8 +312,8 @@
         </div>
         <div class="mg-cta__media" data-anim="fade-up" data-anim-delay="200">
           <picture>
-            <source srcset="assets/phone-mockup-live.webp" type="image/webp" />
-            <img class="mg-scene-phone" src="assets/phone-mockup-live.png" alt="Родителска апликација" width="1034" height="1828" loading="lazy" />
+            <source srcset="assets/phone-mockup.webp" type="image/webp" />
+            <img class="mg-scene-phone" src="assets/phone-mockup.png" alt="Родителска апликација" width="1034" height="1828" loading="lazy" decoding="async" />
           </picture>
         </div>
       </div>
@@ -317,28 +330,28 @@
 
         <div class="mg-live__promo-features mg-cta__features">
           <div class="mg-live__promo-feature">
-            <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/laptop-chart.png" alt="" aria-hidden="true" width="160" height="146" loading="lazy" />
+            <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/laptop-chart.png" alt="" aria-hidden="true" width="160" height="146" loading="lazy" decoding="async" />
             <div>
               <div class="mg-live__promo-feature-title">Преглед на контролна табла</div>
               <div class="mg-live__promo-feature-text">Сите важни информации на едно место — присуство, активности, известувања</div>
             </div>
           </div>
           <div class="mg-live__promo-feature">
-            <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/people-group.png" alt="" aria-hidden="true" width="160" height="140" loading="lazy" />
+            <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/people-group.png" alt="" aria-hidden="true" width="160" height="140" loading="lazy" decoding="async" />
             <div>
               <div class="mg-live__promo-feature-title">Управување со групи</div>
               <div class="mg-live__promo-feature-text">Организирајте ги децата по групи, следете активности и напредок на секое дете</div>
             </div>
           </div>
           <div class="mg-live__promo-feature">
-            <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/calendar-heart.png" alt="" aria-hidden="true" width="160" height="152" loading="lazy" />
+            <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/calendar-heart.png" alt="" aria-hidden="true" width="160" height="152" loading="lazy" decoding="async" />
             <div>
               <div class="mg-live__promo-feature-title">Планирање активности</div>
               <div class="mg-live__promo-feature-text">Креирајте распоред на активности, доделувајте задачи и следете извршување</div>
             </div>
           </div>
           <div class="mg-live__promo-feature">
-            <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/chat-bubbles.png" alt="" aria-hidden="true" width="159" height="160" loading="lazy" />
+            <img class="mg-live__promo-icon mg-live__promo-icon--img" src="assets/icons/chat-bubbles.png" alt="" aria-hidden="true" width="159" height="160" loading="lazy" decoding="async" />
             <div>
               <div class="mg-live__promo-feature-title">Брза комуникација</div>
               <div class="mg-live__promo-feature-text">Директен пристап до чат системот и известувањата за родители</div>
@@ -350,8 +363,8 @@
 
       <div class="mg-cta__media" data-anim="fade-up" data-anim-delay="200">
         <picture>
-          <source srcset="assets/phone-mockup-cta.webp" type="image/webp" />
-          <img class="mg-scene-phone" src="assets/phone-mockup-cta.png" alt="Функционалностите на апликацијата" width="1034" height="1828" loading="lazy" />
+          <source srcset="assets/phone-mockup.webp" type="image/webp" />
+          <img class="mg-scene-phone" src="assets/phone-mockup.png" alt="Функционалностите на апликацијата" width="1034" height="1828" loading="lazy" decoding="async" />
         </picture>
       </div>
     </div>
@@ -366,7 +379,7 @@
       <div class="mg-laptop__screen">
         <picture>
           <source srcset="assets/web_app.webp" type="image/webp" />
-          <img src="assets/web_app.jpg" alt="Веб апликација — контролна табла" width="3004" height="1434" loading="lazy" />
+          <img src="assets/web_app.jpg" alt="Веб апликација — контролна табла" width="3004" height="1434" loading="lazy" decoding="async" />
         </picture>
       </div>
       <div class="mg-laptop__base"></div>
@@ -438,7 +451,7 @@
   <!-- DEMO FORM -->
   <section class="mg-form-section" id="demo-forma">
     <div class="mg-form-section__inner">
-      <img class="mg-leaf mg-leaf--form" src="assets/leaf_04_coral_oak.svg" alt="" aria-hidden="true" width="2167" height="3167" loading="lazy" />
+      <img class="mg-leaf mg-leaf--form" src="assets/leaf_04_coral_oak.svg" alt="" aria-hidden="true" width="2167" height="3167" loading="lazy" decoding="async" />
       <h2 class="mg-form__title">Закажи демо за твојата градинка</h2>
       <p class="mg-form__sub">Пополнете и ќе ве контактираме.</p>
 
@@ -498,11 +511,11 @@
     <div class="mg-slant mg-slant--to-footer">
       <picture>
         <source srcset="assets/tree.webp" type="image/webp" />
-        <img class="mg-footer-deco mg-footer-deco--tree" src="assets/tree.png" alt="" aria-hidden="true" width="1274" height="1234" loading="lazy" />
+        <img class="mg-footer-deco mg-footer-deco--tree" src="assets/tree.png" alt="" aria-hidden="true" width="1274" height="1234" loading="lazy" decoding="async" />
       </picture>
       <picture>
         <source srcset="assets/bears_walking.webp" type="image/webp" />
-        <img class="mg-footer-deco mg-footer-deco--bears" src="assets/bears_walking.png" alt="" aria-hidden="true" width="1536" height="1024" loading="lazy" />
+        <img class="mg-footer-deco mg-footer-deco--bears" src="assets/bears_walking.png" alt="" aria-hidden="true" width="1536" height="1024" loading="lazy" decoding="async" />
       </picture>
       <svg viewBox="0 0 1200 40" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0,9 L1200,27 L1200,40 L0,40 Z" fill="#153B29"/>
@@ -537,18 +550,24 @@
         </div>
       </div>
       <div class="mg-footer__bottom">
-        <img class="mg-footer__logo" src="assets/lockup-white.svg" alt="mojaGradinka" width="150" height="27" loading="lazy" />
+        <img class="mg-footer__logo" src="assets/lockup-white.svg" alt="mojaGradinka" width="150" height="27" loading="lazy" decoding="async" />
         <div class="mg-footer__copy">© 2026 mojaGradinka. Сите права задржани.</div>
       </div>
     </div>
   </footer>
 
 </div>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<!-- Pinned to exact versions with SRI (sha384, computed from the exact
+     files these URLs serve) so a compromised/altered CDN response
+     can't execute. All three now load with defer (same as js/app.js
+     below) so they don't block HTML parsing/rendering — defer
+     preserves execution order, so Lenis still runs before GSAP/
+     ScrollTrigger, which still run before app.js. -->
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js" integrity="sha384-O55L/6rhHr9CFvrxqv5luxOCcmVaBmETbZbJDP+Do8T0pztTACsFBD/IXCNkj7DV" crossorigin="anonymous" defer></script>
 <!-- GSAP + ScrollTrigger power the .mg-scenes horizontal scene sequence
      (Мобилна апликација → Дојди → Веб апликација). -->
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" defer></script>
 <!-- All page behaviour lives in js/app.js (see file for a section index) -->
 <script src="js/app.js" defer></script>
 </body>

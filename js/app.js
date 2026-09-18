@@ -193,6 +193,18 @@
 (function () {
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // coalesces rapid-fire resize events (window drag, orientation change)
+  // into at most one handler run per animation frame, instead of once
+  // per raw event
+  function rafDebounce(fn) {
+    var scheduled = false;
+    return function () {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(function () { scheduled = false; fn(); });
+    };
+  }
+
   var parallax = [];
   document.querySelectorAll('[data-parallax]').forEach(function (el) {
     var spec = {};
@@ -246,9 +258,9 @@
 
   if (reduce) {
     render(window.scrollY || document.documentElement.scrollTop);
-    window.addEventListener('resize', function () {
+    window.addEventListener('resize', rafDebounce(function () {
       render(window.scrollY || document.documentElement.scrollTop);
-    });
+    }));
     return;
   }
 
@@ -275,16 +287,29 @@
   }
 
   var smooth = window.scrollY || 0;
+  var rafId = null;
   function frame(time) {
     if (lenis) lenis.raf(time);
     var target = lenis ? lenis.scroll : (window.scrollY || document.documentElement.scrollTop);
     smooth += (target - smooth) * 0.12;
     if (Math.abs(target - smooth) < 0.05) smooth = target;
     render(smooth);
-    requestAnimationFrame(frame);
+    rafId = requestAnimationFrame(frame);
   }
-  requestAnimationFrame(frame);
-  window.addEventListener('resize', function () { render(smooth); });
+  rafId = requestAnimationFrame(frame);
+  window.addEventListener('resize', rafDebounce(function () { render(smooth); }));
+
+  // pause the rAF loop while the tab is hidden instead of relying only
+  // on the browser's own background-tab throttling, and resume cleanly
+  // (Lenis keeps its own internal state, so just restarting the loop
+  // picks back up correctly)
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    } else if (rafId === null) {
+      rafId = requestAnimationFrame(frame);
+    }
+  });
 })();
 
 // ------------------------------------------------------------
