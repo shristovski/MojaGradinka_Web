@@ -29,6 +29,10 @@
 
   var statusEl = form.querySelector('.mg-form__status');
   var submitBtn = form.querySelector('.mg-form__submit');
+  var REQUEST_TIMEOUT_MS = 15000;
+  var isSubmitting = false; // belt-and-braces: submitBtn.disabled already
+  // blocks a second click, but this also catches a rapid Enter-key resubmit
+  // or a second submit event firing before the disabled state paints
 
   function setStatus(kind, message) {
     if (!statusEl) return;
@@ -40,6 +44,8 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
+
+    if (isSubmitting) return;
 
     // honeypot: real visitors never see or fill this field. If it has a
     // value, silently pretend to succeed instead of telling a bot it guessed wrong.
@@ -57,13 +63,20 @@
       return;
     }
 
+    isSubmitting = true;
     if (submitBtn) submitBtn.disabled = true;
     setStatus('ok', 'Се испраќа...');
+
+    // AbortController timeout so a hung/slow response can't leave the
+    // submit button disabled indefinitely
+    var controller = ('AbortController' in window) ? new AbortController() : null;
+    var timeoutId = controller ? setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT_MS) : null;
 
     fetch(form.action, {
       method: 'POST',
       body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
+      headers: { 'Accept': 'application/json' },
+      signal: controller ? controller.signal : undefined
     })
       .then(function (res) {
         if (res.ok) {
@@ -77,6 +90,8 @@
         setStatus('error', 'Настана грешка при испраќање. Обидете се повторно или пишете ни директно на kontakt@mojagradinka.mk.');
       })
       .finally(function () {
+        if (timeoutId) clearTimeout(timeoutId);
+        isSubmitting = false;
         if (submitBtn) submitBtn.disabled = false;
       });
   });
@@ -112,6 +127,13 @@
       tab.setAttribute('aria-selected', active ? 'true' : 'false');
       tab.tabIndex = active ? 0 : -1;
       if (active && focusTab) tab.focus();
+    });
+    // the inactive panel only ever moves off-screen via transform — it
+    // stays in normal flow (needed for the slide animation), so mark it
+    // aria-hidden to keep screen-reader/keyboard nav from wandering into
+    // content that isn't visually reachable
+    panels.forEach(function (panel, pi) {
+      panel.setAttribute('aria-hidden', pi === index ? 'false' : 'true');
     });
     // the panel that was off-screen never intersected the entrance-
     // reveal IntersectionObserver below — reveal its [data-anim] cards
