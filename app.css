@@ -308,7 +308,7 @@ html.lenis, html.lenis body { height: auto; }
 .mg-hero__mece { position: relative; top: -17px; left: -6px; margin-top: 34px; width: 185px; }
 .mg-hero__mece img { display: block; width: 100%; height: auto; margin: 0 auto; }
 /* CTA lifted above everything so it can never tuck under the next section */
-.mg-hero__cta { position: relative; top: -38px; z-index: 20; margin-top: 38px; font-size: 14px; padding: 13px 34px; }
+.mg-hero__cta { position: relative; top: -38px; z-index: 20; margin-top: 38px; font-size: 11px; padding: 13px 34px; }
 
 /* ---------- Intro (Ние) ---------- */
 .mg-intro__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 56ch; }
