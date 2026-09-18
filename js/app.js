@@ -92,7 +92,9 @@
   var slider = document.querySelector('.mg-features__slider');
   if (!slider) return;
 
-  var tabs = Array.prototype.slice.call(slider.querySelectorAll('.mg-features__tab'));
+  // tabs now live in the head row (.mg-features__head-side), not inside
+  // .mg-features__slider itself, so they're queried from the document
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.mg-features__tab'));
   var track = slider.querySelector('.mg-features__slider-track');
   var panels = track ? Array.prototype.slice.call(track.children) : [];
   var prevBtn = slider.querySelector('.mg-features__slider-nav--prev');
