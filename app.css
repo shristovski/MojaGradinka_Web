@@ -394,8 +394,14 @@ html.lenis, html.lenis body { height: auto; }
 /* same fix as --cols-3's middle column below: the two inner columns
    (2 and 3) pay the 28px column padding on BOTH sides while the outer
    ones only pay it once, so despite equal grid columns their actual
-   text width was narrower — halve it to even the content width out */
-.mg-panel-grid--cols-4 .mg-panel-col:nth-child(n+2):nth-child(-n+3) { padding-left: 14px; padding-right: 14px; }
+   text width was narrower — halve it to even the content width out.
+   Scoped to the 4-across desktop layout only — below 961px the grid
+   reflows to 2 columns (960px) then 1 (640px), where "middle column"
+   no longer means the same thing, and this rule's specificity was
+   silently beating the mobile padding resets below. */
+@media (min-width: 961px) {
+  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(n+2):nth-child(-n+3) { padding-left: 14px; padding-right: 14px; }
+}
 /* Градинки variant: pale-gold background (--sand, already the brand's
    light-cream token) instead of mist, with the corner decoration in
    the fuller gold as the accent — moved to bottom-left (mirrors
@@ -432,8 +438,14 @@ html.lenis, html.lenis body { height: auto; }
 /* the middle column keeps padding on BOTH sides (28px + 28px = 56px),
    while the outer columns only pay it on one side (28px) — same
    column width, but the middle one's text was visibly narrower.
-   Halving its padding evens the actual content width out. */
-.mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n+2) { padding-left: 14px; padding-right: 14px; }
+   Halving its padding evens the actual content width out. Scoped to
+   the 3-across desktop layout only — same reasoning as --cols-4's
+   version above: below 961px this collapses to 1 column, where the
+   rule's specificity was beating the mobile padding reset and left
+   items 2 and 5 indented differently from the rest. */
+@media (min-width: 961px) {
+  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3n+2) { padding-left: 14px; padding-right: 14px; }
+}
 /* full content-box width (matches the column's own text/icon inset on
    both sides, rather than a shorter line floating unattached in the
    middle) */
@@ -649,6 +661,12 @@ html.lenis, html.lenis body { height: auto; }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
   .mg-hero { height: 520px; }
 
+  /* the desktop rightward nudge (translateX) was overflowing/clipping
+     the Родители tab off the right edge once the head row wraps to
+     full width below 961px — drop it so the pair stays centered and
+     fully reachable */
+  .mg-features__tabs { transform: none; flex-wrap: wrap; row-gap: 8px; }
+
   /* pull mid-canvas leaves back toward the edges so they stop colliding with text */
   .mg-leaf--form  { right: 24px; }
 
@@ -704,17 +722,16 @@ html.lenis, html.lenis body { height: auto; }
   .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-  /* Live: stack, same order/behaviour as Дојди — text first, phone below */
+  /* Live: stack, same order/behaviour/alignment as Дојди — text first
+     (left-aligned, same as .mg-cta__row/.mg-cta__col), phone below.
+     Previously this section centered its text and stacked its feature
+     rows into icon-above-text columns while Дојди's identical
+     .mg-live__promo-feature rows stayed left-aligned — the two
+     sections read inconsistently on mobile even though their desktop
+     layouts are meant to mirror each other exactly. */
   .mg-live__card { padding: 44px 20px; }
-  .mg-live__row { flex-direction: column; align-items: center; }
-  .mg-live__promo { min-width: 0; width: 100%; max-width: 100%; text-align: center; }
-  /* icon above title+text, both centered as a column — scoped to this
-     section only: Дојди's feature rows (same .mg-live__promo-feature
-     class) stay left-aligned icon+text the way they already were,
-     since only Мобилна апликација's rows looked mismatched (icon stuck
-     off to one side while the centered text floated independently) */
-  #vo-zivo .mg-live__promo-feature { flex-direction: column; align-items: center; text-align: center; gap: 8px; }
-  .mg-live__promo-badges { justify-content: center; }
+  .mg-live__row { flex-direction: column; }
+  .mg-live__promo { min-width: 0; width: 100%; max-width: 100%; }
   .mg-scene-phone { height: 400px; margin: 0 auto; }
 
   /* Дојди: row stacks (text, then phone below) instead of both trying
