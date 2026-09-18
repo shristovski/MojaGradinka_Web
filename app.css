@@ -714,11 +714,17 @@ html.lenis, html.lenis body { height: auto; }
   .mg-nav { flex-wrap: wrap; gap: 14px; padding: 16px 18px; }
   .mg-nav__links { gap: 16px; flex-wrap: wrap; justify-content: center; width: 100%; }
 
-  /* Hero */
+  /* Hero — the desktop top:-17px (mece) / top:-38px (cta) offsets are
+     tuned against desktop's own margin-top values (34px / 38px), where
+     they cancel out to a small net gap. Mobile only overrode
+     margin-top, leaving the old top offset paired with a much smaller
+     margin — net result was the subtitle crowding the bear's helmet
+     and the CTA pulling up onto the skateboard. Reset top:0 here so
+     margin-top alone (increased slightly) controls the gap. */
   .mg-hero { height: 440px; }
   .mg-hero__badge { padding: 16px 24px 0; }
-  .mg-hero__mece { width: 128px; margin-top: 18px; left: -3px; }
-  .mg-hero__cta { margin-top: 20px; font-size: 16px; padding: 12px 28px; }
+  .mg-hero__mece { width: 128px; margin-top: 22px; top: 0; left: -3px; }
+  .mg-hero__cta { margin-top: 22px; top: 0; font-size: 16px; padding: 12px 28px; }
 
   /* Feature + info to single column */
   .mg-grid--3, .mg-grid--4 { grid-template-columns: 1fr; }
