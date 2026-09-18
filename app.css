@@ -329,7 +329,7 @@ html.lenis, html.lenis body { height: auto; }
   text-align: center; line-height: 1.3;
 }
 .mg-features__hint-arrow { display: block; margin: 4px auto 0; color: var(--amber); }
-.mg-features__tabs { display: flex; gap: 6px; justify-content: center; margin-top: 10px; transform: translateX(20px); }
+.mg-features__tabs { display: flex; gap: 6px; justify-content: center; margin-top: 10px; transform: translateX(170px); }
 .mg-features__tab {
   display: inline-flex; align-items: center; gap: 6px;
   border: none; background: var(--mist); color: var(--muted);
