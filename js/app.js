@@ -6,10 +6,11 @@
 
    Contents:
      1. Demo-form submission (Formspree/Web3Forms-style POST)
-     2. Feature-card tap-to-flip (touch/no-hover devices only)
+     2. Градинки / Родители slider (Сè section)
      3. Entrance reveals (IntersectionObserver)
      4. Unified Lenis + rAF scroll-motion engine
      5. GSAP ScrollTrigger scene pin (Мобилна → Дојди → Веб апликација)
+     6. Hero mobile scroll cue (tap/click to scroll to "Ние")
    ============================================================ */
 
 // ------------------------------------------------------------
@@ -456,5 +457,29 @@
   // everything (incl. the Google Fonts + hero photo) has truly loaded
   window.addEventListener('load', function () {
     setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+})();
+
+// ------------------------------------------------------------
+// 6. Hero mobile scroll cue — taps/clicks scroll down to "Ние" (the
+// section right after the hero that explains what mojaGradinka is),
+// the same target the desktop "Дознај зошто" button already links to.
+// Not nested inside section 4's Lenis setup because that whole block
+// returns early under prefers-reduced-motion — the cue itself is only
+// visible on mobile via CSS, but must still work (just without Lenis's
+// eased scroll) if reduced motion is on or the Lenis CDN failed to load.
+// ------------------------------------------------------------
+(function () {
+  var cue = document.querySelector('.mg-hero__scroll-cue');
+  if (!cue) return;
+
+  cue.addEventListener('click', function () {
+    var target = document.getElementById('nie');
+    if (!target) return;
+    if (window.__mgLenis) {
+      window.__mgLenis.scrollTo(target, { offset: -20, duration: 1.4 });
+    } else {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
 })();

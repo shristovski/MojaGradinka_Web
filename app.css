@@ -311,6 +311,24 @@ html.lenis, html.lenis body { height: auto; }
    size/padding come from .btn--sm (same class the nav's "Закажи демо" uses),
    so the two buttons always look identical */
 .mg-hero__cta { position: relative; top: -38px; z-index: 20; margin-top: 38px; }
+/* Mobile-only scroll cue (two down-chevrons) that replaces the CTA button
+   below the mece on narrow screens — hidden here by default (desktop/
+   tablet keep the "Дознај зошто" button); the ≤640px block below is what
+   actually shows it. Transparent/borderless per spec, sized to a full
+   44x44 touch target even though the visible icon is smaller/lighter
+   than the button it replaces. */
+.mg-hero__scroll-cue {
+  display: none;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  margin: 6px auto 0;
+  background: none; border: none; padding: 0;
+  color: var(--amber);
+  cursor: pointer;
+  z-index: 20;
+}
+@keyframes mgScrollCue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+.mg-hero__scroll-cue svg { animation: mgScrollCue 1.8s ease-in-out infinite; }
 
 /* ---------- Intro (Ние) ---------- */
 .mg-intro__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 56ch; }
@@ -730,7 +748,10 @@ html.lenis, html.lenis body { height: auto; }
   .mg-hero { height: 440px; }
   .mg-hero__badge { padding: 16px 24px 0; }
   .mg-hero__mece { width: 55%; margin-top: 22px; top: 0; left: -3px; }
-  .mg-hero__cta { margin-top: 22px; top: 0; }
+  /* "Дознај зошто" is replaced by the scroll-cue chevrons below the mece
+     on mobile — tablet/desktop keep the button (set again above 640px) */
+  .mg-hero__cta { display: none; }
+  .mg-hero__scroll-cue { display: flex; }
 
   /* Feature + info to single column */
   .mg-grid--3, .mg-grid--4 { grid-template-columns: 1fr; }
@@ -808,6 +829,7 @@ html.lenis, html.lenis body { height: auto; }
 @media (prefers-reduced-motion: reduce) {
   .dc-dot-el, .dc-pulse { animation: none !important; }
   [data-anim] { opacity: 1 !important; }
+  .mg-hero__scroll-cue svg { animation: none !important; }
   * { scroll-behavior: auto !important; }
   /* tabs/arrows/swipe all still switch panels via the same goTo() in
      app.js — only the animated slide itself is skipped here, so the
