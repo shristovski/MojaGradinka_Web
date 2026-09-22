@@ -11,6 +11,7 @@
      4. Unified Lenis + rAF scroll-motion engine
      5. GSAP ScrollTrigger scene pin (Мобилна → Дојди → Веб апликација)
      6. Hero mobile scroll cue (tap/click to scroll to "Ние")
+     7. Pricing mobile swipe carousel (scroll-snap + pagination dots)
    ============================================================ */
 
 // ------------------------------------------------------------
@@ -481,5 +482,104 @@
     } else {
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  });
+})();
+
+// ------------------------------------------------------------
+// 7. Pricing mobile swipe carousel — CSS scroll-snap does the actual
+// swiping natively (no touch handlers here), so vertical page scroll
+// is never at risk of being intercepted. JS only: (a) centers
+// "Професионален" on load with no visible scroll animation, (b) keeps
+// it correctly centered if the viewport resizes/rotates, (c) keeps
+// the pagination dots synced to whichever card is nearest-center as
+// the user swipes, and (d) lets tapping a dot scroll to that card.
+// ------------------------------------------------------------
+(function () {
+  var grid = document.querySelector('.mg-pricing__grid');
+  var dotsWrap = document.querySelector('.mg-pricing__dots');
+  if (!grid || !dotsWrap) return;
+
+  var cards = Array.prototype.slice.call(grid.querySelectorAll('.mg-pricing-plan'));
+  var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll('.mg-pricing__dot'));
+  if (!cards.length || !dots.length) return;
+
+  var featuredIndex = 0;
+  cards.forEach(function (card, i) {
+    if (card.classList.contains('mg-pricing-plan--featured')) featuredIndex = i;
+  });
+
+  // the grid is only actually a horizontally-scrollable carousel at the
+  // mobile breakpoint (CSS switches it to display:flex/overflow-x:auto
+  // there) — above that it's a normal CSS grid with no overflow, so
+  // this is naturally false on desktop/tablet and everything below
+  // becomes a harmless no-op instead of needing its own width check
+  function isCarouselActive() {
+    return grid.scrollWidth > grid.clientWidth + 1;
+  }
+
+  function cardCenter(card) {
+    return card.offsetLeft + card.offsetWidth / 2;
+  }
+
+  function scrollToCard(index, smooth) {
+    var card = cards[index];
+    if (!card) return;
+    var left = cardCenter(card) - grid.clientWidth / 2;
+    if (grid.scrollTo) grid.scrollTo({ left: left, behavior: smooth ? 'smooth' : 'auto' });
+    else grid.scrollLeft = left;
+  }
+
+  function setActiveDot(index) {
+    dots.forEach(function (d, i) {
+      var active = i === index;
+      d.classList.toggle('is-active', active);
+      if (active) d.setAttribute('aria-current', 'true');
+      else d.removeAttribute('aria-current');
+    });
+  }
+
+  // initial position: instant (behavior:'auto'), never animated, so
+  // there's no visible scroll on page load — only a resize/orientation
+  // change re-centers afterward, also instantly (it's a correction,
+  // not a user-initiated navigation, so it shouldn't animate either)
+  function centerFeatured() {
+    if (!isCarouselActive()) return;
+    scrollToCard(featuredIndex, false);
+    setActiveDot(featuredIndex);
+  }
+  centerFeatured();
+
+  var resizeRAF = null;
+  window.addEventListener('resize', function () {
+    if (resizeRAF) return;
+    resizeRAF = requestAnimationFrame(function () {
+      resizeRAF = null;
+      centerFeatured();
+    });
+  });
+
+  var scrollRAF = null;
+  grid.addEventListener('scroll', function () {
+    if (scrollRAF) return;
+    scrollRAF = requestAnimationFrame(function () {
+      scrollRAF = null;
+      if (!isCarouselActive()) return;
+      var center = grid.scrollLeft + grid.clientWidth / 2;
+      var closest = 0;
+      var closestDist = Infinity;
+      cards.forEach(function (card, i) {
+        var dist = Math.abs(cardCenter(card) - center);
+        if (dist < closestDist) { closestDist = dist; closest = i; }
+      });
+      setActiveDot(closest);
+    });
+  }, { passive: true });
+
+  dots.forEach(function (dot, i) {
+    dot.addEventListener('click', function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      scrollToCard(i, !reduce);
+      setActiveDot(i);
+    });
   });
 })();

@@ -567,6 +567,9 @@ html.lenis, html.lenis body { height: auto; }
 .mg-pricing-plan__features li { position: relative; padding-left: 26px; font-size: 14px; color: var(--ink); }
 .mg-pricing-plan__features li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--forest); font-weight: 700; }
 .mg-pricing-plan__cta { margin-top: 28px; width: 100%; text-align: center; }
+/* pagination dots only exist for the mobile swipe carousel (below) —
+   hidden by default so desktop/tablet never see them */
+.mg-pricing__dots { display: none; }
 .mg-pricing__footnote { margin-top: 32px; text-align: center; font-size: 14px; color: var(--muted); }
 
 /* ---------- CTA (Дојди) ---------- */
@@ -796,7 +799,55 @@ html.lenis, html.lenis body { height: auto; }
   .mg-features__intro { max-width: 100%; }
   .mg-features__hint { display: none; }
   .mg-features__leaf { display: none; }
+  /* Понуди: vertical stack -> horizontal scroll-snap carousel. Native
+     scrolling does the actual swipe (no touch handlers needed — this
+     also means normal vertical page scroll is never at risk of being
+     intercepted, since we're not touching touchstart/move at all).
+     Full-bleed: negative side margins cancel .mg-section's own 24px
+     gutter so the track spans the true viewport width — card/padding
+     below are sized in vw for exactly that reason: a % would resolve
+     against the track's own (already-padded) content box and compound
+     with the padding instead of giving a clean 86% of the viewport,
+     and if the track weren't full-bleed a 320px phone's 24px gutters
+     alone would already eat most of the 14% this needs for peeking. */
+  .mg-pricing__grid {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    padding: 4px 6.5vw 4px;
+    margin-top: 24px;
+  }
+  /* card = 87vw, track padding = 6.5vw each side: centering an 87vw
+     card in a 100vw (full-bleed) track leaves exactly (100-87)/2 =
+     6.5vw visible on each side — 6.5vw is ~20.8-28px across 320-430px,
+     inside the requested 20-28px range at every required test width.
+     min-width:0 overrides the flex item default of min-width:auto —
+     without it the card refuses to shrink below its own text content's
+     min-content width (long feature lines like "Целосна администрација
+     и присуство"), ignoring the flex-basis entirely and staying at a
+     fixed ~293px on every viewport instead of scaling with it.
+     transform:none on the featured card (below) keeps its box the same
+     size as its neighbors so this centering math isn't thrown off by a
+     transform that visually overflows its own box. */
+  .mg-pricing-plan { flex: 0 0 87vw; min-width: 0; scroll-snap-align: center; scroll-snap-stop: always; }
   .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
+  .mg-pricing__dots { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 18px; }
+  .mg-pricing__dot {
+    width: 34px; height: 34px; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer;
+  }
+  .mg-pricing__dot::before {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--line);
+    transition: background-color .2s ease, transform .2s ease;
+  }
+  .mg-pricing__dot.is-active::before { background: var(--amber); transform: scale(1.3); }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   /* Live: stack, same order/behaviour/alignment as Дојди — text first
@@ -861,6 +912,7 @@ html.lenis, html.lenis body { height: auto; }
      app.js — only the animated slide itself is skipped here, so the
      panel just appears at its new position instead of sliding into it */
   .mg-features__slider-track { transition: none !important; }
+  .mg-pricing__dot::before { transition: none !important; }
 
   /* js/app.js skips the GSAP pin+slide entirely under reduced motion, so
      the three scroll-scenes need the same non-pinned, stacked fallback

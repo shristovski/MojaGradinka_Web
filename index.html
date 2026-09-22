@@ -444,6 +444,15 @@
       </div>
     </div>
 
+    <!-- Mobile-only carousel pagination — hidden on desktop/tablet via
+         CSS; JS keeps the active dot synced to whichever card is
+         centered in the scroll-snap carousel above -->
+    <div class="mg-pricing__dots" aria-hidden="false">
+      <button type="button" class="mg-pricing__dot" data-plan-index="0" aria-label="Прикажи пакет Основен"></button>
+      <button type="button" class="mg-pricing__dot is-active" data-plan-index="1" aria-current="true" aria-label="Прикажи пакет Професионален"></button>
+      <button type="button" class="mg-pricing__dot" data-plan-index="2" aria-label="Прикажи пакет Премиум"></button>
+    </div>
+
     <div class="mg-pricing__footnote" data-anim="fade-up" data-anim-delay="450">Сите планови вклучуваат 30-дневен бесплатен пробен период.</div>
   </section>
 
