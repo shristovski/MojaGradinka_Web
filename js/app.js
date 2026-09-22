@@ -153,6 +153,77 @@
   if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
   if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
 
+  // Touch/pointer swipe — right-to-left opens the next panel, left-to-
+  // right returns to the previous one. Only attached where touch input
+  // is actually available (coarse pointer / touch points present) —
+  // mouse-only desktops keep using tabs/arrows/keyboard exclusively, as
+  // before. Calls the exact same goTo() the tabs/arrows use, so active
+  // tab, aria-selected, aria-hidden and the slide transform all update
+  // identically no matter which input triggered the change.
+  var hasTouch = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ||
+    'ontouchstart' in window || (navigator.maxTouchPoints > 0);
+
+  if (hasTouch) {
+    var SWIPE_MIN_DX = 40;   // px — ignore very short gestures (a tap, a small jiggle)
+    var SWIPE_LOCK_DX = 10;  // px — how far before we commit to "this is horizontal"
+    var SWIPE_MAX_DY = 60;   // px — ignore gestures that drift too far vertically
+    var startX = 0, startY = 0, dragging = false, handled = false, axisLocked = false;
+
+    function swipeStart(x, y) {
+      startX = x; startY = y; dragging = true; handled = false; axisLocked = false;
+    }
+    function swipeMove(x, y, evt) {
+      if (!dragging || handled) return;
+      var dx = x - startX;
+      var dy = y - startY;
+      if (!axisLocked && Math.abs(dx) > SWIPE_LOCK_DX) {
+        axisLocked = Math.abs(dx) > Math.abs(dy); // true = horizontal, false = let the page scroll
+      }
+      // only take over the gesture (stop native vertical scroll) once
+      // we've confirmed it's a horizontal swipe — until then the page
+      // scrolls exactly as it would without this handler at all
+      if (axisLocked && evt && evt.cancelable) evt.preventDefault();
+    }
+    function swipeEnd(x, y) {
+      if (!dragging) return;
+      dragging = false;
+      if (handled) return;
+      var dx = x - startX;
+      var dy = y - startY;
+      if (Math.abs(dx) >= SWIPE_MIN_DX && Math.abs(dx) > Math.abs(dy) && Math.abs(dy) < SWIPE_MAX_DY) {
+        handled = true; // one panel change per swipe, even if more events land after this
+        if (dx < 0) goTo(index + 1); else goTo(index - 1);
+      }
+    }
+
+    if (window.PointerEvent) {
+      track.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse') return; // real swipes only — clicks/drag on desktop stay untouched
+        swipeStart(e.clientX, e.clientY);
+      });
+      track.addEventListener('pointermove', function (e) {
+        swipeMove(e.clientX, e.clientY, e);
+      }, { passive: false });
+      track.addEventListener('pointerup', function (e) { swipeEnd(e.clientX, e.clientY); });
+      track.addEventListener('pointercancel', function () { dragging = false; });
+    } else {
+      // fallback for touch-capable browsers with no Pointer Events support
+      track.addEventListener('touchstart', function (e) {
+        var t = e.touches[0];
+        swipeStart(t.clientX, t.clientY);
+      }, { passive: true });
+      track.addEventListener('touchmove', function (e) {
+        var t = e.touches[0];
+        swipeMove(t.clientX, t.clientY, e);
+      }, { passive: false });
+      track.addEventListener('touchend', function (e) {
+        var t = e.changedTouches[0];
+        swipeEnd(t.clientX, t.clientY);
+      });
+      track.addEventListener('touchcancel', function () { dragging = false; });
+    }
+  }
+
   goTo(0);
 })();
 

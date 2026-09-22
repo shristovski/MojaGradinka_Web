@@ -365,7 +365,11 @@ html.lenis, html.lenis body { height: auto; }
    unclipped so the nav buttons below can straddle its edge */
 .mg-features__slider-viewport { position: relative; }
 .mg-features__slider-clip { overflow: hidden; border-radius: 22px; }
-.mg-features__slider-track { display: flex; transition: transform .5s var(--ease-soft); }
+/* touch-action:pan-y — lets the browser keep handling vertical page
+   scroll natively (no jank/delay from us), while leaving horizontal
+   gestures free for the swipe handler in app.js to read via touchmove/
+   pointermove without the browser also trying to pan/scroll on them */
+.mg-features__slider-track { display: flex; transition: transform .5s var(--ease-soft); touch-action: pan-y; }
 .mg-features__slider-track > .mg-panel-grid { flex: 0 0 100%; width: 100%; margin-top: 0; }
 
 /* Plain chevrons, no button chrome — padding gives a bigger tap target
@@ -805,6 +809,10 @@ html.lenis, html.lenis body { height: auto; }
   .dc-dot-el, .dc-pulse { animation: none !important; }
   [data-anim] { opacity: 1 !important; }
   * { scroll-behavior: auto !important; }
+  /* tabs/arrows/swipe all still switch panels via the same goTo() in
+     app.js — only the animated slide itself is skipped here, so the
+     panel just appears at its new position instead of sliding into it */
+  .mg-features__slider-track { transition: none !important; }
 
   /* js/app.js skips the GSAP pin+slide entirely under reduced motion, so
      the three scroll-scenes need the same non-pinned, stacked fallback
