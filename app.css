@@ -739,23 +739,35 @@ html.lenis, html.lenis body { height: auto; }
   .mg-nav { justify-content: center; padding: 18px; }
   .mg-nav__links { display: none; }
 
-  /* Hero — the desktop top:-17px (mece) / top:-38px (cta) offsets are
-     tuned against desktop's own margin-top values (34px / 38px), where
-     they cancel out to a small net gap. Mobile only overrode
-     margin-top, leaving the old top offset paired with a much smaller
-     margin — net result was the subtitle crowding the bear's helmet
-     and the CTA pulling up onto the skateboard. Reset top:0 here so
-     margin-top alone (increased slightly) controls the gap. */
-  .mg-hero { height: 440px; }
+  /* Hero fills the first mobile viewport. The logo lives in <header>,
+     a sibling of <section id="hero"> (not inside it) — 62px is that
+     header's fixed mobile height (18px+18px padding + 26px logo,
+     width-independent), so hero-section's min-height plus the header
+     above it always sums to exactly 100svh. svh (not vh) so mobile
+     browser chrome — the address bar showing/hiding — doesn't leave a
+     sliver of "Ние" peeking in or a gap under the fold. flex + flex:1
+     on .mg-hero (instead of a fixed height like the old 440px) is what
+     actually lets the hero fill that min-height on tall phones instead
+     of stopping short and leaving dead space before "Ние". */
+  .mg-hero-section { min-height: calc(100svh - 62px); display: flex; }
+  .mg-hero { flex: 1 1 auto; height: auto; align-items: center; }
   .mg-hero__badge { padding: 16px 24px 0; }
-  /* lifted up so it sits over the brighter top portion of the photo
-     (helped along by .mg-hero__fade--top's existing cream wash) instead
-     of the busier furniture area lower down — smaller/its own clamp()
-     than the shared desktop --fs-hero-title so two short stacked words
-     stay comfortably inside 320-375px without crowding the badge's
-     side padding; line2 forced onto its own line via display:block
+  /* lifted up (relative to the badge's own bottom-anchored internal
+     flow — see .mg-hero__mece below) so it sits over the brighter top
+     portion of the photo (helped along by .mg-hero__fade--top's
+     existing cream wash) instead of the busier furniture area lower
+     down. The lift is svh-based clamp()'d rather than a fixed px: on
+     the shortest supported phone (320x568) the hero is already taller
+     than the old fixed 440px used to be, so a flat -115px still clears
+     .mg-hero's overflow:hidden top edge there, but on a tall phone
+     (430x932) badge now floats vertically centered with far more room
+     above it — clamp() lets the lift grow with that extra room instead
+     of leaving the same small fixed gap on every height.
+     font-size: its own smaller clamp() than the shared desktop
+     --fs-hero-title so two short stacked words stay comfortable at
+     320-375px; line2 forced onto its own line via display:block
      (line1 stays inline so desktop's "Спокојно детство" is untouched) */
-  .mg-hero__title { position: relative; top: -115px; font-size: clamp(34px, 9.5vw, 42px); }
+  .mg-hero__title { position: relative; top: clamp(-115px, -18svh, -70px); font-size: clamp(34px, 9.5vw, 42px); }
   .mg-hero__title-line2 { display: block; }
   /* mece + scroll-cue nudged down together by the same amount (visual
      top offset, not margin — margin has no effect here since the whole
@@ -836,7 +848,6 @@ html.lenis, html.lenis body { height: auto; }
 
 /* very small phones — protect the largest display type from overflow */
 @media (max-width: 380px) {
-  .mg-hero { height: 400px; }
   .mg-footer__cols { grid-template-columns: 1fr; }
 }
 
