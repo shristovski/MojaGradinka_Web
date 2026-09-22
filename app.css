@@ -582,7 +582,14 @@ html.lenis, html.lenis body { height: auto; }
 .mg-pricing-plan__features { list-style: none; margin: 30px 0 0; padding: 0; flex: 1; display: flex; flex-direction: column; gap: 12px; }
 .mg-pricing-plan__features li { position: relative; padding-left: 26px; font-size: 14px; color: var(--ink); }
 .mg-pricing-plan__features li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--forest); font-weight: 700; }
-.mg-pricing-plan__cta { margin-top: 28px; width: 100%; text-align: center; }
+/* margin-top:auto (not a fixed 28px) pins the button flush to the
+   card's bottom regardless of how many feature lines precede it —
+   redundant with .mg-pricing-plan__features's own flex:1 above in the
+   common case (that already consumes the leftover space), but this is
+   what actually guarantees every card's CTA lands at the same Y once
+   cards get short enough (landscape mobile) that flex:1 alone leaves
+   less obviously-equal spacing to work with */
+.mg-pricing-plan__cta { margin-top: auto; width: 100%; text-align: center; }
 /* pagination dots only exist for the mobile swipe carousel (below) —
    hidden by default so desktop/tablet never see them */
 .mg-pricing__dots { display: none; }
@@ -923,6 +930,61 @@ html.lenis, html.lenis body { height: auto; }
 /* very small phones — protect the largest display type from overflow */
 @media (max-width: 380px) {
   .mg-footer__cols { grid-template-columns: 1fr; }
+}
+
+/* Понуди in phone landscape: neither the ≤960px tablet rule (2 columns
+   — wraps "Премиум" onto its own row) nor the ≤640px portrait carousel
+   rule (single scrolling column) is right here — a landscape phone is
+   short and wide, so three compact columns in one row fit better than
+   either. This is placed after both of those blocks specifically so it
+   wins the cascade and can reset every carousel-mode property back to
+   a plain grid, for the width range where both could otherwise match
+   (e.g. 568x320 is ≤640px *and* landscape). Sizing uses clamp() tied
+   to vw so cards compact further at the narrowest landscape width
+   (568px) than at the widest (932px) instead of one fixed size for
+   the whole range. */
+@media (max-width: 960px) and (orientation: landscape) {
+  .mg-pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(6px, 1.4vw, 14px);
+    align-items: stretch;
+    /* reset the portrait carousel's full-bleed scroll-track setup */
+    overflow-x: visible;
+    scroll-snap-type: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+  }
+  .mg-pricing-plan {
+    flex: none;
+    min-width: 0;
+    scroll-snap-align: none;
+    padding: clamp(10px, 2.4vw, 18px) clamp(8px, 1.6vw, 14px);
+  }
+  /* keep the featured card's own background/border (its emphasis),
+     just without the scale(1.03) — at this size a transform that
+     visually overflows the card's own box is what would actually
+     cause it to clip against its cramped neighbors */
+  .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
+  .mg-pricing-plan__badge { font-size: clamp(9px, 1.3vw, 11px); padding: 4px 10px; top: -10px; }
+  .mg-pricing-plan__name { font-size: clamp(12px, 2.4vw, 17px); }
+  .mg-pricing-plan__desc { margin-top: 3px; font-size: clamp(8.5px, 1.4vw, 10.5px); }
+  .mg-pricing-plan__features { margin-top: clamp(6px, 1.6vw, 12px); gap: clamp(4px, 1vw, 9px); }
+  .mg-pricing-plan__features li { padding-left: 16px; font-size: clamp(8.5px, 1.4vw, 11px); line-height: 1.35; }
+  .mg-pricing-plan__features li::before { font-size: clamp(8.5px, 1.4vw, 11px); }
+  .mg-pricing-plan__cta { margin-top: clamp(6px, 1.6vw, 12px); font-size: clamp(9px, 1.3vw, 12px); padding: clamp(6px, 1.4vw, 11px) 6px; }
+  /* .btn--secondary (Основен/Премиум) carries a real 2px border that
+     .btn--primary (Професионален) doesn't — with no explicit height on
+     either, that border adds 4px (2 sides) to the secondary buttons'
+     own box that the primary one doesn't get, so despite identical
+     text/padding/margin-top:auto the three CTA tops landed 4px apart.
+     A matching transparent border on the primary button equalizes the
+     box model without changing its visible color. */
+  .mg-pricing-plan__cta.btn--primary { border: 2px solid transparent; }
+  /* pagination dots exist for the single-card portrait carousel — not
+     needed when all three packages are already visible at once */
+  .mg-pricing__dots { display: none; }
 }
 
 /* Reduced motion */

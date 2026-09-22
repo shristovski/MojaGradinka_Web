@@ -490,7 +490,10 @@
 // swiping natively (no touch handlers here), so vertical page scroll
 // is never at risk of being intercepted. JS only: (a) centers
 // "Професионален" on load with no visible scroll animation, (b) keeps
-// it correctly centered if the viewport resizes/rotates, (c) keeps
+// the current card correctly centered if the viewport resizes/rotates
+// (falling back to "Професионален" only on first load — landscape
+// phone width, where CSS switches this to a plain 3-across grid with
+// no scrolling, has no "current card" concept to preserve), (c) keeps
 // the pagination dots synced to whichever card is nearest-center as
 // the user swipes, and (d) lets tapping a dot scroll to that card.
 // ------------------------------------------------------------
@@ -507,12 +510,16 @@
   cards.forEach(function (card, i) {
     if (card.classList.contains('mg-pricing-plan--featured')) featuredIndex = i;
   });
+  // the package the carousel should show/re-show — starts on the
+  // featured plan, then tracks whatever the user last swiped/tapped to
+  var currentIndex = featuredIndex;
 
   // the grid is only actually a horizontally-scrollable carousel at the
-  // mobile breakpoint (CSS switches it to display:flex/overflow-x:auto
-  // there) — above that it's a normal CSS grid with no overflow, so
-  // this is naturally false on desktop/tablet and everything below
-  // becomes a harmless no-op instead of needing its own width check
+  // portrait mobile breakpoint (CSS switches it to display:flex/
+  // overflow-x:auto there) — at landscape-phone and desktop/tablet
+  // widths it's a plain CSS grid with no overflow, so this is
+  // naturally false there and everything below becomes a harmless
+  // no-op instead of needing its own width/orientation check
   function isCarouselActive() {
     return grid.scrollWidth > grid.clientWidth + 1;
   }
@@ -538,23 +545,23 @@
     });
   }
 
-  // initial position: instant (behavior:'auto'), never animated, so
-  // there's no visible scroll on page load — only a resize/orientation
-  // change re-centers afterward, also instantly (it's a correction,
-  // not a user-initiated navigation, so it shouldn't animate either)
-  function centerFeatured() {
+  // instant (behavior:'auto'), never animated, so there's no visible
+  // scroll on page load — a resize/orientation change re-centers the
+  // same way afterward (it's a correction, not a user-initiated
+  // navigation, so it shouldn't animate either)
+  function centerCurrent() {
     if (!isCarouselActive()) return;
-    scrollToCard(featuredIndex, false);
-    setActiveDot(featuredIndex);
+    scrollToCard(currentIndex, false);
+    setActiveDot(currentIndex);
   }
-  centerFeatured();
+  centerCurrent();
 
   var resizeRAF = null;
   window.addEventListener('resize', function () {
     if (resizeRAF) return;
     resizeRAF = requestAnimationFrame(function () {
       resizeRAF = null;
-      centerFeatured();
+      centerCurrent();
     });
   });
 
@@ -571,6 +578,7 @@
         var dist = Math.abs(cardCenter(card) - center);
         if (dist < closestDist) { closestDist = dist; closest = i; }
       });
+      currentIndex = closest;
       setActiveDot(closest);
     });
   }, { passive: true });
@@ -578,6 +586,7 @@
   dots.forEach(function (dot, i) {
     dot.addEventListener('click', function () {
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      currentIndex = i;
       scrollToCard(i, !reduce);
       setActiveDot(i);
     });
