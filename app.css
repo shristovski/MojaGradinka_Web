@@ -784,11 +784,7 @@ html.lenis, html.lenis body { height: auto; }
      of stopping short and leaving dead space before "Ние". */
   .mg-hero-section { min-height: calc(100svh - 62px); display: flex; }
   .mg-hero { flex: 1 1 auto; height: auto; align-items: center; }
-  /* the desktop background-image (assets/center-circle.svg) is one
-     organic/hand-drawn blob path — its irregular, wavy silhouette
-     reads as a "broken circle" at mobile size. Replaced below with a
-     single clean ::before ring instead of trying to patch the SVG. */
-  .mg-hero__badge { padding: 16px 24px 0; background-image: none; }
+  .mg-hero__badge { padding: 16px 24px 0; }
   /* lifted up (relative to the badge's own bottom-anchored internal
      flow — see .mg-hero__mece below) so it sits over the brighter top
      portion of the photo (helped along by .mg-hero__fade--top's
@@ -812,27 +808,6 @@ html.lenis, html.lenis body { height: auto; }
      flex-end, so only a matching position:relative offset on both
      actually moves them while keeping their gap to each other fixed) */
   .mg-hero__mece { width: 55%; margin-top: 22px; top: 10px; left: -3px; }
-  /* the replacement circle: a single clean ring instead of the old
-     broken-looking blob. aspect-ratio:1 (not a matching % height)
-     guarantees a true circle regardless of .mg-hero__mece's own
-     aspect ratio — width alone sets the size, height always matches
-     it exactly. Centered on the mece itself (not the badge) via
-     top/left/transform, so it stays correctly centered wherever the
-     mece's own top/left fine-tune offsets place it. z-index:-1 plus
-     painting before any real child (default ::before behaviour) keeps
-     it behind the bear; no background fill (border only) per spec. */
-  .mg-hero__mece::before {
-    content: "";
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 172%;
-    aspect-ratio: 1;
-    transform: translate(-50%, -50%);
-    border: 3px solid #fff;
-    border-radius: 50%;
-    z-index: -1;
-    pointer-events: none;
-  }
   /* "Дознај зошто" is replaced by the scroll-cue chevrons below the mece
      on mobile — tablet/desktop keep the button (set again above 640px) */
   .mg-hero__cta { display: none; }
