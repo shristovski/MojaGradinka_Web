@@ -307,8 +307,10 @@ html.lenis, html.lenis body { height: auto; }
    of center), so this re-centers the character on the CTA button below it */
 .mg-hero__mece { position: relative; top: -17px; left: -6px; margin-top: 34px; width: 185px; }
 .mg-hero__mece img { display: block; width: 100%; height: auto; margin: 0 auto; }
-/* CTA lifted above everything so it can never tuck under the next section */
-.mg-hero__cta { position: relative; top: -38px; z-index: 20; margin-top: 38px; font-size: 11px; padding: 13px 34px; }
+/* CTA lifted above everything so it can never tuck under the next section —
+   size/padding come from .btn--sm (same class the nav's "Закажи демо" uses),
+   so the two buttons always look identical */
+.mg-hero__cta { position: relative; top: -38px; z-index: 20; margin-top: 38px; }
 
 /* ---------- Intro (Ние) ---------- */
 .mg-intro__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 56ch; }
@@ -724,7 +726,7 @@ html.lenis, html.lenis body { height: auto; }
   .mg-hero { height: 440px; }
   .mg-hero__badge { padding: 16px 24px 0; }
   .mg-hero__mece { width: 55%; margin-top: 22px; top: 0; left: -3px; }
-  .mg-hero__cta { margin-top: 22px; top: 0; font-size: 11px; padding: 12px 28px; }
+  .mg-hero__cta { margin-top: 22px; top: 0; }
 
   /* Feature + info to single column */
   .mg-grid--3, .mg-grid--4 { grid-template-columns: 1fr; }
