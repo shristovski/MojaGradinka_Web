@@ -753,8 +753,14 @@ html.lenis, html.lenis body { height: auto; }
      rows into icon-above-text columns while Дојди's identical
      .mg-live__promo-feature rows stayed left-aligned — the two
      sections read inconsistently on mobile even though their desktop
-     layouts are meant to mirror each other exactly. */
-  .mg-live__card { padding: 44px 20px; }
+     layouts are meant to mirror each other exactly.
+     Left/right padding is 0 here (not 20px like it used to be) — this
+     card is the ONLY one of the two sections with its own wrapper div;
+     .mg-cta__row (Дојди) has no such wrapper and sits directly on
+     .mg-section's own gutter, so any horizontal padding added here was
+     pure extra inset .mg-cta__row never had, making this section's
+     content measurably narrower and left-shifted relative to Дојди's. */
+  .mg-live__card { padding: 44px 0; }
   .mg-live__row { flex-direction: column; }
   .mg-live__promo { min-width: 0; width: 100%; max-width: 100%; }
   .mg-scene-phone { height: 400px; margin: 0 auto; }
