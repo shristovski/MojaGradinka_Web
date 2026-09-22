@@ -503,17 +503,33 @@ html.lenis, html.lenis body { height: auto; }
 /* ---------- Live (Во живо) ---------- */
 /* no card look here anymore — it sits directly on .mg-scenes__frame's own
    mist background now, so all three scroll-scenes read as one flat colour */
-/* no top padding — keeps the heading flush with the top, level with the
-   other two scroll-scenes' headings */
-.mg-live__card { position: relative; padding: 0 40px 56px; overflow: hidden; }
+/* padding:0 (not the old 0 40px 56px) — #dojdi has no equivalent wrapper
+   at all and sits straight on .mg-section's own gutter, so the extra
+   40px/56px here was pure leftover inset "Дојди" never had, making
+   this section's content narrower and left-shifted relative to it at
+   every width, not just mobile (the ≤640px block below already zeroed
+   the *horizontal* padding for exactly this reason — this closes the
+   same gap at desktop/tablet too). */
+.mg-live__card { position: relative; padding: 0; overflow: hidden; }
 /* no margin-bottom here — .mg-live__promo-text's own 18px margin-top
    provides the gap, matching the ~16px gap the other two scenes use */
 .mg-live__title { margin: 0; font-size: var(--fs-h2); font-weight: 700; color: var(--forest); }
 /* mirrors .mg-cta__row / .mg-cta__col exactly, so "Мобилна апликација"
    and "Дојди" read as the same layout — same gap, same column sizing,
    heading inside the text column instead of centered above the row */
-.mg-live__row { position: relative; display: flex; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
-.mg-live__promo { flex: 1; min-width: 300px; }
+.mg-live__row { position: relative; display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+/* ~58/42 split (content/phone) once both columns have room to breathe
+   (1024px+) — inside the requested 55-60% / 40-45% range. flex-grow
+   ratio (1.4 : 1, paired with .mg-cta__media's flex-grow:1 below)
+   rather than percentage flex-basis on purpose: percentage flex-basis
+   combined with flex-wrap here was wrapping to a single column way
+   earlier than it needed to (confirmed at 768px — .mg-cta__media's own
+   340px min-width floor plus a 58%-basis text column summed to more
+   than the row's available width, even though 360px+340px clearly
+   still fits) — flex-basis:0% sidesteps that entirely, matches
+   .mg-cta__media's own flex-basis below exactly, so "Мобилна
+   апликација" and "Дојди" size their two columns identically */
+.mg-live__promo { flex: 1.4 1 0%; min-width: 300px; }
 .mg-live__promo-text { margin: 18px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 46ch; }
 .mg-live__promo-features { margin-top: 28px; display: flex; flex-direction: column; gap: 18px; }
 .mg-live__promo-feature { display: flex; align-items: flex-start; gap: 14px; }
@@ -573,14 +589,16 @@ html.lenis, html.lenis body { height: auto; }
 .mg-pricing__footnote { margin-top: 32px; text-align: center; font-size: 14px; color: var(--muted); }
 
 /* ---------- CTA (Дојди) ---------- */
-/* flex-start (not center) so the heading starts flush at the top,
-   level with the other two scroll-scenes' headings */
-.mg-cta__row { display: flex; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
-.mg-cta__col { flex: 1; min-width: 300px; }
+/* align-items:center vertically centers the text column against the
+   taller phone mockup (was flex-start, which top-aligned both — per
+   "Мобилна апликација" request, both scenes now center instead) */
+.mg-cta__row { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.mg-cta__col { flex: 1.4 1 0%; min-width: 300px; }
 .mg-cta__title { margin: 0; font-size: var(--fs-h2); font-weight: 700; color: var(--forest); }
 .mg-cta__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 48ch; }
 .mg-cta__features { margin-top: 26px; }
-.mg-cta__media { flex: 1; min-width: 340px; display: flex; align-items: center; justify-content: center; }
+/* ~42% (pairs with .mg-live__promo/.mg-cta__col's 58% above) */
+.mg-cta__media { flex: 1 1 0%; min-width: 340px; display: flex; align-items: center; justify-content: center; }
 
 /* ---------- Slants ---------- */
 .mg-slant { position: relative; }
@@ -704,6 +722,11 @@ html.lenis, html.lenis body { height: auto; }
   .mg-grid--3, .mg-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
   .mg-hero { height: 520px; }
+
+  /* Мобилна апликација / Дојди: still two columns here (they only stack
+     at ≤640px, below), just with less room to spare — tighten the gap
+     so the two-column layout doesn't get cramped before it needs to */
+  .mg-live__row, .mg-cta__row { gap: 20px; }
 
   /* the desktop rightward nudge (translateX) was overflowing/clipping
      the Родители tab off the right edge once the head row wraps to
