@@ -734,9 +734,10 @@ html.lenis, html.lenis body { height: auto; }
 @media (max-width: 640px) {
   .mg-section { padding-top: 60px; }
 
-  /* Nav wraps; phone number drops to cut clutter */
-  .mg-nav { flex-wrap: wrap; gap: 14px; padding: 16px 18px; }
-  .mg-nav__links { gap: 16px; flex-wrap: wrap; justify-content: center; width: 100%; }
+  /* Nav: links/CTA hidden entirely on mobile (not just visually — display:none
+     so they take no space), logo re-centered since it's now the only child */
+  .mg-nav { justify-content: center; padding: 18px; }
+  .mg-nav__links { display: none; }
 
   /* Hero — the desktop top:-17px (mece) / top:-38px (cta) offsets are
      tuned against desktop's own margin-top values (34px / 38px), where
@@ -747,11 +748,25 @@ html.lenis, html.lenis body { height: auto; }
      margin-top alone (increased slightly) controls the gap. */
   .mg-hero { height: 440px; }
   .mg-hero__badge { padding: 16px 24px 0; }
-  .mg-hero__mece { width: 55%; margin-top: 22px; top: 0; left: -3px; }
+  /* lifted up so it sits over the brighter top portion of the photo
+     (helped along by .mg-hero__fade--top's existing cream wash) instead
+     of the busier furniture area lower down — smaller/its own clamp()
+     than the shared desktop --fs-hero-title so two short stacked words
+     stay comfortably inside 320-375px without crowding the badge's
+     side padding; line2 forced onto its own line via display:block
+     (line1 stays inline so desktop's "Спокојно детство" is untouched) */
+  .mg-hero__title { position: relative; top: -60px; font-size: clamp(34px, 9.5vw, 42px); }
+  .mg-hero__title-line2 { display: block; }
+  /* mece + scroll-cue nudged down together by the same amount (visual
+     top offset, not margin — margin has no effect here since the whole
+     cluster is bottom-anchored via .mg-hero__badge's justify-content:
+     flex-end, so only a matching position:relative offset on both
+     actually moves them while keeping their gap to each other fixed) */
+  .mg-hero__mece { width: 55%; margin-top: 22px; top: 4px; left: -3px; }
   /* "Дознај зошто" is replaced by the scroll-cue chevrons below the mece
      on mobile — tablet/desktop keep the button (set again above 640px) */
   .mg-hero__cta { display: none; }
-  .mg-hero__scroll-cue { display: flex; }
+  .mg-hero__scroll-cue { display: flex; position: relative; top: 4px; }
 
   /* Feature + info to single column */
   .mg-grid--3, .mg-grid--4 { grid-template-columns: 1fr; }
