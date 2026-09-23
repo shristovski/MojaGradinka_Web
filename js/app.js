@@ -408,27 +408,65 @@
   }
 
   var smooth = window.scrollY || 0;
-  var rafId = null;
-  function frame(time) {
-    if (lenis) lenis.raf(time);
+  function tick() {
     var target = lenis ? lenis.scroll : (window.scrollY || document.documentElement.scrollTop);
     smooth += (target - smooth) * 0.12;
     if (Math.abs(target - smooth) < 0.05) smooth = target;
     render(smooth);
-    rafId = requestAnimationFrame(frame);
   }
-  rafId = requestAnimationFrame(frame);
+
+  var rafId = null;
+  var usingGsapTicker = false;
+  var gsapTickerFn = null;
+  var loop = null;
+
+  if (lenis && window.gsap) {
+    // Official Lenis + GSAP ScrollTrigger integration: drive Lenis's
+    // raf() from GSAP's own ticker instead of a second, independently-
+    // scheduled requestAnimationFrame loop racing against GSAP's own
+    // internal one (section 5 registers ScrollTrigger on this same
+    // gsap instance). Two separate rAF loops updating Lenis and
+    // ScrollTrigger a frame apart is what let ScrollTrigger's pin
+    // occasionally read a stale scroll value after fast, repeated
+    // up/down direction changes — it would miss the exact frame where
+    // the scroll position crossed back out of the pin's start/end
+    // range, leaving .mg-scenes__frame stuck at position:fixed and
+    // visually overlapping whatever section the page had actually
+    // scrolled to. Reproduced via rapid alternating scroll bursts
+    // inside/around the pin zone; driving both from one ticker (same
+    // tick, same order every time) removes the race.
+    usingGsapTicker = true;
+    gsapTickerFn = function (time) {
+      lenis.raf(time * 1000); // gsap.ticker's time is seconds; Lenis expects ms
+      tick();
+    };
+    gsap.ticker.add(gsapTickerFn);
+    // Lenis already does its own easing — GSAP's lag-smoothing would
+    // otherwise compress/skip ticks after a jank spike, reintroducing
+    // the same kind of desync this change removes
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    loop = function (time) {
+      if (lenis) lenis.raf(time);
+      tick();
+      rafId = requestAnimationFrame(loop);
+    };
+    rafId = requestAnimationFrame(loop);
+  }
+
   window.addEventListener('resize', rafDebounce(function () { render(smooth); }));
 
-  // pause the rAF loop while the tab is hidden instead of relying only
-  // on the browser's own background-tab throttling, and resume cleanly
-  // (Lenis keeps its own internal state, so just restarting the loop
-  // picks back up correctly)
+  // pause while the tab is hidden instead of relying only on the
+  // browser's own background-tab throttling, and resume cleanly —
+  // Lenis/GSAP both keep their own internal state, so just
+  // reattaching picks back up correctly either way
   document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
-      if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
-    } else if (rafId === null) {
-      rafId = requestAnimationFrame(frame);
+      if (usingGsapTicker) gsap.ticker.remove(gsapTickerFn);
+      else if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; }
+    } else {
+      if (usingGsapTicker) gsap.ticker.add(gsapTickerFn);
+      else if (rafId === null) rafId = requestAnimationFrame(loop);
     }
   });
 })();
@@ -470,6 +508,7 @@
         scrollTrigger: {
           trigger: wrap,
           pin: frame,
+          pinType: 'transform',
           start: 'top top',
           end: '+=' + (panels.length - 1) * 90 + '%',
           scrub: 1
@@ -477,6 +516,18 @@
           // catch heuristic misfires and the pin grabs way too soon —
           // felt like a "magnet" pulling you in before you'd even
           // scrolled past the hero
+          //
+          // pinType:'transform' (GSAP defaults to 'fixed' here, since
+          // no ancestor has its own transform) — position:fixed pins are
+          // the documented cause of a long-standing iOS Safari
+          // compositor bug where a fixed element can visually detach
+          // from the viewport during momentum/rubber-band scrolling,
+          // matching exactly what was reported: the pinned scene
+          // section appearing to float over unrelated sections after
+          // fast repeated scrolling. transform-based pinning avoids
+          // that WebKit-specific position:fixed path entirely. No
+          // ancestor of .mg-scenes__frame carries its own transform
+          // (checked: html/body/.mg-page), so this is safe to force.
         }
       });
 
@@ -506,6 +557,19 @@
   // everything (incl. the Google Fonts + hero photo) has truly loaded
   window.addEventListener('load', function () {
     setTimeout(function () { ScrollTrigger.refresh(); }, 200);
+  });
+
+  // bfcache restore (Back/Forward button on Safari/Firefox/Chrome can
+  // restore the whole page from an in-memory snapshot instead of
+  // re-running any scripts) — event.persisted:true is the signal for
+  // that. The trigger's cached start/end pixel positions were computed
+  // against whatever the viewport/layout was at snapshot time, which
+  // may no longer match (different scroll position, possibly a
+  // resized window); one refresh brings them back in sync. Only fires
+  // on an actual bfcache restore, never on a normal load, so this adds
+  // no cost to the common case.
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) ScrollTrigger.refresh();
   });
 })();
 
