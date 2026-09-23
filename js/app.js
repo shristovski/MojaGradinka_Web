@@ -354,7 +354,17 @@
         var target = document.querySelector(id);
         if (!target) return;
         e.preventDefault();
-        lenis.scrollTo(target, { offset: -20, duration: 1.4 });
+        // the -20 offset is a deliberate small gap above a normal
+        // in-flow section — but Мобилна апликација/Дојди/Веб апликација
+        // live inside .mg-scenes__frame, which GSAP pins flush with the
+        // viewport top the moment .mg-scenes itself hits "top top" (see
+        // the ScrollTrigger setup below). Any offset there just leaves
+        // that much of the page's own cream background showing above
+        // the frame's mist background before the pin catches up, since
+        // the two colours don't match. offset:0 lands exactly on GSAP's
+        // own pin trigger point, closing that gap instead of masking it.
+        var inScenes = target.closest('.mg-scenes__frame');
+        lenis.scrollTo(target, { offset: inScenes ? 0 : -20, duration: 1.4 });
       });
     });
   }
