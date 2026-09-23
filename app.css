@@ -596,7 +596,7 @@ html.lenis, html.lenis body { height: auto; }
    what actually guarantees every card's CTA lands at the same Y once
    cards get short enough (landscape mobile) that flex:1 alone leaves
    less obviously-equal spacing to work with */
-.mg-pricing-plan__cta { margin-top: auto; width: 100%; text-align: center; transform: translateY(2px); }
+.mg-pricing-plan__cta { margin-top: auto; width: 100%; text-align: center; transform: translateY(4px); }
 /* pagination dots only exist for the mobile swipe carousel (below) —
    hidden by default so desktop/tablet never see them */
 .mg-pricing__dots { display: none; }
