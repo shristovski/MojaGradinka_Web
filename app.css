@@ -19,8 +19,8 @@
    collide/be shadowed by a browser-cached or later-loaded stock Caveat
    face; filenames carry the package version so a font update forces
    cache invalidation instead of silently reusing a stale cached file. */
-@font-face { font-family: 'Caveat MK Custom'; font-style: normal; font-weight: 400; font-display: swap; src: url('assets/fonts/Caveat-MK-Custom-v1001-Regular.woff') format('woff'), url('assets/fonts/Caveat-MK-Custom-v1001-Regular.ttf') format('truetype'); }
-@font-face { font-family: 'Caveat MK Custom'; font-style: normal; font-weight: 700; font-display: swap; src: url('assets/fonts/Caveat-MK-Custom-v1001-Bold.woff') format('woff'), url('assets/fonts/Caveat-MK-Custom-v1001-Bold.ttf') format('truetype'); }
+@font-face { font-family: 'Caveat MK Custom'; font-style: normal; font-weight: 400; font-display: swap; src: url('assets/fonts/Caveat-MK-Custom-v1002-Regular.woff') format('woff'), url('assets/fonts/Caveat-MK-Custom-v1002-Regular.ttf') format('truetype'); }
+@font-face { font-family: 'Caveat MK Custom'; font-style: normal; font-weight: 700; font-display: swap; src: url('assets/fonts/Caveat-MK-Custom-v1002-Bold.woff') format('woff'), url('assets/fonts/Caveat-MK-Custom-v1002-Bold.ttf') format('truetype'); }
 
 /* ---------- Tokens ---------- */
 :root {
