@@ -355,7 +355,15 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__heading { margin: 0; line-height: 1.15; }
 .mg-features__heading-script {
   font-family: var(--font-script); font-feature-settings: normal; font-variant-ligatures: normal; font-weight: 700; font-size: clamp(30px, 5vw, 42px); color: var(--forest);
-  text-decoration: underline; text-decoration-color: #FEC21B; text-decoration-thickness: 5px; text-underline-offset: 8px;
+  /* text-underline-offset in em (not the old fixed 8px) so the gap
+     below descenders scales with font-size instead of staying flat —
+     a flat px offset was fine at mobile's 30px floor (where this
+     clamp() bottoms out) but proportionally too small once the same
+     clamp() grows toward its 42px desktop ceiling, letting the line
+     clip into descenders like "д"/"р". 0.267em matches 8px at exactly
+     the 30px mobile size (8/30), so mobile is pixel-identical to
+     before and every larger size now gets a proportionally bigger gap. */
+  text-decoration: underline; text-decoration-color: #FEC21B; text-decoration-thickness: 5px; text-underline-offset: 0.267em;
 }
 .mg-features__heading-sub { display: block; margin-top: 6px; font-family: var(--font-round); font-weight: 700; font-size: clamp(20px, 3.6vw, 27px); color: var(--ink); }
 .mg-features__lead { margin: 16px 0 0; max-width: 52ch; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
