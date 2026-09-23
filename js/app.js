@@ -561,6 +561,7 @@
   // the package the carousel should show/re-show — starts on the
   // featured plan, then tracks whatever the user last swiped/tapped to
   var currentIndex = featuredIndex;
+  var hintAnimating = false; // true only while the swipe-hint nudge tween (below) is running
 
   // the grid is only actually a horizontally-scrollable carousel at the
   // portrait mobile breakpoint (CSS switches it to display:flex/
@@ -598,20 +599,42 @@
   // same way afterward (it's a correction, not a user-initiated
   // navigation, so it shouldn't animate either)
   function centerCurrent() {
+    if (hintAnimating) return; // don't fight the nudge tween's own scrollLeft writes
     if (!isCarouselActive()) return;
     scrollToCard(currentIndex, false);
     setActiveDot(currentIndex);
   }
-  centerCurrent();
+
+  // A single synchronous call here was enough in every desktop-browser
+  // test, but on real phones the very first paint can still be
+  // mid-layout when this deferred script runs — scrollTo()/scrollLeft
+  // set before the browser has committed the carousel's true
+  // scrollWidth is liable to be silently dropped, leaving the first
+  // card flush-left with no peek of its neighbours until *something*
+  // (a touch, a resize) forces a fresh layout pass. Re-asserting the
+  // same, still-instant, still-invisible centering at each of these
+  // points closes that race without ever producing a visible jump:
+  centerCurrent();                               // as soon as this script runs
+  requestAnimationFrame(function () {            // after a guaranteed layout + paint
+    requestAnimationFrame(centerCurrent);
+  });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(centerCurrent);    // in case a late font swap reflows anything
+  }
+  window.addEventListener('load', function () {  // after every image has its final size
+    setTimeout(centerCurrent, 50);
+  });
 
   var resizeRAF = null;
-  window.addEventListener('resize', function () {
+  function scheduleRecenter() {
     if (resizeRAF) return;
     resizeRAF = requestAnimationFrame(function () {
       resizeRAF = null;
       centerCurrent();
     });
-  });
+  }
+  window.addEventListener('resize', scheduleRecenter);
+  window.addEventListener('orientationchange', scheduleRecenter);
 
   var scrollRAF = null;
   grid.addEventListener('scroll', function () {
@@ -637,6 +660,102 @@
       currentIndex = i;
       scrollToCard(i, !reduce);
       setActiveDot(i);
+      dismissSwipeHint();
     });
   });
+
+  // --------------------------------------------------------------
+  // First-visit swipe hint — a short text line + a couple of pixels of
+  // nudge-and-back on the carousel itself, shown once per browser
+  // session so a first-time visitor realizes the section is swipeable
+  // even though the adjacent-card previews (fixed above) already give
+  // it away visually. Dismissed permanently the moment the visitor
+  // actually touches/clicks/scrolls the carousel themselves.
+  // --------------------------------------------------------------
+  var hintEl = document.querySelector('[data-pricing-swipe-hint]');
+  var HINT_STORAGE_KEY = 'mgPricingSwiped';
+  var hintDismissed = false;
+
+  function hintStorageGet() {
+    try { return window.sessionStorage.getItem(HINT_STORAGE_KEY); } catch (e) { return null; }
+  }
+  function hintStorageSet() {
+    // sessionStorage can throw in some private-browsing modes — if so,
+    // the hint just won't remember across reloads; the carousel itself
+    // is completely unaffected either way
+    try { window.sessionStorage.setItem(HINT_STORAGE_KEY, '1'); } catch (e) { /* ignore */ }
+  }
+
+  function dismissSwipeHint() {
+    if (hintDismissed) return;
+    hintDismissed = true;
+    hintAnimating = false; // interrupts an in-flight nudge tween mid-frame
+    hintStorageSet();
+    if (hintEl) hintEl.classList.add('is-dismissed');
+  }
+
+  if (hintEl) {
+    if (hintStorageGet()) {
+      // already swiped earlier this session — skip straight to hidden,
+      // no fade-out needed since it was never shown this page view
+      hintDismissed = true;
+      hintEl.classList.add('is-dismissed');
+    } else {
+      // any of these only ever fire from real input, never from this
+      // file's own programmatic scrollLeft writes, so the hint can't
+      // end up dismissing itself
+      ['touchstart', 'pointerdown', 'wheel'].forEach(function (type) {
+        grid.addEventListener(type, dismissSwipeHint, { passive: true });
+      });
+
+      var runHintAnimation = function () {
+        if (hintDismissed || !isCarouselActive()) return;
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce) return; // adjacent-card previews are already visible from load; no motion needed
+
+        hintAnimating = true;
+        grid.classList.add('mg-pricing__grid--hint-active');
+        var startLeft = grid.scrollLeft;
+        var nudge = 24; // px — a small nudge, not a full peek reveal
+        var duration = 260;
+
+        function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        function tween(from, to, onDone) {
+          var start = null;
+          function step(ts) {
+            if (!hintAnimating) return; // interrupted mid-flight by dismissSwipeHint()
+            if (!start) start = ts;
+            var t = Math.min(1, (ts - start) / duration);
+            grid.scrollLeft = from + (to - from) * easeInOut(t);
+            if (t < 1) requestAnimationFrame(step);
+            else onDone();
+          }
+          requestAnimationFrame(step);
+        }
+
+        tween(startLeft, startLeft + nudge, function () {
+          if (!hintAnimating) return;
+          tween(startLeft + nudge, startLeft, function () {
+            hintAnimating = false;
+            grid.classList.remove('mg-pricing__grid--hint-active');
+          });
+        });
+      };
+
+      if ('IntersectionObserver' in window) {
+        var hintIO = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              hintIO.disconnect();
+              setTimeout(runHintAnimation, 500);
+            }
+          });
+        }, { threshold: 0.4 });
+        hintIO.observe(grid);
+      } else {
+        setTimeout(runHintAnimation, 800);
+      }
+    }
+  }
 })();

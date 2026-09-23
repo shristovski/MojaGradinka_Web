@@ -636,6 +636,8 @@ html.lenis, html.lenis body { height: auto; }
 /* pagination dots only exist for the mobile swipe carousel (below) —
    hidden by default so desktop/tablet never see them */
 .mg-pricing__dots { display: none; }
+/* first-visit swipe hint — same story as the dots, mobile-carousel-only */
+.mg-pricing__swipe-hint { display: none; }
 .mg-pricing__footnote { margin-top: 32px; text-align: center; font-size: 14px; color: var(--muted); }
 
 /* ---------- CTA (Дојди) ---------- */
@@ -955,6 +957,20 @@ html.lenis, html.lenis body { height: auto; }
      transform that visually overflows its own box. */
   .mg-pricing-plan { flex: 0 0 87vw; min-width: 0; scroll-snap-align: center; scroll-snap-stop: always; }
   .mg-pricing-plan--featured, .mg-pricing-plan--featured:hover { transform: none; }
+  /* scroll-snap-type:none while the JS nudge animation is running — a
+     snap point would otherwise fight the tiny scrollLeft tween below
+     (the browser trying to snap straight back mid-animation) */
+  .mg-pricing__grid.mg-pricing__grid--hint-active { scroll-snap-type: none; }
+  /* fade+collapse (not just opacity) so dismissing it doesn't leave a
+     dead gap between the carousel and the dots below */
+  .mg-pricing__swipe-hint {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 14px; max-height: 20px; overflow: hidden;
+    font-size: 12px; color: var(--muted);
+    opacity: 1; transition: opacity .4s ease, max-height .4s ease, margin-top .4s ease;
+  }
+  .mg-pricing__swipe-hint svg { flex: none; color: var(--muted); }
+  .mg-pricing__swipe-hint.is-dismissed { opacity: 0; max-height: 0; margin-top: 0; }
   .mg-pricing__dots { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 18px; }
   .mg-pricing__dot {
     width: 34px; height: 34px; padding: 0;
@@ -1076,6 +1092,7 @@ html.lenis, html.lenis body { height: auto; }
   /* pagination dots exist for the single-card portrait carousel — not
      needed when all three packages are already visible at once */
   .mg-pricing__dots { display: none; }
+  .mg-pricing__swipe-hint { display: none; }
 }
 
 /* Reduced motion */

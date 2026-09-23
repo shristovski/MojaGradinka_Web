@@ -402,7 +402,7 @@
       <span class="mg-features__heading-sub">за секоја градинка.</span>
     </h2>
 
-    <div class="mg-grid mg-grid--3 mg-pricing__grid">
+    <div class="mg-grid mg-grid--3 mg-pricing__grid" aria-label="Ценовни пакети">
       <div class="mg-pricing-plan" data-anim="fade-up">
         <h3 class="mg-pricing-plan__name">Основен</h3>
         <div class="mg-pricing-plan__desc">За мали градинки</div>
@@ -443,6 +443,18 @@
         <a href="#demo-forma" class="btn btn--secondary mg-pricing-plan__cta">Контактирај нè</a>
       </div>
     </div>
+
+    <!-- Mobile-only first-visit swipe hint — text + small reused
+         chevron icons (same stroke style as the Градинки/Родители
+         slider's prev/next arrows), faded out by JS once the visitor
+         has swiped, and never shown again this session -->
+    <p class="mg-pricing__swipe-hint" data-pricing-swipe-hint aria-hidden="true">
+      <svg width="20" height="14" viewBox="0 0 32 20" fill="none" aria-hidden="true">
+        <path d="M11 4 5 10l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span>Повлечете за да ги видите понудите</span>
+    </p>
 
     <!-- Mobile-only carousel pagination — hidden on desktop/tablet via
          CSS; JS keeps the active dot synced to whichever card is
