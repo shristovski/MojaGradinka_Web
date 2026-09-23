@@ -17,31 +17,29 @@
 // ------------------------------------------------------------
 // 1. Demo-form submission
 //
-// [OWNER INPUT REQUIRED] The <form> element's `action` attribute in
-// the HTML currently points at a placeholder Formspree endpoint
-// (https://formspree.io/f/YOUR_FORM_ID). Replace YOUR_FORM_ID with a
-// real Formspree form ID (or swap this handler for Web3Forms, which
-// needs an access key instead of a form ID) before launch. Until
-// then, submissions will correctly show the inline error state
-// rather than silently pretending to succeed.
+// No backend/API on this static site, so the form can't actually
+// deliver itself anywhere on its own. Instead it builds a mailto:
+// link from the visitor's own entered values and hands off to their
+// default email app — the page can only ever confirm that the email
+// app opened, never that the visitor went on to press send, so there
+// is deliberately no "sent successfully" (or "failed to send")
+// message anywhere in this handler.
 // ------------------------------------------------------------
 (function () {
   var form = document.getElementById('demo-form');
   if (!form) return;
 
-  var statusEl = form.querySelector('.mg-form__status');
   var submitBtn = form.querySelector('.mg-form__submit');
-  var REQUEST_TIMEOUT_MS = 15000;
-  var isSubmitting = false; // belt-and-braces: submitBtn.disabled already
-  // blocks a second click, but this also catches a rapid Enter-key resubmit
-  // or a second submit event firing before the disabled state paints
+  var isSubmitting = false; // guards a rapid double-click/double-Enter
+  // from building and opening the mailto: link twice in a row
 
-  function setStatus(kind, message) {
-    if (!statusEl) return;
-    statusEl.textContent = message;
-    statusEl.hidden = false;
-    statusEl.classList.remove('mg-form__status--ok', 'mg-form__status--error');
-    statusEl.classList.add(kind === 'ok' ? 'mg-form__status--ok' : 'mg-form__status--error');
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function orNotEntered(v) {
+    return v ? v : 'Не е внесен';
   }
 
   form.addEventListener('submit', function (e) {
@@ -49,17 +47,14 @@
 
     if (isSubmitting) return;
 
-    // honeypot: real visitors never see or fill this field. If it has a
-    // value, silently pretend to succeed instead of telling a bot it guessed wrong.
+    // honeypot: real visitors never see or fill this field — if it's
+    // filled, just do nothing (no backend left to spam, and no reason
+    // to open a bot's "email app" either)
     var honeypot = form.querySelector('[name="_gotcha"]');
-    if (honeypot && honeypot.value) {
-      setStatus('ok', 'Ви благодариме! Ќе ве контактираме наскоро.');
-      form.reset();
-      return;
-    }
+    if (honeypot && honeypot.value) return;
 
-    // basic client-side validation on top of the browser's own `required`/
-    // `type="email"` checks, so we can show one consistent inline message
+    // native required/type="email" validation — same inline browser
+    // tooltip + focus-first-invalid-field behaviour as before
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
@@ -67,36 +62,71 @@
 
     isSubmitting = true;
     if (submitBtn) submitBtn.disabled = true;
-    setStatus('ok', 'Се испраќа...');
 
-    // AbortController timeout so a hung/slow response can't leave the
-    // submit button disabled indefinitely
-    var controller = ('AbortController' in window) ? new AbortController() : null;
-    var timeoutId = controller ? setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT_MS) : null;
+    var name = val('df-name');
+    var kindergarten = val('df-kg');
+    var role = val('df-role');
+    var email = val('df-email');
+    var phone = val('df-phone');
+    var kids = val('df-kids');
 
-    fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' },
-      signal: controller ? controller.signal : undefined
-    })
-      .then(function (res) {
-        if (res.ok) {
-          setStatus('ok', 'Ви благодариме! Ќе ве контактираме наскоро.');
-          form.reset();
-        } else {
-          setStatus('error', 'Настана грешка при испраќање. Обидете се повторно или пишете ни директно на kontakt@mojagradinka.mk.');
-        }
-      })
-      .catch(function () {
-        setStatus('error', 'Настана грешка при испраќање. Обидете се повторно или пишете ни директно на kontakt@mojagradinka.mk.');
-      })
-      .finally(function () {
-        if (timeoutId) clearTimeout(timeoutId);
-        isSubmitting = false;
-        if (submitBtn) submitBtn.disabled = false;
-      });
+    var subject = kindergarten
+      ? 'Барање за демо – ' + kindergarten
+      : 'Барање за MojaGradinka демо';
+
+    var body = [
+      'Здраво,',
+      '',
+      'Заинтересиран/а сум за презентација на платформата MojaGradinka и би сакал/а да закажам демо за нашата градинка.',
+      '',
+      'Податоци за контакт:',
+      '',
+      'Име и презиме: ' + name,
+      'Име на градинка: ' + kindergarten,
+      'Улога: ' + role,
+      'Е-пошта: ' + email,
+      'Телефон: ' + orNotEntered(phone),
+      'Број на деца: ' + orNotEntered(kids),
+      '',
+      'Ве молам контактирајте ме за да договориме термин за презентација.',
+      '',
+      'Ви благодарам.'
+    ].join('\n');
+
+    var mailtoUrl = 'mailto:kontakt@mojagradinka.mk' +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+
+    window.location.href = mailtoUrl;
+
+    // a mailto: href doesn't navigate this page away or reload it, so
+    // without this the button would stay disabled for the rest of the
+    // visit after the very first click
+    setTimeout(function () {
+      isSubmitting = false;
+      if (submitBtn) submitBtn.disabled = false;
+    }, 1000);
   });
+
+  // fallback "Копирај" button next to the plain mailto: link — copies
+  // the address for visitors whose browser has no default email app
+  // configured to catch the mailto: handoff above
+  var copyBtn = form.querySelector('.mg-form__copy');
+  if (copyBtn) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      copyBtn.addEventListener('click', function () {
+        navigator.clipboard.writeText(copyBtn.getAttribute('data-copy-email')).then(function () {
+          var original = copyBtn.textContent;
+          copyBtn.textContent = 'Копирано!';
+          setTimeout(function () { copyBtn.textContent = original; }, 1800);
+        });
+      });
+    } else {
+      // no Clipboard API (very old browser, or a non-secure context) —
+      // the plain mailto: link right next to it still works either way
+      copyBtn.hidden = true;
+    }
+  }
 })();
 
 // ------------------------------------------------------------

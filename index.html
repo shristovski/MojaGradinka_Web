@@ -470,12 +470,10 @@
       <h2 class="mg-form__title">Закажи демо за твојата градинка</h2>
       <p class="mg-form__sub">Пополнете и ќе ве контактираме.</p>
 
-      <!-- [OWNER INPUT REQUIRED] Replace YOUR_FORM_ID with a real Formspree
-           (or Web3Forms) endpoint before launch — see js/app.js for the
-           submit handler and UNUSED_ASSETS_REVIEW.md / final report for
-           setup notes. Until then this form will show the inline error
-           state instead of actually delivering submissions. -->
-      <form id="demo-form" class="mg-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+      <!-- No backend on this static site — submission is handled entirely
+           client-side in js/app.js, which builds a mailto: link from the
+           form's own values and hands off to the visitor's email app. -->
+      <form id="demo-form" class="mg-form" novalidate>
         <div class="mg-field">
           <label for="df-name" class="mg-field__label">Име и презиме *</label>
           <input id="df-name" name="name" type="text" required class="mg-input" autocomplete="name" />
@@ -520,8 +518,9 @@
         <p class="mg-form__privacy">Со испраќање на формата се согласувате податоците да се користат исклучиво за контакт во врска со демонстрацијата — видете ја нашата <a href="privacy.html">Политика на приватност</a>.</p>
         -->
 
-        <button type="submit" class="btn btn--primary mg-form__submit">Прати барање</button>
-        <div class="mg-form__status" role="status" aria-live="polite" hidden></div>
+        <button type="submit" class="btn btn--primary mg-form__submit">Продолжи кон е-пошта</button>
+        <p class="mg-form__helper">Ќе се отвори вашата e-mail апликација со подготвено барање. Потребно е само да го потврдите испраќањето.</p>
+        <p class="mg-form__fallback">Не се отвори e-mail апликацијата? Пишете ни на <a href="mailto:kontakt@mojagradinka.mk">kontakt@mojagradinka.mk</a> <button type="button" class="mg-form__copy" data-copy-email="kontakt@mojagradinka.mk">Копирај</button></p>
       </form>
     </div>
 

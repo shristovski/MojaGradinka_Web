@@ -697,10 +697,18 @@ html.lenis, html.lenis body { height: auto; }
 .mg-form__privacy a { color: var(--forest); font-weight: 600; }
 .mg-form__submit { margin-top: 6px; font-size: 16px; padding: 15px 24px; }
 .mg-form__submit[disabled] { opacity: 0.6; cursor: not-allowed; transform: none; }
-.mg-form__status { font-size: 13.5px; font-weight: 600; text-align: center; padding: 10px 14px; border-radius: 12px; }
-.mg-form__status[hidden] { display: none; }
-.mg-form__status--ok { background: rgba(31,81,55,0.1); color: var(--forest); }
-.mg-form__status--error { background: rgba(200,60,40,0.1); color: #A6321D; }
+/* helper: same quiet, small-print style .mg-form__privacy already used —
+   sits right under the button so it still reads as "one unit" with it */
+.mg-form__helper { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.mg-form__fallback { margin: 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.mg-form__fallback a { color: var(--forest); font-weight: 600; }
+.mg-form__copy {
+  display: inline-block; margin-left: 2px; padding: 2px 9px;
+  font-family: inherit; font-size: 11.5px; font-weight: 700; color: var(--forest);
+  background: var(--mist); border: none; border-radius: 999px; cursor: pointer;
+  transition: background-color .2s ease, color .2s ease;
+}
+.mg-form__copy:hover { background: var(--forest); color: #fff; }
 
 /* ---------- Footer ---------- */
 .mg-footer { background: var(--forest-deep); }
