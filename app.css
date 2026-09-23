@@ -788,7 +788,7 @@ html.lenis, html.lenis body { height: auto; }
      of stopping short and leaving dead space before "Ние". */
   .mg-hero-section { min-height: calc(100svh - 62px); display: flex; }
   .mg-hero { flex: 1 1 auto; height: auto; align-items: center; }
-  .mg-hero__badge { padding: 16px 24px 0; }
+  .mg-hero__badge { padding: 16px 24px 0; background-image: url('assets/center-circle-full.svg'); }
   /* lifted up (relative to the badge's own bottom-anchored internal
      flow — see .mg-hero__mece below) so it sits over the brighter top
      portion of the photo (helped along by .mg-hero__fade--top's
@@ -833,6 +833,11 @@ html.lenis, html.lenis body { height: auto; }
   .mg-features__intro { max-width: 100%; }
   .mg-features__hint { display: none; }
   .mg-features__leaf { display: none; }
+
+  /* Brand mark accent: the "G" in "mojaGradinka" picks up the same
+     amber used elsewhere for accent flourishes (e.g. the "Изберете..."
+     hint) — mobile only, desktop keeps the plain inherited text colour */
+  .mg-intro__brand-g { color: var(--amber); }
   /* Понуди: vertical stack -> horizontal scroll-snap carousel. Native
      scrolling does the actual swipe (no touch handlers needed — this
      also means normal vertical page scroll is never at risk of being
