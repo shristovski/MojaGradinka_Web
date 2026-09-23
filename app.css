@@ -456,7 +456,15 @@ html.lenis, html.lenis body { height: auto; }
    --cols-4's top-right one: a circle centered exactly on that corner,
    clipped by the panel's own overflow:hidden so only the inward
    quarter shows) */
-.mg-panel-grid--cols-3 { grid-template-columns: repeat(3, 1fr); background: var(--sand); }
+/* explicit equal-height rows (instead of implicit auto rows, whose
+   height each followed its own row's tallest cell) — without this,
+   row 1's height depended on that card's own longest paragraph, so
+   the divider (row 2's top edge) landed at a different % down the
+   card on "Градинки" vs "Родители", and at a different absolute
+   height whenever one column's text ran longer than its neighbours.
+   minmax(0, 1fr) (not a plain 1fr) so the shorter row still stretches
+   up to match instead of being floored at its own content height. */
+.mg-panel-grid--cols-3 { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, minmax(0, 1fr)); background: var(--sand); }
 .mg-panel-grid::after {
   content: ""; position: absolute; top: 0; right: 0; transform: translate(50%, -50%);
   width: 170px; height: 170px; border-radius: 50%;
@@ -771,7 +779,7 @@ html.lenis, html.lenis body { height: auto; }
   /* Градинки panel (3 cols x 2 rows): simpler to just collapse straight
      to a single column here than carry a 2-col tablet state's divider
      math for 6 items */
-  .mg-panel-grid--cols-3 { grid-template-columns: 1fr; row-gap: 24px; padding: 28px 24px; }
+  .mg-panel-grid--cols-3 { grid-template-columns: 1fr; grid-template-rows: none; row-gap: 24px; padding: 28px 24px; }
   .mg-panel-grid--cols-3 .mg-panel-col { padding: 0; border-left: none; }
   .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child) { padding-top: 24px; }
   .mg-panel-grid--cols-3 .mg-panel-col:not(:first-child)::before {
