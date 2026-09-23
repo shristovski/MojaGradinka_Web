@@ -336,6 +336,9 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- Intro (Ние) ---------- */
 .mg-intro__text { margin: 16px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 56ch; }
+/* Brand mark accent: the "G" in "mojaGradinka" matches the amber used
+   elsewhere for the brand mark (nav/footer logo, hint text) — desktop and mobile alike */
+.mg-intro__brand-g { color: var(--amber); }
 
 /* ---------- Features (Сè) ---------- */
 .mg-features { margin-top: -3px; padding-bottom: 100px; overflow: hidden; }
@@ -833,11 +836,6 @@ html.lenis, html.lenis body { height: auto; }
   .mg-features__intro { max-width: 100%; }
   .mg-features__hint { display: none; }
   .mg-features__leaf { display: none; }
-
-  /* Brand mark accent: the "G" in "mojaGradinka" picks up the same
-     amber used elsewhere for accent flourishes (e.g. the "Изберете..."
-     hint) — mobile only, desktop keeps the plain inherited text colour */
-  .mg-intro__brand-g { color: var(--amber); }
   /* Понуди: vertical stack -> horizontal scroll-snap carousel. Native
      scrolling does the actual swipe (no touch handlers needed — this
      also means normal vertical page scroll is never at risk of being
