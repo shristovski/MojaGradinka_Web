@@ -853,6 +853,36 @@ html.lenis, html.lenis body { height: auto; }
      above, so only --cols-4 needs it done here.) */
   .mg-panel-grid--cols-4 { grid-template-columns: 1fr; row-gap: 24px; padding: 28px 24px; }
   .mg-panel-grid::after { width: 100px; height: 100px; }
+
+  /* Градинки/Родители slider: the swipe nav arrows (prev/next) sit
+     outside .mg-panel-grid--cols-3, absolutely positioned over whichever
+     panel is showing. "Градинки" and "Родители" wrap to a different
+     number of lines per item depending on their own copy AND the
+     current width (checked across 320-640px: item 1 differs at
+     ≤375px, items 2/3 differ at 320px), so the 3rd/4th-item boundary
+     landed at a different height per slide. align-content:start stops
+     the grid from redistributing any extra height the outer
+     flex-stretch forces onto it (default align-content would otherwise
+     spread that slack across every row instead of leaving it after the
+     last item); the min-heights below (sized to the tallest either
+     slide's own item 1/2/3 needs across 320-640px) then pin the
+     3rd/4th boundary to the exact same height on both slides, without
+     touching items 4, 5 or 6.
+     With items 1-3's combined height now fixed (28 grid padding-top +
+     167 + 24 row-gap + 212 + 24 row-gap + 212 = 667px to item 3's own
+     bottom, +24px more row-gap = 691px to item 4's border-box top,
+     where its divider line sits), the nav is switched from top:50%
+     (of the WHOLE panel, which drifts once row 1 and row 2 no longer
+     grow together — it was landing on top of item 3's own text) to
+     that same fixed 691px, so it sits right on the 3rd/4th boundary on
+     both slides instead of just "somewhere consistent". Scoped to
+     ≤640px only — the 641-960px tablet range above keeps its original
+     top:50% behaviour, untouched. */
+  .mg-panel-grid--cols-3 { align-content: start; }
+  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(1) { min-height: 167px; }
+  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(2) { min-height: 212px; }
+  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3) { min-height: 212px; }
+  .mg-features__slider-nav { top: 691px; }
   .mg-panel-grid--cols-4 .mg-panel-col { padding: 0; border-left: none; }
   .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
 
