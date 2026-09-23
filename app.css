@@ -596,7 +596,17 @@ html.lenis, html.lenis body { height: auto; }
    what actually guarantees every card's CTA lands at the same Y once
    cards get short enough (landscape mobile) that flex:1 alone leaves
    less obviously-equal spacing to work with */
-.mg-pricing-plan__cta { margin-top: auto; width: 100%; text-align: center; transform: translateY(4px); }
+.mg-pricing-plan__cta { margin-top: auto; width: 100%; text-align: center; transform: translateY(10px); }
+/* .btn:hover/:active below set an absolute translateY that would
+   otherwise fully replace this button's own +10px offset (same
+   specificity, .btn's rule just loses by source order) — jumping
+   from +10px to -2px on hover looked like the button leaping up far
+   more than every other button on the page. Composing the same -2px
+   hover lift / 0 active-press on top of the +10px baseline instead
+   keeps the motion identical in size to every other .btn, just
+   anchored 10px lower. */
+.mg-pricing-plan__cta:hover { transform: translateY(8px); }
+.mg-pricing-plan__cta:active { transform: translateY(10px); }
 /* pagination dots only exist for the mobile swipe carousel (below) —
    hidden by default so desktop/tablet never see them */
 .mg-pricing__dots { display: none; }
