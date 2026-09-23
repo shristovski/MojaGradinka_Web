@@ -364,7 +364,15 @@
         // the two colours don't match. offset:0 lands exactly on GSAP's
         // own pin trigger point, closing that gap instead of masking it.
         var inScenes = target.closest('.mg-scenes__frame');
-        lenis.scrollTo(target, { offset: inScenes ? 0 : -20, duration: 1.4 });
+        var offset = inScenes ? 0 : -20;
+        // per-link override: #se (Функционалности) has the same kind of
+        // problem for a different reason — its own -20 gap exposed the
+        // tail end of #nie's last panel (a different, mist-coloured
+        // background) instead of the page's plain cream. data-scroll-
+        // offset lets a specific link opt out of the shared -20 default
+        // without touching every other anchor's behaviour.
+        if (a.dataset.scrollOffset !== undefined) offset = parseFloat(a.dataset.scrollOffset);
+        lenis.scrollTo(target, { offset: offset, duration: 1.4 });
       });
     });
   }
