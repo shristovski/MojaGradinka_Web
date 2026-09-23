@@ -15,11 +15,6 @@
    ============================================================ */
 
 /* ---------- 1. Fonts ---------- */
-/* used only for the "Спокојно детство" / "Ние сме место..." / "Сè што
-   ви е потребно" headings — everything else that used to share
-   --font-script (Понуди's heading, the hint text, the closing note)
-   stays on Caveat, untouched */
-@font-face { font-family: 'Rakopisen Style'; font-style: normal; font-weight: 600; font-display: swap; src: url('assets/fonts/Rakopisen-Style-SemiBold.ttf') format('truetype'); }
 @font-face { font-family: 'Caveat'; font-style: normal; font-weight: 100 599; font-display: swap; src: url('assets/fonts/Caveat-Regular.ttf') format('truetype'); }
 @font-face { font-family: 'Caveat'; font-style: normal; font-weight: 600 900; font-display: swap; src: url('assets/fonts/Caveat-Bold.ttf') format('truetype'); }
 
@@ -301,7 +296,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 /* now the page's H1 — reset the browser's default h1 margin so the
    visual layout stays identical to when this was a plain div */
-.mg-hero__title { margin: 0; font-family: 'Rakopisen Style', var(--font-script); font-size: var(--fs-hero-title); font-weight: 600; color: var(--forest); line-height: 1.05; }
+.mg-hero__title { margin: 0; font-family: var(--font-script); font-size: var(--fs-hero-title); font-weight: 700; color: var(--forest); line-height: 1.05; }
 /* now a <span> nested inside the H1 (was a sibling div) — display:block
    keeps the exact same "own line, 8px below" look */
 .mg-hero__sub { display: block; margin-top: 8px; font-family: var(--font-serif); font-style: italic; font-size: var(--fs-hero-sub); font-weight: 500; color: var(--forest); }
@@ -351,16 +346,6 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__heading-script {
   font-family: var(--font-script); font-weight: 700; font-size: clamp(30px, 5vw, 42px); color: var(--forest);
   text-decoration: underline; text-decoration-color: #FEC21B; text-decoration-thickness: 5px; text-underline-offset: 8px;
-}
-/* .mg-features__heading-script is shared with "Понуди", which keeps
-   Caveat — only "Ние сме место..." (#nie) and "Сè што ви е потребно"
-   (#se) switch fonts, scoped by their section id so Понуди is
-   untouched. Same font-size as the rule above (unchanged, per request
-   to keep the current size) — only font-family/font-weight differ. */
-#nie .mg-features__heading-script,
-#se .mg-features__heading-script {
-  font-family: 'Rakopisen Style', var(--font-script);
-  font-weight: 600;
 }
 .mg-features__heading-sub { display: block; margin-top: 6px; font-family: var(--font-round); font-weight: 700; font-size: clamp(20px, 3.6vw, 27px); color: var(--ink); }
 .mg-features__lead { margin: 16px 0 0; max-width: 52ch; font-size: 15.5px; line-height: 1.65; color: var(--muted); }
