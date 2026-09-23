@@ -697,9 +697,14 @@ html.lenis, html.lenis body { height: auto; }
 /* ---------- Footer ---------- */
 .mg-footer { background: var(--forest-deep); }
 .mg-footer__inner { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); color: #fff; }
-.mg-footer__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; padding-top: 8px; }
+.mg-footer__cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding-top: 8px; }
 .mg-footer__col { display: flex; flex-direction: column; gap: 14px; }
 .mg-footer__heading { font-weight: 700; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+/* Instagram: icon + handle in the same link, own hover colour (the
+   brand's yellow, not the shared --gold footer-link hover) — no
+   gradient, just a plain colour swap like every other footer link */
+.mg-footer__instagram { display: inline-flex; align-items: center; gap: 7px; }
+.mg-footer__instagram:hover { color: #FEC21B; }
 .mg-footer__bottom {
   margin-top: 40px; padding: 24px 0 32px;
   border-top: 1px solid rgba(255,255,255,0.1);
@@ -762,7 +767,10 @@ html.lenis, html.lenis body { height: auto; }
   .mg-scenes__frame { height: auto; }
   .mg-scenes__frame > .mg-section { position: relative; inset: auto; overflow-y: visible; }
   .mg-grid--3, .mg-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+  /* 3 columns (not the old 2, from when there were 4) keeps them
+     evenly spaced now that ПРАВНО is hidden — 3 already fits fine at
+     this width since 4 used to fit here before */
+  .mg-footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
   .mg-hero { height: 520px; }
 
   /* Мобилна апликација / Дојди: still two columns here (they only stack
@@ -943,7 +951,9 @@ html.lenis, html.lenis body { height: auto; }
     transition: background-color .2s ease, transform .2s ease;
   }
   .mg-pricing__dot.is-active::before { background: var(--amber); transform: scale(1.3); }
-  .mg-footer__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* 3 items no longer split evenly into 2 columns (2+1 orphan) — stack
+     vertically instead, consistent spacing via the existing gap */
+  .mg-footer__cols { grid-template-columns: 1fr; }
 
   /* Live: stack, same order/behaviour/alignment as Дојди — text first
      (left-aligned, same as .mg-cta__row/.mg-cta__col), phone below.
