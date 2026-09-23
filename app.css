@@ -17,13 +17,13 @@
 /* ---------- 1. Fonts ---------- */
 /* Registered under its own family name (not 'Caveat') so it can never
    collide/be shadowed by a browser-cached or later-loaded stock Caveat
-   face; the ?v=1.006 query string on every source URL forces cache
+   face; the ?v=1.007 query string on every source URL forces cache
    invalidation on this and every future font update instead of
    silently reusing a stale cached file. WOFF listed first (smaller,
    what every modern browser will actually pick) with TTF as the
    fallback source. */
-@font-face { font-family: 'Caveat MK Custom'; font-style: normal; font-weight: 400; font-display: swap; src: url('assets/fonts/Caveat-MK-Custom-Regular.woff?v=1.006') format('woff'), url('assets/fonts/Caveat-MK-Custom-Regular.ttf?v=1.006') format('truetype'); }
-@font-face { font-family: 'Caveat MK Custom'; font-style: normal; font-weight: 700; font-display: swap; src: url('assets/fonts/Caveat-MK-Custom-Bold.woff?v=1.006') format('woff'), url('assets/fonts/Caveat-MK-Custom-Bold.ttf?v=1.006') format('truetype'); }
+@font-face { font-family: 'Caveat MK Custom'; font-style: normal; font-weight: 400; font-display: swap; src: url('assets/fonts/Caveat-MK-Custom-Regular.woff?v=1.007') format('woff'), url('assets/fonts/Caveat-MK-Custom-Regular.ttf?v=1.007') format('truetype'); }
+@font-face { font-family: 'Caveat MK Custom'; font-style: normal; font-weight: 700; font-display: swap; src: url('assets/fonts/Caveat-MK-Custom-Bold.woff?v=1.007') format('woff'), url('assets/fonts/Caveat-MK-Custom-Bold.ttf?v=1.007') format('truetype'); }
 
 /* ---------- Tokens ---------- */
 :root {
