@@ -509,8 +509,23 @@
           trigger: wrap,
           pin: frame,
           pinType: 'transform',
-          start: 'top top',
-          end: '+=' + (panels.length - 1) * 90 + '%',
+          // start/end as FUNCTIONS, not the equivalent 'top top' /
+          // '+=X%' string keywords — see the long comment block below
+          // for why: GSAP's own string-based measurement for a pinned
+          // trigger comes out wrong (a large, plainly-impossible
+          // negative pixel value) specifically when the browser has
+          // already restored a deep scroll position (e.g. after
+          // Cmd+R near the bottom of the page) by the time this
+          // trigger is first created — every refresh() afterward just
+          // preserves that same wrong number, since GSAP treats it as
+          // the trigger's fixed baseline from then on. A function is
+          // re-evaluated fresh on every refresh using our own
+          // getBoundingClientRect()+scrollY math, which this file has
+          // confirmed correct at every scroll position tested,
+          // sidestepping GSAP's own measurement for this one trigger
+          // entirely instead of trying to out-time-window it.
+          start: function () { return wrap.getBoundingClientRect().top + window.scrollY; },
+          end: function () { return wrap.getBoundingClientRect().top + window.scrollY + (panels.length - 1) * 0.9 * window.innerHeight; },
           scrub: 1
           // no anticipatePin: with Lenis smoothing the scroll, its early-
           // catch heuristic misfires and the pin grabs way too soon —
