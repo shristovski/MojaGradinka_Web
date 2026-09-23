@@ -438,17 +438,24 @@ html.lenis, html.lenis body { height: auto; }
   margin-top: 44px; background: var(--mist); border-radius: 22px; padding: 40px 44px;
   display: grid;
 }
-.mg-panel-grid--cols-4 { grid-template-columns: repeat(4, 1fr); }
-/* same fix as --cols-3's middle column below: the two inner columns
-   (2 and 3) pay the 28px column padding on BOTH sides while the outer
-   ones only pay it once, so despite equal grid columns their actual
-   text width was narrower — halve it to even the content width out.
+.mg-panel-grid--cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+/* every column gets the same 14px/14px L-R padding (instead of the
+   old scheme where the two inner columns halved their padding to
+   compensate for paying it on both sides of their divider, while the
+   outer columns paid it on one side only/not at all) — the four
+   columns are now truly symmetrical, not just equal-width. The
+   explicit :first-child/:last-child rules are needed to outrank the
+   base .mg-panel-col ones below (same specificity, base rules just
+   come later in the file) since this design no longer wants column 1
+   flush-left / column 4 flush-right.
    Scoped to the 4-across desktop layout only — below 961px the grid
-   reflows to 2 columns (960px) then 1 (640px), where "middle column"
-   no longer means the same thing, and this rule's specificity was
-   silently beating the mobile padding resets below. */
+   reflows to 2 columns (960px) then 1 (640px), where symmetry across
+   4 columns no longer applies and the existing mobile padding resets
+   take over unchanged. */
 @media (min-width: 961px) {
-  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(n+2):nth-child(-n+3) { padding-left: 14px; padding-right: 14px; }
+  .mg-panel-grid--cols-4 .mg-panel-col,
+  .mg-panel-grid--cols-4 .mg-panel-col:first-child,
+  .mg-panel-grid--cols-4 .mg-panel-col:last-child { padding-left: 14px; padding-right: 14px; }
 }
 /* Градинки variant: pale-gold background (--sand, already the brand's
    light-cream token) instead of mist, with the corner decoration in
