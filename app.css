@@ -496,6 +496,18 @@ html.lenis, html.lenis body { height: auto; }
 .mg-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 26px; margin-top: 44px; }
 .mg-tile { position: relative; display: flex; align-items: center; gap: 16px; padding: 22px 24px; overflow: visible; }
 .mg-tile__shape { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; display: block; }
+/* Tiles 2/4/6 (icon-right, text starts at the tile's own left padding
+   edge): the shape's left edge was landing too close to where the
+   title/description actually start, so it read as barely backed by
+   colour. Stretching the shape's own box 20px further left (right
+   edge left untouched, via preserveAspectRatio="none" on the svg
+   inside) — not moving the text/padding/grid at all — pushes the
+   whole brush-stroke silhouette left with it, same path just wider,
+   so the organic contour is preserved rather than replaced with a
+   straight extension. */
+.mg-tile:nth-child(2) .mg-tile__shape,
+.mg-tile:nth-child(4) .mg-tile__shape,
+.mg-tile:nth-child(6) .mg-tile__shape { left: -20px; width: calc(100% + 20px); }
 .mg-tile__icon { flex: none; display: flex; align-items: center; justify-content: center; width: 128px; }
 .mg-tile__icon img { display: block; width: 100%; height: auto; object-fit: contain; }
 .mg-tile__body { min-width: 0; }
