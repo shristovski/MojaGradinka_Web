@@ -934,18 +934,35 @@ html.lenis, html.lenis body { height: auto; }
 
   /* Сè tile grid: one tile per row, no horizontal scroll — each tile
      keeps its own icon+text row (not stacked), just full-width now.
-     Icon shrinks a touch further and its bleed margins scale down
-     with it, so it stays a clear accent without ever crowding the
-     description text at the narrowest phone widths. */
+     Icon side and bleed margin are forced to ONE consistent rule for
+     every tile here (icon always left, same size, same bleed) instead
+     of carrying over the desktop/tablet per-column left/right
+     alternation — that asymmetry only reads as intentional across a
+     2-column grid; in a single mobile column it just looked random
+     (icon left on some cards, right on others). The tiles 2/4/6 shape
+     left-extension (added so the shape backs the text on the 2-column
+     layouts, where it stretches into the column gap) is reset to the
+     plain full-width inset here too: at 1 column it had nothing but
+     the page's own ~24px gutter to extend into, leaving only ~4px of
+     margin before the true viewport edge — too fragile, and exactly
+     what read as the shape "running out of the visible width" on a
+     real phone. Once every icon is left-aligned, tiles 2/4/6 no
+     longer need the extension anyway — their text now starts on the
+     right, nowhere near the shape's left edge. */
   .mg-tiles { grid-template-columns: 1fr; gap: 14px; }
-  .mg-tile { padding: 18px; gap: 14px; }
+  .mg-tile, .mg-tile:nth-child(2), .mg-tile:nth-child(3), .mg-tile:nth-child(4), .mg-tile:nth-child(6) { flex-direction: row; padding: 18px; gap: 14px; }
   .mg-tile__icon { width: 76px; }
-  .mg-tile:nth-child(1) .mg-tile__icon { margin: -6px 0 -4px -6px; }
-  .mg-tile:nth-child(2) .mg-tile__icon { margin: -6px -6px -4px 0; }
-  .mg-tile:nth-child(3) .mg-tile__icon { margin: -4px -6px -6px 0; }
-  .mg-tile:nth-child(4) .mg-tile__icon { margin: -6px -6px -4px 0; }
-  .mg-tile:nth-child(5) .mg-tile__icon { margin: -4px 0 -6px -6px; }
-  .mg-tile:nth-child(6) .mg-tile__icon { margin: -5px -4px -4px 0; }
+  /* every position needs its own nth-child-qualified selector here —
+     a bare .mg-tile__icon can't out-specificity the base/tablet
+     per-position margin rules it's meant to replace, even though it
+     comes later in the file */
+  .mg-tile:nth-child(1) .mg-tile__icon, .mg-tile:nth-child(2) .mg-tile__icon, .mg-tile:nth-child(3) .mg-tile__icon,
+  .mg-tile:nth-child(4) .mg-tile__icon, .mg-tile:nth-child(5) .mg-tile__icon, .mg-tile:nth-child(6) .mg-tile__icon {
+    margin: -6px 0 -4px -6px;
+  }
+  .mg-tile:nth-child(2) .mg-tile__shape, .mg-tile:nth-child(4) .mg-tile__shape, .mg-tile:nth-child(6) .mg-tile__shape {
+    left: 0; width: 100%;
+  }
 
   /* Сè: switch block re-centers under the intro text, hint line dropped
      to cut clutter (it's a decorative flourish, not information) */
