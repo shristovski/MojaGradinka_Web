@@ -39,6 +39,8 @@
   --muted: #55605A;
   --line: #E2E9E4;
   --gold: #F0B93E;
+  --sky: #71BDE9;
+  --sky-tint: #E9F4FB;
 
   /* type families */
   --font-body: 'Manrope', Helvetica, Arial, sans-serif;
@@ -499,7 +501,23 @@ html.lenis, html.lenis body { height: auto; }
 .mg-panel-col { position: relative; z-index: 1; padding: 0 28px; border-left: 1px solid rgba(31,81,55,0.15); }
 .mg-panel-col:first-child { padding-left: 0; border-left: none; }
 .mg-panel-col:last-child { padding-right: 0; }
-.mg-panel-col img { display: block; width: 40px; height: 40px; object-fit: contain; margin-bottom: 14px; }
+/* Icon "blob": each feature icon now sits on its own soft, slightly
+   irregular tinted shape instead of floating bare on the panel's own
+   background. Size bumped up from the old plain 40px icon so it reads
+   as a real focal point per card; the blob itself cycles through 3
+   restrained (low-opacity) tints of the brand palette and 6 slightly
+   different organic border-radius shapes (one per column position, via
+   nth-child on the existing .mg-panel-col grid items below) so
+   adjacent icons never look like a uniform stamped-out grid of
+   identical circles. */
+.mg-panel-icon { display: inline-flex; align-items: center; justify-content: center; width: 74px; height: 74px; margin-bottom: 16px; }
+.mg-panel-icon img { display: block; width: 52px; height: 52px; object-fit: contain; margin: 0; }
+.mg-panel-col:nth-child(6n+1) .mg-panel-icon { background: rgba(254,194,27,.24); border-radius: 42% 58% 61% 39% / 46% 41% 59% 54%; }
+.mg-panel-col:nth-child(6n+2) .mg-panel-icon { background: rgba(113,189,233,.26); border-radius: 60% 40% 44% 56% / 38% 56% 44% 62%; }
+.mg-panel-col:nth-child(6n+3) .mg-panel-icon { background: rgba(242,119,64,.18); border-radius: 48% 52% 38% 62% / 60% 45% 55% 40%; }
+.mg-panel-col:nth-child(6n+4) .mg-panel-icon { background: rgba(113,189,233,.26); border-radius: 55% 45% 60% 40% / 42% 58% 42% 58%; }
+.mg-panel-col:nth-child(6n+5) .mg-panel-icon { background: rgba(242,119,64,.18); border-radius: 40% 60% 50% 50% / 55% 40% 60% 45%; }
+.mg-panel-col:nth-child(6n) .mg-panel-icon { background: rgba(254,194,27,.24); border-radius: 62% 38% 45% 55% / 40% 60% 40% 60%; }
 .mg-panel-col h3 { margin: 0; font-family: var(--font-round); font-weight: 700; font-size: 16px; line-height: 1.3; color: var(--forest); }
 .mg-panel-col p { margin: 8px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
 
@@ -566,7 +584,7 @@ html.lenis, html.lenis body { height: auto; }
 .mg-live__promo-text { margin: 18px 0 0; font-size: var(--fs-body); line-height: 1.7; color: var(--muted); max-width: 46ch; }
 .mg-live__promo-features { margin-top: 28px; display: flex; flex-direction: column; gap: 18px; }
 .mg-live__promo-feature { display: flex; align-items: flex-start; gap: 14px; }
-.mg-live__promo-icon { flex: none; width: 42px; height: 42px; border-radius: 13px; display: flex; align-items: center; justify-content: center; }
+.mg-live__promo-icon { flex: none; width: 56px; height: 56px; border-radius: 16px; display: flex; align-items: center; justify-content: center; }
 .mg-live__promo-icon--green { background: var(--forest); box-shadow: 0 8px 18px rgba(31,81,55,0.28); }
 .mg-live__promo-icon--amber { background: var(--amber); box-shadow: 0 8px 18px rgba(242,119,64,0.28); }
 .mg-live__promo-icon--sand { background: var(--sand); }
@@ -587,6 +605,29 @@ html.lenis, html.lenis body { height: auto; }
 .mg-scene-phone { display: block; height: 560px; width: auto; max-width: 100%; }
 
 /* ---------- Pricing (Понуди) ---------- */
+/* Full-bleed soft-blue section background — breaks up the long run of
+   near-identical cream/mist sections above it. .mg-pricing is itself
+   the max-width-constrained box (it carries .mg-section directly, no
+   separate inner wrapper like the form section has), so a plain
+   background here would only colour the centered 1240px column, not
+   the full viewport width; the ::before pseudo fakes full-bleed
+   instead — 100vw wide, centered via left:50%/translateX(-50%), pinned
+   to this element's own top/bottom (not the viewport's), sat behind
+   the real content with z-index:-1. isolation:isolate gives
+   .mg-pricing its own stacking context so that negative z-index only
+   sinks the pseudo below THIS section's children, not below unrelated
+   content elsewhere on the page. */
+/* padding-bottom absorbs the gap the slant below used to get from its
+   own margin-top: that margin sat OUTSIDE .mg-pricing's box, so once
+   this section had its own background it left a mismatched sliver of
+   plain page colour showing through between the two. Moving the same
+   88px in here instead keeps the identical visual gap but inside the
+   coloured box, so the sky-tint now runs unbroken into the slant. */
+.mg-pricing { isolation: isolate; padding-bottom: 88px; }
+.mg-pricing::before {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw;
+  transform: translateX(-50%); background: var(--sky-tint); z-index: -1;
+}
 .mg-pricing__grid { margin-top: 35px; align-items: stretch; }
 .mg-pricing-plan {
   position: relative;
@@ -655,7 +696,11 @@ html.lenis, html.lenis body { height: auto; }
 /* ---------- Slants ---------- */
 .mg-slant { position: relative; }
 .mg-slant svg { display: block; width: 100%; height: 40px; }
-.mg-slant--to-form { margin: 88px 0 0; }
+/* background matches Понуди's new sky-tint (not the mist wedge drawn on
+   top of it) — the area above the diagonal wedge sits directly under
+   Понуди's own bottom edge, so it needs to read as a continuation of
+   that section's colour, not fall back to see-through/cream */
+.mg-slant--to-form { background: var(--sky-tint); }
 /* pre-fills the seam with the footer's own colour so a sub-pixel rounding
    gap in the SVG (visible as a hairline in some browsers) never shows the
    lighter mist background peeking through underneath it */
@@ -898,20 +943,22 @@ html.lenis, html.lenis body { height: auto; }
      3rd/4th boundary to the exact same height on both slides, without
      touching items 4, 5 or 6.
      With items 1-3's combined height now fixed (28 grid padding-top +
-     167 + 24 row-gap + 212 + 24 row-gap + 212 = 667px to item 3's own
-     bottom, +24px more row-gap = 691px to item 4's border-box top,
-     where its divider line sits), the nav is switched from top:50%
-     (of the WHOLE panel, which drifts once row 1 and row 2 no longer
-     grow together — it was landing on top of item 3's own text) to
-     that same fixed 691px, so it sits right on the 3rd/4th boundary on
-     both slides instead of just "somewhere consistent". Scoped to
-     ≤640px only — the 641-960px tablet range above keeps its original
-     top:50% behaviour, untouched. */
+     203 + 24 row-gap + 248 + 24 row-gap + 248 = 775px to item 3's own
+     bottom, +24px more row-gap = 799px to item 4's border-box top,
+     where its divider line sits — re-measured for the larger
+     .mg-panel-icon blob, which raised every item's natural height),
+     the nav is switched from top:50% (of the WHOLE panel, which
+     drifts once row 1 and row 2 no longer grow together — it was
+     landing on top of item 3's own text) to that same fixed 799px, so
+     it sits right on the 3rd/4th boundary on both slides instead of
+     just "somewhere consistent". Scoped to ≤640px only — the
+     641-960px tablet range above keeps its original top:50%
+     behaviour, untouched. */
   .mg-panel-grid--cols-3 { align-content: start; }
-  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(1) { min-height: 167px; }
-  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(2) { min-height: 212px; }
-  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3) { min-height: 212px; }
-  .mg-features__slider-nav { top: 691px; }
+  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(1) { min-height: 203px; }
+  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(2) { min-height: 248px; }
+  .mg-panel-grid--cols-3 .mg-panel-col:nth-child(3) { min-height: 248px; }
+  .mg-features__slider-nav { top: 799px; }
   .mg-panel-grid--cols-4 .mg-panel-col { padding: 0; border-left: none; }
   .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
 
