@@ -477,53 +477,24 @@ html.lenis, html.lenis body { height: auto; }
 .mg-grid--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .mg-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
-/* Shared "panel grid" component: one soft-mint bar split into N equal
-   columns (icon, title, short text), separated by thin dividers
-   instead of separate bordered cards. Used by Ние's trust row
-   (--cols-4) only now — Сè's two tile groups moved to their own
-   .mg-tiles/.mg-tile component below, which needed independently
-   coloured/shaped cards rather than one shared divided bar.
-   Quarter-circle decoration in the corner via ::after (a circle
-   centered exactly on the panel's top-right corner, clipped by the
-   panel's own overflow:hidden so only the inward quarter shows). */
-.mg-panel-grid {
-  position: relative; overflow: hidden;
-  margin-top: 44px; background: var(--mist); border-radius: 22px; padding: 40px 44px;
-  display: grid;
-}
-.mg-panel-grid--cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-/* every column gets the same 14px/14px L-R padding (instead of the
-   old scheme where the two inner columns halved their padding to
-   compensate for paying it on both sides of their divider, while the
-   outer columns paid it on one side only/not at all) — the four
-   columns are now truly symmetrical, not just equal-width. The
-   explicit :first-child/:last-child rules are needed to outrank the
-   base .mg-panel-col ones below (same specificity, base rules just
-   come later in the file) since this design no longer wants column 1
-   flush-left / column 4 flush-right.
-   Scoped to the 4-across desktop layout only — below 961px the grid
-   reflows to 2 columns (960px) then 1 (640px), where symmetry across
-   4 columns no longer applies and the existing mobile padding resets
-   take over unchanged. */
-@media (min-width: 961px) {
-  .mg-panel-grid--cols-4 .mg-panel-col,
-  .mg-panel-grid--cols-4 .mg-panel-col:first-child,
-  .mg-panel-grid--cols-4 .mg-panel-col:last-child { padding-left: 14px; padding-right: 14px; }
-}
-.mg-panel-grid::after {
-  content: ""; position: absolute; top: 0; right: 0; transform: translate(50%, -50%);
-  width: 170px; height: 170px; border-radius: 50%;
-  background: rgba(31,81,55,0.12);
-}
-/* z-index:1 keeps every column's own text above .mg-panel-grid::after —
-   without it the corner decoration (last in paint order, since
-   pseudo-elements paint after real children at the same stack level)
-   was covering the text of whichever column it overlaps */
-.mg-panel-col { position: relative; z-index: 1; padding: 0 28px; border-left: 1px solid rgba(31,81,55,0.15); }
-.mg-panel-col:first-child { padding-left: 0; border-left: none; }
-.mg-panel-col:last-child { padding-right: 0; }
-.mg-panel-col h3 { margin: 0; font-family: var(--font-round); font-weight: 700; font-size: 16px; line-height: 1.3; color: var(--forest); }
-.mg-panel-col p { margin: 8px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+/* Ние's trust row: calm/clean by design — no shared card or divided
+   bar behind the four items at all, just each item's own icon sat on
+   a small soft organic blob (same restrained-tint approach as Сè's
+   tiles below, for visual continuity with the playful illustrations),
+   title and description sitting directly on the section's own plain
+   background. Text is centered under the icon (not beside it) since
+   there's no card edge to align a left-reading row against. */
+.mg-trust { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px; margin-top: 48px; text-align: center; }
+.mg-trust-item__icon { position: relative; width: 104px; height: 104px; margin: 0 auto 18px; display: flex; align-items: center; justify-content: center; }
+.mg-trust-item__icon::before { content: ""; position: absolute; inset: 9%; z-index: 0; }
+.mg-trust-item__icon img { position: relative; z-index: 1; display: block; width: 88%; height: auto; object-fit: contain; }
+.mg-trust-item h3 { margin: 0; font-family: var(--font-round); font-weight: 700; font-size: 16px; line-height: 1.3; color: var(--forest); }
+.mg-trust-item p { margin: 8px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+/* 4 items, 4 restrained palette tints — one each, no repeats needed */
+.mg-trust-item:nth-child(1) .mg-trust-item__icon::before { background: rgba(254,194,27,.24); border-radius: 63% 37% 54% 46% / 43% 65% 35% 57%; }
+.mg-trust-item:nth-child(2) .mg-trust-item__icon::before { background: rgba(113,189,233,.26); border-radius: 45% 55% 60% 40% / 55% 40% 60% 45%; }
+.mg-trust-item:nth-child(3) .mg-trust-item__icon::before { background: rgba(242,119,64,.18); border-radius: 58% 42% 40% 60% / 46% 54% 46% 54%; }
+.mg-trust-item:nth-child(4) .mg-trust-item__icon::before { background: rgba(31,81,55,.15); border-radius: 40% 60% 55% 45% / 60% 35% 65% 40%; }
 
 /* Сè's tile grid ("Варијанта 3" reference — compact asymmetric tiles,
    each its own softly-tinted, irregularly-shaped panel with a large
@@ -884,12 +855,9 @@ html.lenis, html.lenis body { height: auto; }
   /* pull mid-canvas leaves back toward the edges so they stop colliding with text */
   .mg-leaf--form  { right: 24px; }
 
-  /* Ние trust panel: 2x2 instead of 4-in-a-row — row 2 gets a top
-     divider, and its first column drops the left divider it'd
-     otherwise inherit (it's now flush against the row's own edge) */
-  .mg-panel-grid--cols-4 { grid-template-columns: repeat(2, 1fr); row-gap: 28px; }
-  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3) { border-left: none; padding-left: 0; }
-  .mg-panel-grid--cols-4 .mg-panel-col:nth-child(3), .mg-panel-grid--cols-4 .mg-panel-col:nth-child(4) { padding-top: 28px; border-top: 1px solid rgba(31,81,55,0.15); }
+  /* Ние trust row: 2x2 instead of 4-in-a-row — no dividers to manage
+     any more, just a plain reflow */
+  .mg-trust { grid-template-columns: repeat(2, 1fr); row-gap: 36px; }
 
   /* .mg-tiles stays 2-across through tablet — each tile already has
      its own icon+text row, so it keeps plenty of breathing room down
@@ -960,12 +928,9 @@ html.lenis, html.lenis body { height: auto; }
   /* Feature + info to single column */
   .mg-grid--3, .mg-grid--4 { grid-template-columns: 1fr; }
 
-  /* Panel grid (Ние trust row only, --cols-4): single column, every
-     divider becomes a top border. */
-  .mg-panel-grid--cols-4 { grid-template-columns: 1fr; row-gap: 24px; padding: 28px 24px; }
-  .mg-panel-grid::after { width: 100px; height: 100px; }
-  .mg-panel-grid--cols-4 .mg-panel-col { padding: 0; border-left: none; }
-  .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
+  /* Ние trust row: single column on the narrowest phones */
+  .mg-trust { grid-template-columns: 1fr; row-gap: 32px; }
+  .mg-trust-item__icon { width: 88px; height: 88px; }
 
   /* Сè tile grid: one tile per row, no horizontal scroll — each tile
      keeps its own icon+text row (not stacked), just full-width now.
