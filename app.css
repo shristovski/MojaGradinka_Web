@@ -473,34 +473,50 @@ html.lenis, html.lenis body { height: auto; }
 .mg-panel-col h3 { margin: 0; font-family: var(--font-round); font-weight: 700; font-size: 16px; line-height: 1.3; color: var(--forest); }
 .mg-panel-col p { margin: 8px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--muted); }
 
-/* Сè's tile grid ("Варијанта 3" — asymmetric tiles, large illustration
-   per card). Each tile is its own softly-tinted, slightly irregular
-   panel (an organic border-radius rather than a plain rounded
-   rectangle) with the icon and text side by side. Six tiles per group
-   (2 across x 3 rows on desktop) — plenty of room to show all of one
-   group's features at once, which is what let the old prev/next
-   slider arrows and the divided-bar layout go entirely.
-   Colour + shape cycle through 3 restrained palette tints and 6
-   organic border-radius variants by position, same approach as the
-   rest of the site's "blob" decorations, so no two adjacent tiles
-   look stamped from the same mold. Odd tiles keep icon-left/text-
-   right, even tiles mirror to icon-right/text-left (flex row-reverse
-   only — text itself stays left-aligned) for the asymmetric rhythm
-   the reference layout uses. */
-.mg-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 44px; }
-.mg-tile { display: flex; align-items: center; gap: 20px; padding: 26px 28px; }
-.mg-tile:nth-child(even) { flex-direction: row-reverse; }
-.mg-tile:nth-child(6n+1) { background: rgba(254,194,27,.20); border-radius: 40px 54px 36px 50px; }
-.mg-tile:nth-child(6n+2) { background: rgba(113,189,233,.22); border-radius: 54px 38px 50px 36px; }
-.mg-tile:nth-child(6n+3) { background: rgba(242,119,64,.15); border-radius: 36px 50px 40px 54px; }
-.mg-tile:nth-child(6n+4) { background: rgba(113,189,233,.22); border-radius: 50px 36px 54px 40px; }
-.mg-tile:nth-child(6n+5) { background: rgba(254,194,27,.20); border-radius: 44px 40px 54px 36px; }
-.mg-tile:nth-child(6n) { background: rgba(242,119,64,.15); border-radius: 38px 54px 36px 48px; }
-.mg-tile__icon { flex: none; display: flex; align-items: center; justify-content: center; width: 108px; }
+/* Сè's tile grid ("Варијанта 3" reference — compact asymmetric tiles,
+   each its own softly-tinted, irregularly-shaped panel with a large
+   icon that's part of the composition rather than centered decor).
+   Six tiles per group (2 across x 3 rows on desktop).
+   Every one of the 6 grid positions gets its OWN hand-picked colour +
+   shape + icon side (not a repeating formula) so no two tiles read as
+   variations of the same template — matching the reference art board
+   position-for-position: 4 palette tints (gold/sky/peach/mint, the
+   4th a pale tint of --forest) cycle so no colour repeats in the same
+   column (which was making the sky tint feel over-used down one
+   side), and only 2 of the 6 keep icon-left — the rest mirror to
+   icon-right (row-reverse; text itself always stays left-aligned) —
+   an asymmetric, not alternating, split like the reference.
+   Border-radius corners are deliberately uneven per tile (one corner
+   notably fuller than its opposite) for a soft organic silhouette
+   instead of a uniformly-rounded "pill". */
+.mg-tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 44px; }
+.mg-tile { position: relative; display: flex; align-items: center; gap: 16px; padding: 22px 24px; overflow: visible; }
+.mg-tile__icon { flex: none; display: flex; align-items: center; justify-content: center; width: 128px; }
 .mg-tile__icon img { display: block; width: 100%; height: auto; object-fit: contain; }
 .mg-tile__body { min-width: 0; }
 .mg-tile__body h3 { margin: 0; font-family: var(--font-round); font-weight: 700; font-size: 17px; line-height: 1.3; color: var(--forest); }
 .mg-tile__body p { margin: 8px 0 0; font-size: 13.8px; line-height: 1.55; color: var(--muted); }
+
+/* 1: gold, icon-left, icon nudged up/left so it slightly overhangs the
+   panel's own top-left corner */
+.mg-tile:nth-child(1) { background: rgba(254,194,27,.22); border-radius: 52px 20px 44px 16px; }
+.mg-tile:nth-child(1) .mg-tile__icon { margin: -16px 0 -10px -12px; }
+/* 2: sky, icon-right, overhangs the top-right corner */
+.mg-tile:nth-child(2) { background: rgba(113,189,233,.24); border-radius: 20px 50px 18px 46px; flex-direction: row-reverse; }
+.mg-tile:nth-child(2) .mg-tile__icon { margin: -14px -14px -10px 0; }
+/* 3: peach, icon-right, overhangs the bottom-right corner */
+.mg-tile:nth-child(3) { background: rgba(242,119,64,.16); border-radius: 44px 18px 50px 20px; flex-direction: row-reverse; }
+.mg-tile:nth-child(3) .mg-tile__icon { margin: -8px -12px -16px 0; }
+/* 4: mint (pale --forest tint), icon-right, overhangs the top-right corner */
+.mg-tile:nth-child(4) { background: rgba(31,81,55,.13); border-radius: 18px 46px 20px 52px; flex-direction: row-reverse; }
+.mg-tile:nth-child(4) .mg-tile__icon { margin: -16px -12px -8px 0; }
+/* 5: sky, icon-left this time (only repeat colour, but shape + icon
+   side both differ from tile 2, and it isn't in the same column) */
+.mg-tile:nth-child(5) { background: rgba(113,189,233,.24); border-radius: 46px 16px 52px 22px; }
+.mg-tile:nth-child(5) .mg-tile__icon { margin: -10px 0 -14px -14px; }
+/* 6: peach, icon-right, overhangs the bottom-right corner */
+.mg-tile:nth-child(6) { background: rgba(242,119,64,.16); border-radius: 20px 48px 18px 44px; flex-direction: row-reverse; }
+.mg-tile:nth-child(6) .mg-tile__icon { margin: -12px -10px -10px 0; }
 
 /* ---------- Live (Во живо) ---------- */
 /* no card look here anymore — it sits directly on .mg-scenes__frame's own
@@ -811,9 +827,17 @@ html.lenis, html.lenis body { height: auto; }
   /* .mg-tiles stays 2-across through tablet — each tile already has
      its own icon+text row, so it keeps plenty of breathing room down
      to 641px; it only drops to a single column at the ≤640px mobile
-     breakpoint below. */
-  .mg-tile { padding: 22px 22px; }
-  .mg-tile__icon { width: 84px; }
+     breakpoint below. Icon shrinks with it (and its bleed margins
+     scale down to match) so it doesn't crowd the now-narrower text
+     column. */
+  .mg-tile { padding: 20px 20px; }
+  .mg-tile__icon { width: 96px; }
+  .mg-tile:nth-child(1) .mg-tile__icon { margin: -10px 0 -6px -8px; }
+  .mg-tile:nth-child(2) .mg-tile__icon { margin: -9px -9px -6px 0; }
+  .mg-tile:nth-child(3) .mg-tile__icon { margin: -5px -8px -10px 0; }
+  .mg-tile:nth-child(4) .mg-tile__icon { margin: -10px -8px -5px 0; }
+  .mg-tile:nth-child(5) .mg-tile__icon { margin: -6px 0 -9px -9px; }
+  .mg-tile:nth-child(6) .mg-tile__icon { margin: -8px -6px -6px 0; }
 }
 
 /* Mobile */
@@ -877,12 +901,19 @@ html.lenis, html.lenis body { height: auto; }
   .mg-panel-grid--cols-4 .mg-panel-col:not(:first-child) { padding-top: 24px; border-top: 1px solid rgba(31,81,55,0.15); }
 
   /* Сè tile grid: one tile per row, no horizontal scroll — each tile
-     keeps its own icon+text row, just full-width now. Icon shrinks a
-     touch further so it never crowds the text at the narrowest phone
-     widths. */
-  .mg-tiles { grid-template-columns: 1fr; gap: 16px; }
-  .mg-tile { padding: 20px; gap: 16px; }
-  .mg-tile__icon { width: 72px; }
+     keeps its own icon+text row (not stacked), just full-width now.
+     Icon shrinks a touch further and its bleed margins scale down
+     with it, so it stays a clear accent without ever crowding the
+     description text at the narrowest phone widths. */
+  .mg-tiles { grid-template-columns: 1fr; gap: 14px; }
+  .mg-tile { padding: 18px; gap: 14px; }
+  .mg-tile__icon { width: 76px; }
+  .mg-tile:nth-child(1) .mg-tile__icon { margin: -6px 0 -4px -6px; }
+  .mg-tile:nth-child(2) .mg-tile__icon { margin: -6px -6px -4px 0; }
+  .mg-tile:nth-child(3) .mg-tile__icon { margin: -4px -6px -6px 0; }
+  .mg-tile:nth-child(4) .mg-tile__icon { margin: -6px -6px -4px 0; }
+  .mg-tile:nth-child(5) .mg-tile__icon { margin: -4px 0 -6px -6px; }
+  .mg-tile:nth-child(6) .mg-tile__icon { margin: -5px -4px -4px 0; }
 
   /* Сè: switch block re-centers under the intro text, hint line dropped
      to cut clutter (it's a decorative flourish, not information) */
