@@ -131,12 +131,11 @@
 
 // ------------------------------------------------------------
 // 2. Градинки / Родители slider (Сè section)
-// Pill tabs drive one horizontal slide track (no visible prev/next
-// arrows anymore — with all six tiles of the active group visible at
-// once, they had nothing left to page through). Left/Right arrow keys
-// on a focused tab also step through it, matching the WAI-ARIA "Tabs"
-// pattern the old click-only tabs used. Touch swipe on the track below
-// still offers the same switch as a secondary gesture.
+// Pill tabs + brush-stroke prev/next buttons all drive the same
+// horizontal slide track. Left/Right arrow keys on a focused tab also
+// step through it, matching the WAI-ARIA "Tabs" pattern the old
+// click-only tabs used. Touch swipe on the track below still offers
+// the same switch as a secondary gesture.
 // ------------------------------------------------------------
 (function () {
   var slider = document.querySelector('.mg-features__slider');
@@ -147,6 +146,8 @@
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.mg-features__tab'));
   var track = slider.querySelector('.mg-features__slider-track');
   var panels = track ? Array.prototype.slice.call(track.children) : [];
+  var prevBtn = slider.querySelector('.mg-features__slider-nav--prev');
+  var nextBtn = slider.querySelector('.mg-features__slider-nav--next');
   if (!track || !panels.length) return;
 
   var index = 0;
@@ -183,6 +184,9 @@
       else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(i - 1, true); }
     });
   });
+  if (prevBtn) prevBtn.addEventListener('click', function () { goTo(index - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { goTo(index + 1); });
+
   // Touch/pointer swipe — right-to-left opens the next panel, left-to-
   // right returns to the previous one. Only attached where touch input
   // is actually available (coarse pointer / touch points present) —

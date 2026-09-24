@@ -411,6 +411,27 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__slider-track { display: flex; transition: transform .5s var(--ease-soft); touch-action: pan-y; }
 .mg-features__slider-track > .mg-tiles { flex: 0 0 100%; width: 100%; margin-top: 0; }
 
+/* Prev/next group switcher — brush-stroke arrows (cropped from
+   assets/strelki.png into their own transparent-background files),
+   vertically centered and straddling the slider viewport's own left/
+   right edge, same position the old plain-chevron buttons used.
+   Padding (not just the visible glyph) gives the actual ~44px+ tap
+   target; the image itself is sized well below its source resolution
+   so it stays sharp at retina without needing a huge tap area. */
+.mg-features__slider-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  padding: 18px 14px; border: none; background: none; box-shadow: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; z-index: 3; opacity: 0.85;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.mg-features__slider-nav img { display: block; width: 22px; height: auto; }
+.mg-features__slider-nav:hover, .mg-features__slider-nav:focus-visible { opacity: 1; }
+.mg-features__slider-nav--prev { left: 0; }
+.mg-features__slider-nav--prev:hover { transform: translateY(-50%) translateX(-3px); }
+.mg-features__slider-nav--next { right: 0; }
+.mg-features__slider-nav--next:hover { transform: translateY(-50%) translateX(3px); }
+
 /* bottom decorative row — small leaf tucked bottom-left, handwritten-style
    closing line centered next to it */
 .mg-features__note {
