@@ -412,25 +412,56 @@ html.lenis, html.lenis body { height: auto; }
 .mg-features__slider-track > .mg-tiles { flex: 0 0 100%; width: 100%; margin-top: 0; }
 
 /* Prev/next group switcher — brush-stroke arrows (cropped from
-   assets/strelki.png into their own transparent-background files),
-   vertically centered and straddling the slider viewport's own left/
-   right edge, same position the old plain-chevron buttons used.
-   Padding (not just the visible glyph) gives the actual ~44px+ tap
-   target; the image itself is sized well below its source resolution
-   so it stays sharp at retina without needing a huge tap area. */
+   assets/strelki.png into their own transparent-background files).
+   .mg-section maxes out at var(--wrap) (1240px) with only 24px of its
+   own side padding beyond that, so there's no free margin next to the
+   tile grid to put an overlay arrow in without it sitting on top of a
+   tile's own coloured shape/text at any width below roughly 1440px —
+   confirmed empirically (the previous absolute-overlay version
+   clipped straight through "Паметни финансии"'s text and crowded
+   "Безбедност и заштита"'s icon). Below that, the two buttons instead
+   sit in a plain row under the whole grid — .mg-features__slider-nav-
+   row is a normal flex row in the default (mobile-first) rules; the
+   buttons themselves are position:static there, so nothing needs
+   duplicating, just re-pointed by the wide-viewport override below.
+   Only once the viewport is wide enough that .mg-section itself has
+   real margin outside its own max-width (>=1440px gives >=100px per
+   side) does .mg-features__slider-nav-row switch to display:contents
+   (removing its own box so its children escape to be positioned by
+   .mg-features__slider-viewport, position:relative, instead) and the
+   buttons become absolutely positioned just outside the grid's own
+   edge — never overlapping a tile at any width. */
+.mg-features__slider-nav-row { display: flex; align-items: center; justify-content: center; gap: 28px; margin-top: 20px; }
 .mg-features__slider-nav {
-  position: absolute; top: 50%; transform: translateY(-50%);
   padding: 18px 14px; border: none; background: none; box-shadow: none;
   display: flex; align-items: center; justify-content: center;
-  cursor: pointer; z-index: 3; opacity: 0.85;
+  cursor: pointer; opacity: 0.85;
   transition: transform .2s ease, opacity .2s ease;
 }
 .mg-features__slider-nav img { display: block; width: 22px; height: auto; }
 .mg-features__slider-nav:hover, .mg-features__slider-nav:focus-visible { opacity: 1; }
-.mg-features__slider-nav--prev { left: 0; }
-.mg-features__slider-nav--prev:hover { transform: translateY(-50%) translateX(-3px); }
-.mg-features__slider-nav--next { right: 0; }
-.mg-features__slider-nav--next:hover { transform: translateY(-50%) translateX(3px); }
+.mg-features__slider-nav--prev:hover { transform: translateX(-3px); }
+.mg-features__slider-nav--next:hover { transform: translateX(3px); }
+
+@media (min-width: 1440px) {
+  /* .mg-features itself carries overflow:hidden (unrelated to this —
+     it's the section's own general clip). It doesn't distinguish
+     between children, so it was silently clipping the arrows the
+     instant they moved outside the grid's own box, however they were
+     positioned. Safe to open up only here: nothing else in the
+     section is positioned to rely on being clipped at its edge (the
+     leaf decoration sits well inside, at a fixed inset) — checked via
+     full-page screenshots before/after, no regressions. */
+  .mg-features { overflow: visible; }
+  .mg-features__slider-nav-row { display: contents; }
+  .mg-features__slider-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+  }
+  .mg-features__slider-nav--prev { left: -64px; }
+  .mg-features__slider-nav--prev:hover { transform: translateY(-50%) translateX(-3px); }
+  .mg-features__slider-nav--next { right: -64px; }
+  .mg-features__slider-nav--next:hover { transform: translateY(-50%) translateX(3px); }
+}
 
 /* bottom decorative row — small leaf tucked bottom-left, handwritten-style
    closing line centered next to it */
